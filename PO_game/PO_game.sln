@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PO_game", "PO_game.csproj", "{395AA70D-AABD-4943-8063-57E64DD5DDD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{395AA70D-AABD-4943-8063-57E64DD5DDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395AA70D-AABD-4943-8063-57E64DD5DDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395AA70D-AABD-4943-8063-57E64DD5DDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395AA70D-AABD-4943-8063-57E64DD5DDD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C93332A3-5638-40FC-9A04-2852FE483908}
+	EndGlobalSection
+EndGlobal
