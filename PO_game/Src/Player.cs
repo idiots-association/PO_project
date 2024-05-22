@@ -73,7 +73,7 @@ namespace PO_game.Src
                     }
                     else
                     {
-                        Position = new Vector2(Sprite.Position.X - (int)(GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds), Sprite.Position.Y);
+                        Sprite.Position = new Vector2(Sprite.Position.X - (int)(GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds), Sprite.Position.Y);
                     }
                     break;
 
@@ -85,7 +85,7 @@ namespace PO_game.Src
                     }
                     else
                     {
-                        Sprite.Position = new Vector2(Sprite.Position.X + (int)(GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds), Position.Y);
+                        Sprite.Position = new Vector2(Sprite.Position.X + (int)(GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds), Sprite.Position.Y);
                     }
                     break;
 

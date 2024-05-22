@@ -6,14 +6,16 @@ namespace PO_game.Src.States
 {
     public abstract class State
     {
-        protected ContentManager Content;
-        public State( ContentManager content)
+        protected GraphicsDeviceManager graphics;
+        protected ContentManager content;
+        protected StateManager stateManager;
+        public State(ContentManager content, StateManager stateManager)
         {
-            Content = content;
+            this.content = content;
+            this.stateManager = stateManager;
         }
         public abstract void LoadContent();
         public abstract void Update(GameTime gameTime);
-        public abstract void PostUpdate(GameTime gameTime);
         public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

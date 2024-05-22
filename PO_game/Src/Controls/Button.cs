@@ -10,9 +10,7 @@ namespace PO_game.Src.Controls
 {
 
     public class Button
-    {}
-}
-       /* 
+    {
        #region Fields
         private MouseState currentMouse;
         private MouseState prevMouse;
@@ -22,6 +20,7 @@ namespace PO_game.Src.Controls
         #endregion
 
         #region Properties
+        public EventHandler Click;
         public bool Clicked { get; private set; }
         public float Layer { get; set; }
         public Vector2 Origin 
@@ -43,25 +42,26 @@ namespace PO_game.Src.Controls
         #endregion
 
         #region Methods
-        public Button(Texture2D texture, SpriteFont font)
+        public Button(Texture2D texture , SpriteFont font)
         {
             this.texture = texture;
             this.font = font;
-        }   
+        }
+   
         public void Update()
         {
             prevMouse = currentMouse;
             currentMouse = Mouse.GetState();
 
-            var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
+            var mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
 
-            _isHovering = false;
+            isHovering = false;
 
             if(mouseRectangle.Intersects(Rectangle))
             {
-                _isHovering = true;
+                isHovering = true;
 
-                if(_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                if(currentMouse.LeftButton == ButtonState.Released && prevMouse.LeftButton == ButtonState.Pressed)
                 {
                     Click?.Invoke(this, new EventArgs());
                 }
@@ -87,4 +87,4 @@ namespace PO_game.Src.Controls
 
         #endregion
     }
-}*/
+}

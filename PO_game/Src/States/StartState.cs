@@ -7,35 +7,75 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PO_game.Src.States;
 using PO_game.Src.Controls;
+using System.Net;
+using PO_game.Src.Utils;
 
 namespace PO_game.Src.States
 {
     public class StartState : State
     {
-        public Texture2D backgroundTexture;
-        public Button startButton;
-        public Button exitButton;
-        public Button settingsButton;
+        private Texture2D backgroundTexture;
+        private Button startButton;
+        private Button exitButton;
+        private Button settingsButton;
 
-
-        public StartState(ContentManager content) : base(content){}
+        public StartState(ContentManager content, StateManager stateManager) : base(content, stateManager){}
         public override void LoadContent()
         {   
-            backgroundTexture = Content.Load<Texture2D>("cool_background");
-            /*var startButton = Content.Load<Texture2D>("startButton");
-            var buttonFont = Content.Load<SpriteFont>("buttonFont");*/
-            
+            backgroundTexture = content.Load<Texture2D>("cool_background");
+            var buttonTexture = content.Load<Texture2D>("startButton");
+            var buttonFont = content.Load<SpriteFont>("Arial");  
+
+            int buttonSpacing = 20;
+
+            startButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 - buttonTexture.Height - buttonSpacing),
+                Text = "Start Game",
+                Click = new EventHandler(ButtonStart_Click),
+                Layer = 0.3f
+            };
+            settingsButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 ),
+                Text = "Settings",
+                Click = new EventHandler(ButtonSettings_Click),
+                Layer = 0.3f
+            };
+            exitButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2  + buttonTexture.Height + buttonSpacing),
+                Text = "Exit Game",
+                Click = new EventHandler(ButtonExit_Click),
+                Layer = 0.3f
+            }; 
+        }
+        public void ButtonStart_Click(object sender, EventArgs e)
+        {
+            stateManager.AddState(new GameState(content, stateManager));
+        }
+        public void ButtonSettings_Click(object sender, EventArgs e)
+        {
+            stateManager.AddState(new SettingsState(content, stateManager));
+        }
+        public void ButtonExit_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
         public override void Update(GameTime gameTime)
         {
+            startButton.Update();
+            settingsButton.Update();
+            exitButton.Update();
         }
-        public override void PostUpdate(GameTime gameTime)
-        {
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(backgroundTexture, new Rectangle(0,0,800,480), Color.White);
+            spriteBatch.Begin();
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0,0,GlobalSettings.ScreenWidth,GlobalSettings.ScreenHeight), Color.White);
+            startButton.Draw(spriteBatch);
+            settingsButton.Draw(spriteBatch);
+            exitButton.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }
