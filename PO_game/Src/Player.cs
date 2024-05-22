@@ -1,4 +1,7 @@
-﻿namespace PO_game.Src
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace PO_game.Src
 {
     public class Player : Character
     {
@@ -6,6 +9,11 @@
         {
         }
 
+        public override void Update(GameTime gameTime, InputController inputController)
+        {
+            var moveDirection = inputController.GetMoveDirection();
+            Position += moveDirection;
+        }
 
     }
 }
