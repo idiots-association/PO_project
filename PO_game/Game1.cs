@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PO_game.Src;
+using PO_game.Src.Utils;
 using System.Collections.Generic;
 
 namespace PO_game
@@ -62,7 +63,9 @@ namespace PO_game
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+
+
+            _inputController.Update();
             _player.Update(gameTime, _inputController);
 
 
