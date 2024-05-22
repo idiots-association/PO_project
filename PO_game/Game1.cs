@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PO_game.Src;
 using PO_game.Src.States;
+using PO_game.Src.Utils;
 using System.Collections.Generic;
 
 namespace PO_game
@@ -15,6 +16,7 @@ namespace PO_game
         
         private StateManager _stateManager;
 
+        private Camera _camera;
         private Player _player;
         private List<NPC> _npcs = new List<NPC>();
 
@@ -36,6 +38,11 @@ namespace PO_game
             IsMouseVisible = true;
             _inputController = new InputController();
             _stateManager = new StateManager();
+            _camera = new Camera();
+
+            _graphics.PreferredBackBufferWidth = GlobalSettings.ScreenWidth;
+            _graphics.PreferredBackBufferHeight = GlobalSettings.ScreenHeight;
+            _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -50,7 +57,7 @@ namespace PO_game
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
 
-            var playerPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 - GlobalSettings.TileSize / 2, _graphics.PreferredBackBufferHeight / 2 - GlobalSettings.TileSize / 2);
+            var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var playerSprite = CreateSprite(Color.Chocolate, playerPosition);
             _player = new Player(playerSprite);
 
@@ -65,13 +72,16 @@ namespace PO_game
             _npcs.Add(npc2);
         }
 
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _stateManager.getCurrentState().Update(gameTime);
+            _inputController.Update();
             _player.Update(gameTime, _inputController);
 
+            _camera.Follow(_player);
 
 
             base.Update(gameTime);
@@ -80,7 +90,6 @@ namespace PO_game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             _spriteBatch.Begin();
             _stateManager.getCurrentState().Draw(_spriteBatch);
             /*switch(_stateManager.getCurrentState())
@@ -92,6 +101,8 @@ namespace PO_game
                     gameState.Draw(_spriteBatch);
                     break;
             }*/
+            _spriteBatch.Begin(transformMatrix: _camera.Transform);
+
             _player.Draw(_spriteBatch);
             foreach (var npc in _npcs)
             {
