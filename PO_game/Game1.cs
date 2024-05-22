@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PO_game.Src;
+using PO_game.Src.States;
 using System.Collections.Generic;
 
 namespace PO_game
@@ -11,6 +12,8 @@ namespace PO_game
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private InputController _inputController;
+        
+        private StateManager _stateManager;
 
         private Player _player;
         private List<NPC> _npcs = new List<NPC>();
@@ -32,16 +35,20 @@ namespace PO_game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _inputController = new InputController();
+            _stateManager = new StateManager();
         }
 
         protected override void Initialize()
         {
+            
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            _stateManager.AddState(new StartState(Content));
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            
 
             var playerPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 - GlobalSettings.TileSize / 2, _graphics.PreferredBackBufferHeight / 2 - GlobalSettings.TileSize / 2);
             var playerSprite = CreateSprite(Color.Chocolate, playerPosition);
@@ -62,7 +69,7 @@ namespace PO_game
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+            _stateManager.getCurrentState().Update(gameTime);
             _player.Update(gameTime, _inputController);
 
 
@@ -75,6 +82,16 @@ namespace PO_game
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+            _stateManager.getCurrentState().Draw(_spriteBatch);
+            /*switch(_stateManager.getCurrentState())
+            {
+                case StartState startState:
+                    startState.Draw(_spriteBatch);
+                    break;
+                case GameState gameState:
+                    gameState.Draw(_spriteBatch);
+                    break;
+            }*/
             _player.Draw(_spriteBatch);
             foreach (var npc in _npcs)
             {
