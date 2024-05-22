@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PO_game.Src.Utils;
 
 namespace PO_game.Src
 {
@@ -12,14 +13,18 @@ namespace PO_game.Src
             set { Sprite.Position = value; }
         }
 
+        public CharacterState State { get; set; }
+
+
 
         public Character(Sprite sprite)
         {
             Sprite = sprite;
             Position = sprite.Position;
+            State = CharacterState.Idle;
         }
 
-        public virtual void Update(GameTime gameTime, InputController inputController)
+        public virtual void Update(GameTime gameTime)
         {
         }
 
