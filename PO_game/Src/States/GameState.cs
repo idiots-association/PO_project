@@ -10,40 +10,40 @@ namespace PO_game.Src.States
 {
     public class GameState: State
     {
-        private InputController inputController;
-        private Camera camera;
-        private Player player;
-        private List<NPC> npcs = new List<NPC>();
+        private InputController _inputController;
+        private Camera _camera;
+        private Player _player;
+        private List<NPC> _npcs = new List<NPC>();
 
-        public GameState(ContentManager content, StateManager stateManager): base(content, stateManager){
-            inputController = new InputController();
-            camera = new Camera();
+        public GameState(ContentManager content): base(content){
+            _inputController = new InputController();
+            _camera = new Camera();
         }
         public override void LoadContent()
         {
             var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var playerTexture = content.Load<Texture2D>("player_placeholder");
-            player = new Player(new Sprite(playerTexture, playerPosition));
+            _player = new Player(new Sprite(playerTexture, playerPosition));
 
             var npcPosition1 = new Vector2(128, 128); // These are multiples of 32
             var npcTexture1 = content.Load<Texture2D>("npc_placeholder");
             var npc1 = new NPC(new Sprite(npcTexture1, npcPosition1));
-            npcs.Add(npc1);
+            _npcs.Add(npc1);
 
         }
         public override void Update(GameTime gameTime)
         {
-            inputController.Update();
-            player.Update(gameTime, inputController);
+            _inputController.Update();
+            _player.Update(gameTime, _inputController);
 
-            camera.Follow(player);
+            _camera.Follow(_player);
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(transformMatrix: camera.Transform);
-            player.Draw(spriteBatch);
-            foreach (var npc in npcs)
+            spriteBatch.Begin(transformMatrix: _camera.Transform);
+            _player.Draw(spriteBatch);
+            foreach (var npc in _npcs)
             {
                 npc.Draw(spriteBatch);
             }

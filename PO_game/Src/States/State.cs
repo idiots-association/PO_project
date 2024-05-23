@@ -8,11 +8,9 @@ namespace PO_game.Src.States
     {
         protected GraphicsDeviceManager graphics;
         protected ContentManager content;
-        protected StateManager stateManager;
-        public State(ContentManager content, StateManager stateManager)
+        public State(ContentManager content)
         {
             this.content = content;
-            this.stateManager = stateManager;
         }
         public abstract void LoadContent();
         public abstract void Update(GameTime gameTime);

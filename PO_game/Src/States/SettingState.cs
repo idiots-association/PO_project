@@ -8,7 +8,7 @@ namespace PO_game.Src.States
     public class SettingsState: State
     {
 
-        public SettingsState(ContentManager content, StateManager stateManager ): base(content, stateManager){}
+        public SettingsState(ContentManager content): base(content){}
         public override void LoadContent()
         {
             throw new NotImplementedException();

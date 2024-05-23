@@ -8,26 +8,40 @@ namespace PO_game.Src.States
 {
     public class StateManager
     {
-        private Stack<State> states;
-        public StateManager()
+        private static StateManager _instance;
+        private Stack<State> _states;
+
+        private StateManager()
         {
-            states = new Stack<State>();
+            _states = new Stack<State>();
+        }
+
+        public static StateManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new StateManager();
+                }
+                return _instance;
+            }
         }
 
         public void AddState(State state)
         {
             state.LoadContent();
-            states.Push(state);
-        }
-        
-        public void RemoveState()
-        {
-            states.Pop();
-        }
-        public State getCurrentState()
-        {
-            return states.Peek();
+            _states.Push(state);
         }
 
+        public void RemoveState()
+        {
+            _states.Pop();
+        }
+        public State GetCurrentState()
+        {
+            return _states.Peek();
+        }
     }
+
 }
