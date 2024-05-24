@@ -13,19 +13,26 @@ namespace PO_game.Src.States
         private InputController _inputController;
         private Camera _camera;
         private Player _player;
+        private Matrix _transformMatrix;
+        private Matrix _scaleMatrix;
+        private Matrix _originTranslationMatrix;
+        private Matrix _inverseOriginTranslationMatrix;
         private List<NPC> _npcs = new List<NPC>();
 
         public GameState(ContentManager content): base(content){
             _inputController = new InputController();
             _camera = new Camera();
+            _scaleMatrix = Matrix.CreateScale(GlobalSettings.Scale);
+            _originTranslationMatrix = Matrix.CreateTranslation(-GlobalSettings.ScreenWidth / 2, -GlobalSettings.ScreenHeight / 2, 0);
+            _inverseOriginTranslationMatrix = Matrix.CreateTranslation(GlobalSettings.ScreenWidth / 2, GlobalSettings.ScreenHeight / 2, 0);
         }
         public override void LoadContent()
         {
             var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
-            var playerTexture = content.Load<Texture2D>("player_placeholder");
+            var playerTexture = content.Load<Texture2D>("playerxd");
             _player = new Player(new Sprite(playerTexture, playerPosition));
 
-            var npcPosition1 = new Vector2(128, 128); // These are multiples of 32
+            var npcPosition1 = new Vector2(GlobalSettings.TileSize*8, GlobalSettings.TileSize * 8);
             var npcTexture1 = content.Load<Texture2D>("npc_placeholder");
             var npc1 = new NPC(new Sprite(npcTexture1, npcPosition1));
             _npcs.Add(npc1);
@@ -38,10 +45,14 @@ namespace PO_game.Src.States
 
             _camera.Follow(_player);
 
+            Matrix translationMatrix = _camera.Transform;
+            _transformMatrix =  translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(transformMatrix: _camera.Transform);
+            spriteBatch.Begin(transformMatrix:_transformMatrix);
+
             _player.Draw(spriteBatch);
             foreach (var npc in _npcs)
             {

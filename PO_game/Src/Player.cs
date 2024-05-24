@@ -42,7 +42,7 @@ namespace PO_game.Src
                     break;
 
                  case CharacterState.MovingUp:
-                    if(Sprite.Position.Y - (GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds) < _destination.Y)
+                    if(Sprite.Position.Y - (GlobalSettings.MoveSpeed * GlobalSettings.Scale * gameTime.ElapsedGameTime.TotalMilliseconds) < _destination.Y)
                     {
                         Sprite.Position = new Vector2(Sprite.Position.X, _destination.Y);
                         State = CharacterState.Idle;
@@ -54,7 +54,7 @@ namespace PO_game.Src
                     break;
 
                 case CharacterState.MovingDown:
-                    if(Sprite.Position.Y + (GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds) > _destination.Y)
+                    if(Sprite.Position.Y + (GlobalSettings.MoveSpeed * GlobalSettings.Scale *  gameTime.ElapsedGameTime.TotalMilliseconds) > _destination.Y)
                     {
                         Sprite.Position = new Vector2(Sprite.Position.X, _destination.Y);
                         State = CharacterState.Idle;
@@ -66,7 +66,7 @@ namespace PO_game.Src
                     break;
                 
                 case CharacterState.MovingLeft:
-                    if(Sprite.Position.X - (GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds) < _destination.X)
+                    if(Sprite.Position.X - (GlobalSettings.MoveSpeed * GlobalSettings.Scale * gameTime.ElapsedGameTime.TotalMilliseconds) < _destination.X)
                     {
                         Sprite.Position = new Vector2(_destination.X, Sprite.Position.Y);
                         State = CharacterState.Idle;
@@ -78,7 +78,7 @@ namespace PO_game.Src
                     break;
 
                 case CharacterState.MovingRight:
-                    if(Sprite.Position.X + (GlobalSettings.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds) > _destination.X)
+                    if(Sprite.Position.X + (GlobalSettings.MoveSpeed * GlobalSettings.Scale * gameTime.ElapsedGameTime.TotalMilliseconds) > _destination.X)
                     {
                         Sprite.Position = new Vector2(_destination.X, Sprite.Position.Y);
                         State = CharacterState.Idle;
