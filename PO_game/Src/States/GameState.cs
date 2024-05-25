@@ -32,7 +32,7 @@ namespace PO_game.Src.States
             var playerTexture = content.Load<Texture2D>("playerxd");
             _player = new Player(new Sprite(playerTexture, playerPosition));
 
-            var npcPosition1 = new Vector2(GlobalSettings.TileSize*8, GlobalSettings.TileSize * 8);
+            var npcPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2  + 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var npcTexture1 = content.Load<Texture2D>("npc_placeholder");
             var npc1 = new NPC(new Sprite(npcTexture1, npcPosition1));
             _npcs.Add(npc1);
