@@ -8,6 +8,7 @@ namespace PO_game.Src
     public class Player : Character
     {
         private Vector2 _destination;
+
         public Player(Sprite sprite) : base(sprite)
         {
             _destination = Sprite.Position;
@@ -98,6 +99,13 @@ namespace PO_game.Src
             MovePlayer(gameTime, inputController);
             //base.Update(gameTime);
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            Vector2 position = new Vector2(Sprite.Position.X - Sprite.Texture.Width / 2f, Sprite.Position.Y - Sprite.Texture.Height / 2f + Sprite.Texture.Height / 2f);
+            spriteBatch.Draw(Sprite.Texture, position, Color.White);
+        }
+
 
     }
 }
