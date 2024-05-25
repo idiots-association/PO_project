@@ -25,15 +25,37 @@ namespace PO_game.Src.States
         private Texture2D _buttonTexture;
         private SpriteFont _buttonFont;
         private StatstoSafe _playerStats;
-        private const string _savePath = "save.json";
+        private string _savePath = "";
         private bool _loadingFromSave;
 
-        public GameState(ContentManager content): base(content){
+        public GameState(ContentManager content, int safe): base(content){
             _inputController = new InputController();
             _camera = new Camera();
             _scaleMatrix = Matrix.CreateScale(GlobalSettings.Scale);
             _originTranslationMatrix = Matrix.CreateTranslation(-GlobalSettings.ScreenWidth / 2, -GlobalSettings.ScreenHeight / 2, 0);
             _inverseOriginTranslationMatrix = Matrix.CreateTranslation(GlobalSettings.ScreenWidth / 2, GlobalSettings.ScreenHeight / 2, 0);
+            if (safe == 0)
+            {
+                bool ifExist = true;
+                int i = 1;
+                while(ifExist)
+                {
+                    string path = $"save{i}.json";
+                    if (File.Exists(path))
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        ifExist = false;
+                        _savePath = path;
+                    }
+                }
+            }
+            else
+            {
+                _savePath = $"save{safe}.json";
+            }
             _loadingFromSave = File.Exists(_savePath);
         }
         public override void LoadContent()
@@ -63,8 +85,8 @@ namespace PO_game.Src.States
             _changeStateButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(GlobalSettings.ScreenWidth - _buttonTexture.Width/2, _buttonTexture.Height/2),
-                Text = "Change State",
-                Click = new EventHandler(ChangeStateButton_Click),
+                Text = "Save and Exit",
+                leftClick = new EventHandler(ChangeStateButton_Click),
                 Layer = 0.3f
             };
         }

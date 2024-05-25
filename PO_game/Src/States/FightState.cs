@@ -30,7 +30,7 @@ namespace PO_game.Src.States;
                 Position = new Vector2(GlobalSettings.ScreenWidth/3 , GlobalSettings.ScreenHeight  - 
                                                                       buttonSpacing - _buttonTexture.Height - 40),
                 Text = "1",
-                Click = new EventHandler(Button1_Click),
+                leftClick = new EventHandler(Button1_Click),
                 Layer = 0.3f
             };
             
@@ -39,7 +39,7 @@ namespace PO_game.Src.States;
                 Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) , GlobalSettings.ScreenHeight  - 
                                                                          buttonSpacing - _buttonTexture.Height - 40),
                 Text = "2",
-                Click = new EventHandler(Button2_Click),
+                leftClick = new EventHandler(Button2_Click),
                 Layer = 0.3f
             };
             
@@ -48,7 +48,7 @@ namespace PO_game.Src.States;
                 Position = new Vector2(GlobalSettings.ScreenWidth / 3 , GlobalSettings.ScreenHeight  
                                                                         + buttonSpacing - _buttonTexture.Height),
                 Text = "3",
-                Click = new EventHandler(Button3_Click),
+                leftClick = new EventHandler(Button3_Click),
                 Layer = 0.3f
             };
             
@@ -57,7 +57,7 @@ namespace PO_game.Src.States;
                 Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) , GlobalSettings.ScreenHeight  
                                                                         + buttonSpacing - _buttonTexture.Height),
                 Text = "4",
-                Click = new EventHandler(Button4_Click),
+                leftClick = new EventHandler(Button4_Click),
                 Layer = 0.3f
             };
         }

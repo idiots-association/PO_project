@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,7 @@ namespace PO_game.Src.States
         private Button _startButton;
         private Button _exitButton;
         private Button _settingsButton;
+        private Button _loadButton;
         
 
         public StartState(ContentManager content) : base(content){}
@@ -35,27 +37,49 @@ namespace PO_game.Src.States
             {
                 Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 - _buttonTexture.Height - buttonSpacing),
                 Text = "Start Game",
-                Click = new EventHandler(ButtonStart_Click),
+                leftClick = new EventHandler(ButtonStart_Click),
+                Layer = 0.3f
+            };
+            _loadButton = new Button(_buttonTexture, _buttonFont)
+            {
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 ),
+                Text = "Load Game",
+                leftClick = new EventHandler(ButtonLoad_Click),
                 Layer = 0.3f
             };
             _settingsButton = new Button (_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 ),
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 + _buttonTexture.Height + buttonSpacing),
                 Text = "Settings",
-                Click = new EventHandler(ButtonSettings_Click),
+                leftClick = new EventHandler(ButtonSettings_Click),
                 Layer = 0.3f
             };
             _exitButton = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2  + _buttonTexture.Height + buttonSpacing),
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2  + (_buttonTexture.Height + buttonSpacing)*2),
                 Text = "Exit Game",
-                Click = new EventHandler(ButtonExit_Click),
+                leftClick = new EventHandler(ButtonExit_Click),
                 Layer = 0.3f
             }; 
         }
         public void ButtonStart_Click(object sender, EventArgs e)
         {
-            StateManager.Instance.AddState(new GameState(content));
+            bool check = true;
+            for(int i = 1; i <= 5; i++)
+            {
+                if (!File.Exists($"save{i}.json"))
+                {
+                    check = false;
+                }
+            }
+            if (check)
+            { 
+                StateManager.Instance.AddState(new LoadGameState(content));
+            }
+            else
+            {
+               StateManager.Instance.AddState(new GameState(content, 0));
+            }
         }
         public void ButtonSettings_Click(object sender, EventArgs e)
         {
@@ -65,11 +89,16 @@ namespace PO_game.Src.States
         {
             Environment.Exit(0);
         }
+        public void ButtonLoad_Click(object sender, EventArgs e)
+        {
+            StateManager.Instance.AddState(new LoadGameState(content));
+        }
         public override void Update(GameTime gameTime)
         {
             _startButton.Update();
             _settingsButton.Update();
             _exitButton.Update();
+            _loadButton.Update();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -78,6 +107,7 @@ namespace PO_game.Src.States
             _startButton.Draw(spriteBatch);
             _settingsButton.Draw(spriteBatch);
             _exitButton.Draw(spriteBatch);
+            _loadButton.Draw(spriteBatch);
             spriteBatch.End();
         }
     }

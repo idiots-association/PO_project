@@ -23,7 +23,7 @@ namespace PO_game.Src.States
             {
                 Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2),
                 Text = "Exit Settings",
-                Click = new EventHandler(ButtonExit_Click),
+                leftClick = new EventHandler(ButtonExit_Click),
                 Layer = 0.3f
             };
             
