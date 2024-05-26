@@ -20,7 +20,8 @@ namespace PO_game.Src.Controls
         #endregion
 
         #region Properties
-        public EventHandler Click;
+        public EventHandler leftClick;
+        public EventHandler rightClick;
         public bool Clicked { get; private set; }
         public float Layer { get; set; }
         public Vector2 Origin 
@@ -63,7 +64,11 @@ namespace PO_game.Src.Controls
 
                 if(currentMouse.LeftButton == ButtonState.Released && prevMouse.LeftButton == ButtonState.Pressed)
                 {
-                    Click?.Invoke(this, new EventArgs());
+                    leftClick?.Invoke(this, new EventArgs());
+                }
+                if(currentMouse.RightButton == ButtonState.Released && prevMouse.RightButton == ButtonState.Pressed)
+                {
+                    rightClick?.Invoke(this, new EventArgs());
                 }
             }
         }
