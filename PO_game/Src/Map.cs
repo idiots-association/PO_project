@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using PO_game.Src.Utils;
+using Microsoft.Xna.Framework.Input;
 
 namespace PO_game.Src
 {
@@ -17,6 +18,13 @@ namespace PO_game.Src
         private Dictionary<Vector2, int> _collisions;
         private Texture2D _tileset;
         private Texture2D _collisionTileset;
+        private void ShowCollisions(InputController inputController)
+        {
+            if (inputController.isKeyPressed(Keys.C))
+            {
+                GlobalSettings.ShowCollisions = !GlobalSettings.ShowCollisions;
+            }
+        }
 
         public Map(string layer1, string collisions, string tileset, ContentManager content)
         {
@@ -28,6 +36,16 @@ namespace PO_game.Src
             _collisionTileset = content.Load<Texture2D>("collisions");
         }
 
+        public Dictionary<Vector2, int> GetCollisionsMap()
+        {
+           return _collisions;
+        }
+
+
+        public void Update(GameTime gameTime, InputController inputController)
+        {
+            ShowCollisions(inputController);
+        }
 
         public Dictionary<Vector2, int> LoadMap(string filename)
         { 
@@ -83,7 +101,10 @@ namespace PO_game.Src
         public void Draw(SpriteBatch spriteBatch)
         {
             DrawLayer(_layer1, _tileset, spriteBatch);
-            DrawLayer(_collisions, _collisionTileset, spriteBatch);
+            if (GlobalSettings.ShowCollisions)
+            {
+                DrawLayer(_collisions, _collisionTileset, spriteBatch);
+            }
         }
 
     };
