@@ -8,11 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ef977-c88e-4082-acc3-ce2eec5124d1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Src/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/Controls/Window.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/States/FightState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/States/FightState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/States/GameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/States/GameState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Content.mgcb" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Content.mgcb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/States/LoadGamesState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/States/LoadGamesState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +53,7 @@
   &quot;keyToString&quot;: {
     &quot;.NET Project.PO_game.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;SomeNewStates&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;windows&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -102,6 +101,8 @@
       <workItem from="1716492326806" duration="4894000" />
       <workItem from="1716645241451" duration="18659000" />
       <workItem from="1716724619504" duration="1503000" />
+      <workItem from="1716740608963" duration="2446000" />
+      <workItem from="1716743104674" duration="7675000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,16 +16,47 @@ public class LoadGameState: State
     private List<Button> _buttons;
     private Button _exitButton;
     private int buttonSpacing = 20;
+    private Texture2D _windowTexture;
+    private SpriteFont _windowFont;
+    private Window _window = null;
 
     public LoadGameState(ContentManager content): base(content){}
-
+    
+    public void EmptySlot_Click(object sender, EventArgs e)
+    {
+        StateManager.Instance.RemoveState();
+        StateManager.Instance.AddState(new LoadGameState(content));
+    }
+    
+    public void EmptySlot2_Click(int slot, object sender, EventArgs e)
+    {
+        File.Delete("save"+slot+".json");
+        StateManager.Instance.RemoveState();
+        StateManager.Instance.AddState(new LoadGameState(content));
+    }
+    
+    public void creatWindow(int number_of_buttons, int slot)
+    { 
+            _windowTexture = content.Load<Texture2D>("ramka1"); 
+            _windowFont = content.Load<SpriteFont>("Arial");
+            _window = new Window(_windowTexture, _windowFont, content, number_of_buttons)
+            {
+                Position = new Vector2(GlobalSettings.ScreenWidth / 2, GlobalSettings.ScreenHeight / 2),
+                Text = "Zapis jest pusty",
+                Layer = 0.2f,
+            };
+            _window._exitButton.leftClick += EmptySlot_Click;
+            if (number_of_buttons == 2)
+                _window._exitButton2.leftClick += (sender, e) => EmptySlot2_Click(slot, sender, e);
+    }
+    
+    
     public override void LoadContent()
     {
         _buttonTexture = content.Load<Texture2D>("startButton");
         _buttonFont = content.Load<SpriteFont>("Arial");
-
         _buttons = new List<Button>();
-
+       
         for (int i = 0; i < 5; i++)
         {
             var button = new Button(_buttonTexture, _buttonFont)
@@ -41,40 +73,40 @@ public class LoadGameState: State
                     {
                         button.Text = "Load Game 1";
                     }
-                    button.leftClick += Safe1_left_Click;
-                    button.rightClick += Safe1_right_Click;
+                    button.leftClick += Save1_left_Click;
+                    button.rightClick += Save1_right_Click;
                     break;
                 case 1:
                     if (File.Exists("save2.json"))
                     {
                         button.Text = "Load Game 2";
                     }
-                    button.leftClick += Safe2_left_Click;
-                    button.rightClick += Safe2_right_Click;
+                    button.leftClick += Save2_left_Click;
+                    button.rightClick += Save2_right_Click;
                     break;
                 case 2:
                     if (File.Exists("save3.json"))
                     {
                         button.Text = "Load Game 3";
                     }
-                    button.leftClick += Safe3_left_Click;
-                    button.rightClick += Safe3_right_Click;
+                    button.leftClick += Save3_left_Click;
+                    button.rightClick += Save3_right_Click;
                     break;
                 case 3:
                     if (File.Exists("save4.json"))
                     {
                         button.Text = "Load Game 4";
                     }
-                    button.leftClick += Safe4_left_Click;
-                    button.rightClick += Safe4_right_Click;
+                    button.leftClick += Save4_left_Click;
+                    button.rightClick += Save4_right_Click;
                     break;
                 case 4:
                     if (File.Exists("save5.json"))
                     {
                         button.Text = "Load Game 5";
                     }
-                    button.leftClick += Safe5_left_Click;
-                    button.rightClick += Safe5_right_Click;
+                    button.leftClick += Save5_left_Click;
+                    button.rightClick += Save5_right_Click;
                     break;
             }
 
@@ -90,7 +122,7 @@ public class LoadGameState: State
         };
     }
 
-    public void Safe1_left_Click(object sender, EventArgs e)
+    public void Save1_left_Click(object sender, EventArgs e)
     {
         if (File.Exists("save1.json"))
         {
@@ -99,11 +131,11 @@ public class LoadGameState: State
         }
         else
         {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(1,0);
         }
     }
 
-    public void Safe2_left_Click(object sender, EventArgs e)
+    public void Save2_left_Click(object sender, EventArgs e)
     {
         if (File.Exists("save2.json"))
         {
@@ -112,11 +144,11 @@ public class LoadGameState: State
         }
         else
         {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(1,0);
         }
     }
 
-    public void Safe3_left_Click(object sender, EventArgs e)
+    public void Save3_left_Click(object sender, EventArgs e)
     {
         if (File.Exists("save3.json"))
         {
@@ -125,11 +157,11 @@ public class LoadGameState: State
         }
         else
         {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(1, 0);
         }
     }
 
-    public void Safe4_left_Click(object sender, EventArgs e)
+    public void Save4_left_Click(object sender, EventArgs e)
     {
         if (File.Exists("save4.json"))
         {
@@ -138,11 +170,11 @@ public class LoadGameState: State
         }
         else
         {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(1, 0);
         }
     }
 
-    public void Safe5_left_Click(object sender, EventArgs e)
+    public void Save5_left_Click(object sender, EventArgs e)
     {
         if (File.Exists("save5.json"))
         {
@@ -151,77 +183,48 @@ public class LoadGameState: State
         }
         else
         {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(1, 0);
         }
     }
     
-    public void Safe1_right_Click(object sender, EventArgs e)
+    public void Save1_right_Click(object sender, EventArgs e)
     {
+        
         if (File.Exists("save1.json"))
         {
-            File.Delete("save1.json");
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new LoadGameState(content));
-        }
-        else
-        {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(2, 1);
         }
     }
     
-    public void Safe2_right_Click(object sender, EventArgs e)
+    public void Save2_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save2.json"))
         {
-            File.Delete("save2.json");
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new LoadGameState(content));
-        }
-        else
-        {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(2 ,2);
         }
     }
     
-    public void Safe3_right_Click(object sender, EventArgs e)
+    public void Save3_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save3.json"))
         {
-            File.Delete("save3.json");
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new LoadGameState(content));
-        }
-        else
-        {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(2, 3);
         }
     }
     
-    public void Safe4_right_Click(object sender, EventArgs e)
+    public void Save4_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save4.json"))
         {
-            File.Delete("save4.json");
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new LoadGameState(content));
-        }
-        else
-        {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(2, 4);
         }
     }
     
-    public void Safe5_right_Click(object sender, EventArgs e)
+    public void Save5_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save5.json"))
         {
-            File.Delete("save5.json");
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new LoadGameState(content));
-        }
-        else
-        {
-            //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
+            creatWindow(2, 5);
         }
     }
     
@@ -232,22 +235,33 @@ public class LoadGameState: State
 
     public override void Update(GameTime gameTime)
     {
-        foreach (var button in _buttons)
-        {
-            button.Update();
-        }
+       
         _exitButton.Update();
+        if (_window != null)
+        {
+            _window.Update();
+        }
+        else{ 
+            foreach (var button in _buttons)
+            {
+                button.Update();
+            }
+            
+        }
     }
 
     public override void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
-
         foreach (var button in _buttons)
         {
             button.Draw(spriteBatch);
         }
         _exitButton.Draw(spriteBatch);
+        if (_window != null)
+        {
+            _window.Draw(spriteBatch);
+        }
         spriteBatch.End();
     }
 }
