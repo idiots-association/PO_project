@@ -17,11 +17,19 @@ namespace PO_game.Src.States;
         private Button _button3;
         private Button _button4;
         private int buttonSpacing = 20;
+        private Player _player;
+        private Enemy _enemy;
+        private Texture2D _enemyTexture;
 
-        public FightingState(ContentManager content): base(content){}
+        public FightingState(ContentManager content, Player player, Enemy enemy) : base(content)
+        {
+            _player = player;
+            _enemy = enemy;
+        }
         public override void LoadContent()
         {
-            _playerTexture = content.Load<Texture2D>("playerxd");
+            _playerTexture = _player.Sprite.Texture;
+            _enemyTexture = _enemy.Sprite.Texture;
             _buttonTexture = content.Load<Texture2D>("startButton");
             _buttonFont = content.Load<SpriteFont>("Arial"); 
             
@@ -96,6 +104,9 @@ namespace PO_game.Src.States;
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_playerTexture,
                 new Rectangle(GlobalSettings.ScreenWidth / 8, GlobalSettings.ScreenHeight / 4, 100, 200),
+                Color.White);
+            spriteBatch.Draw(_playerTexture,
+                new Rectangle((int)(GlobalSettings.ScreenWidth / 1.33), GlobalSettings.ScreenHeight / 4, 100, 200),
                 Color.White);
             _button1.Draw(spriteBatch);
             _button2.Draw(spriteBatch);

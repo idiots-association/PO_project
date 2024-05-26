@@ -21,6 +21,7 @@ namespace PO_game.Src.States
         private Matrix _originTranslationMatrix;
         private Matrix _inverseOriginTranslationMatrix;
         private List<NPC> _npcs = new List<NPC>();
+        private List<Enemy> _enemies = new List<Enemy>();
         private Map _lobby;
         private Dictionary<Vector2, int> collisionMap;
         private Button _changeStateButton;
@@ -29,6 +30,7 @@ namespace PO_game.Src.States
         private StatstoSafe _playerStats;
         private string _savePath = "";
         private bool _loadingFromSave;
+        private Vector2 _playerTile;
 
         public GameState(ContentManager content, int safe): base(content){
             _inputController = new InputController();
@@ -80,7 +82,11 @@ namespace PO_game.Src.States
             var tileset = "grass";
             _lobby = new Map(mapLayer1, collisionLayer, tileset, content);
 
-
+            var enemyPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2 - 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
+            var enemyTexture1 = content.Load<Texture2D>("playerxd");
+            var enemy1 = new Enemy(new Sprite(enemyTexture1, enemyPosition1));
+            _enemies.Add(enemy1);
+            
             var npcPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2  + 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var npcTexture1 = content.Load<Texture2D>("npc_placeholder");
             var npc1 = new NPC(new Sprite(npcTexture1, npcPosition1));
@@ -100,6 +106,16 @@ namespace PO_game.Src.States
                 Layer = 0.3f
             };
         }
+
+        private bool CheckWarp()
+        {
+            if (collisionMap.ContainsKey(_playerTile) && collisionMap[_playerTile] == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+        
         
         private void ChangeStateButton_Click(object sender, EventArgs e)
         {
@@ -117,6 +133,14 @@ namespace PO_game.Src.States
         {
             _inputController.Update();
             _player.Update(gameTime, _inputController, collisionMap);
+            _playerTile = new Vector2(    // tmp
+                (int)(_player.Sprite.Position.X / GlobalSettings.TileSize), 
+                (int)((_player.Sprite.Position.Y + _player.Sprite.Position.Y % GlobalSettings.TileSize) / GlobalSettings.TileSize)
+            );
+            if (CheckWarp())
+            {
+                StateManager.Instance.AddState(new FightingState(content, _player, _enemies[0]));
+            }
             _lobby.Update(gameTime, _inputController);
             _camera.Follow(_player);
 
@@ -133,6 +157,10 @@ namespace PO_game.Src.States
             foreach (var npc in _npcs)
             {
                 npc.Draw(spriteBatch);
+            }
+            foreach (var enemy in _enemies)
+            {
+                enemy.Draw(spriteBatch);
             }
             spriteBatch.End();
             spriteBatch.Begin();
