@@ -27,7 +27,7 @@ namespace PO_game.Src.States
         private Button _changeStateButton;
         private Texture2D _buttonTexture;
         private SpriteFont _buttonFont;
-        private StatstoSafe _playerStats;
+        private StatsToSave _playerStats;
         private string _savePath = "";
         private bool _loadingFromSave;
         private Vector2 _playerTile;
@@ -119,12 +119,12 @@ namespace PO_game.Src.States
         
         private void ChangeStateButton_Click(object sender, EventArgs e)
         {
-            _playerStats = new StatstoSafe();
+            _playerStats = new StatsToSave();
             {
                 _playerStats.Position = new Vector2Data(_player.Sprite.Position);
                 _playerStats.Name = "Player";
             }
-            SafeGame(_playerStats);
+            SaveGame(_playerStats);
             StateManager.Instance.RemoveState();
 
         }
@@ -168,16 +168,16 @@ namespace PO_game.Src.States
             spriteBatch.End();
         }
         
-        private void SafeGame(StatstoSafe playerStats)
+        private void SaveGame(StatsToSave playerStats)
         {
-            string serializedStats = JsonSerializer.Serialize<StatstoSafe>(playerStats);
+            string serializedStats = JsonSerializer.Serialize<StatsToSave>(playerStats);
             File.WriteAllText(_savePath, serializedStats);
         }
         
-        private StatstoSafe LoadGame()
+        private StatsToSave LoadGame()
         {
             var serializedStats = File.ReadAllText(_savePath);
-            return JsonSerializer.Deserialize<StatstoSafe>(serializedStats);
+            return JsonSerializer.Deserialize<StatsToSave>(serializedStats);
         }
     }
 }

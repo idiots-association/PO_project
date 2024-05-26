@@ -1,7 +1,7 @@
 using System.Numerics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace PO_game.Src;
+namespace PO_game.Src.Utils;
 
 public class Vector2Data
 {
@@ -22,7 +22,7 @@ public class Vector2Data
     }
 }
 
-public class StatstoSafe
+public class StatsToSave
 {
     public Vector2Data Position { get; set; }
     public string Name { get; set; }
