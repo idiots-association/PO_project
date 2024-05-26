@@ -11,7 +11,7 @@ namespace PO_game.Src.States
         public SettingsState(ContentManager content): base(content){}
         public override void LoadContent()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); 
         }
         public override void Update(GameTime gameTime)
         {

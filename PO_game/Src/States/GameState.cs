@@ -18,6 +18,8 @@ namespace PO_game.Src.States
         private Matrix _originTranslationMatrix;
         private Matrix _inverseOriginTranslationMatrix;
         private List<NPC> _npcs = new List<NPC>();
+        private Map _lobby;
+        private Dictionary<Vector2, int> collisionMap;
 
         public GameState(ContentManager content): base(content){
             _inputController = new InputController();
@@ -28,6 +30,10 @@ namespace PO_game.Src.States
         }
         public override void LoadContent()
         {
+            var mapLayer1 = "../../../Content/placeholder_map_with_collisions_layer1.csv";
+            var collisionLayer = "../../../Content/placeholder_map_with_collisions_collisions.csv";
+            var tileset = "grass";
+            _lobby = new Map(mapLayer1, collisionLayer, tileset, content);
             var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var playerTexture = content.Load<Texture2D>("playerxd");
             _player = new Player(new Sprite(playerTexture, playerPosition));
@@ -37,12 +43,14 @@ namespace PO_game.Src.States
             var npc1 = new NPC(new Sprite(npcTexture1, npcPosition1));
             _npcs.Add(npc1);
 
+            collisionMap = _lobby.GetCollisionsMap();
+
         }
         public override void Update(GameTime gameTime)
         {
             _inputController.Update();
-            _player.Update(gameTime, _inputController);
-
+            _player.Update(gameTime, _inputController, collisionMap);
+            _lobby.Update(gameTime, _inputController);
             _camera.Follow(_player);
 
             Matrix translationMatrix = _camera.Transform;
@@ -52,7 +60,7 @@ namespace PO_game.Src.States
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix:_transformMatrix);
-
+            _lobby.Draw(spriteBatch);
             _player.Draw(spriteBatch);
             foreach (var npc in _npcs)
             {
