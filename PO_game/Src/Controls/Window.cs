@@ -48,38 +48,38 @@ namespace PO_game.Src.Controls
         #region Methods
         public void buttonUpdate()
                 {
-                    if (number_of_buttons == 1)
+                    switch (number_of_buttons)
                     {
-                        buttontexture = content.Load<Texture2D>("startButton");
-                        _exitButton = new Button(buttontexture, font)
-                        {
-                            Position = new Vector2(GlobalSettings.ScreenWidth / 2, GlobalSettings.ScreenHeight / 2 + 50),
-                            Text = "Ok",
-                            Layer = 0.3f,
-                            
-                        };
-                        
+                        case 1:
+                            buttontexture = content.Load<Texture2D>("startButton");
+                            _exitButton = new Button(buttontexture, font)
+                            {
+                                Position = new Vector2(GlobalSettings.ScreenWidth / 2, GlobalSettings.ScreenHeight / 2 + 50),
+                                Text = "Ok",
+                                Layer = 0.3f,
+                                
+                            };
+                            break;
+                        case 2:
+                            buttontexture = content.Load<Texture2D>("startButton");
+                            _exitButton = new Button(buttontexture, font)
+                            {
+                                Position = new Vector2(GlobalSettings.ScreenWidth / 2 + 70, GlobalSettings.ScreenHeight / 2 + 50),
+                                Text = "Cancel",
+                                Layer = 0.3f,
+                    
+                            };
+                            buttontexture2 = content.Load<Texture2D>("startButton");
+                            _exitButton2 = new Button(buttontexture, font)
+                            {
+                                Position = new Vector2(GlobalSettings.ScreenWidth / 2 - 70, GlobalSettings.ScreenHeight / 2 + 50),
+                                Text = "Ok",
+                                Layer = 0.3f,
+                    
+                            };
+                            break;
                     }
-                    else
-                    {
-                        buttontexture = content.Load<Texture2D>("startButton");
-                        _exitButton = new Button(buttontexture, font)
-                        {
-                            Position = new Vector2(GlobalSettings.ScreenWidth / 2 + 70, GlobalSettings.ScreenHeight / 2 + 50),
-                            Text = "Ok",
-                            Layer = 0.3f,
-
-                        };
-                        buttontexture2 = content.Load<Texture2D>("startButton");
-                        _exitButton2 = new Button(buttontexture, font)
-                        {
-                            Position = new Vector2(GlobalSettings.ScreenWidth / 2 - 70, GlobalSettings.ScreenHeight / 2 + 50),
-                            Text = "Ok",
-                            Layer = 0.3f,
-
-                        };
-                        
-                    }
+                
                 }
         
         public Window(Texture2D texture, SpriteFont font, ContentManager content, int number_of_buttons)
