@@ -2,12 +2,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using PO_game.Src.Items;
+using PO_game.Src.Inv;
 using PO_game.Src.Utils;
 using PO_game.Src.Controls;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
+using PO_game.Src.Items.Consumables;
 
 namespace PO_game.Src.States
 {
@@ -16,6 +19,8 @@ namespace PO_game.Src.States
         private InputController _inputController;
         private Camera _camera;
         private Player _player;
+        private Inventory _inventory;
+        private HealthPotion _medpot;
         private Matrix _transformMatrix;
         private Matrix _scaleMatrix;
         private Matrix _originTranslationMatrix;
@@ -105,6 +110,8 @@ namespace PO_game.Src.States
                 leftClick = new EventHandler(ChangeStateButton_Click),
                 Layer = 0.3f
             };
+            _inventory = new Inventory(content.Load<Texture2D>("inv_slot_grey"));
+            _medpot = new HealthPotion(content.Load<Texture2D>("medium_health_potion"), "Medium HP Potion", "Potion Restores 10 hp", "uncommon", 10, 1,_player);
         }
 
         private bool CheckWarp()
@@ -147,7 +154,19 @@ namespace PO_game.Src.States
             Matrix translationMatrix = _camera.Transform;
             _transformMatrix =  translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
-
+            
+            if (_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
+            {
+                _inventory.ShowInventory = !_inventory.ShowInventory;
+                if (_inventory.ShowInventory)
+                {
+                    _inventory.Update();
+                }
+            }
+            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+            {
+                _inventory.AddItem(_medpot);
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -165,6 +184,10 @@ namespace PO_game.Src.States
             spriteBatch.End();
             spriteBatch.Begin();
             _changeStateButton.Draw(spriteBatch);
+            if (_inventory.ShowInventory)
+            {
+                _inventory.Draw(spriteBatch);
+            }
             spriteBatch.End();
         }
         

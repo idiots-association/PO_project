@@ -9,7 +9,10 @@ namespace PO_game.Src
     public class Player : Character
     {
         private Vector2 _destination;
-
+        public int MaxHealth { get; set; }
+        public int Health { get; set; }
+        public int MaxMana { get; set; }
+        public int Mana { get; set; }
         public Player(Sprite sprite) : base(sprite)
         {
             _destination = Sprite.Position;
