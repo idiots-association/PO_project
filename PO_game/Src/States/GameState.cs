@@ -62,6 +62,14 @@ namespace PO_game.Src.States
             }
             _loadingFromSave = File.Exists(_savePath);
         }
+
+        private Vector2 TileToPixelPosition(Vector2 tilePosition)
+        {
+            return new Vector2(
+                (int)(tilePosition.X * GlobalSettings.TileSize) + GlobalSettings.TileSize / 2,
+                tilePosition.Y * GlobalSettings.TileSize - 22 // tmp
+            );
+        }
         public override void LoadContent()
         {
             if (_loadingFromSave)
@@ -73,14 +81,19 @@ namespace PO_game.Src.States
             else
             {
                 var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
+                _playerTile = new Vector2(    // tmp
+                    (int)(playerPosition.X / GlobalSettings.TileSize),
+                    (int)((playerPosition.Y + playerPosition.Y % GlobalSettings.TileSize) / GlobalSettings.TileSize)
+                    );
+                playerPosition = TileToPixelPosition(new Vector2(_playerTile.X - 10, _playerTile.Y - 5));
                 var playerTexture = content.Load<Texture2D>("playerxd");
                 _player = new Player(new Sprite(playerTexture, playerPosition));
+
             }
 
-            var mapLayer1 = "../../../Content/placeholder_map_with_collisions_layer1.csv";
-            var collisionLayer = "../../../Content/placeholder_map_with_collisions_collisions.csv";
-            var tileset = "grass";
-            _lobby = new Map(mapLayer1, collisionLayer, tileset, content);
+            var csv_map = "../../../Content/MapWithPath";
+            var tileset = "POtileset";
+            _lobby = new Map(csv_map, tileset, content);
 
             var enemyPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2 - 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var enemyTexture1 = content.Load<Texture2D>("playerxd");

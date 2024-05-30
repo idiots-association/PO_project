@@ -13,8 +13,7 @@ namespace PO_game.Src
 {
     public class Map
     {
-        private Dictionary<Vector2, int> _layer1;
-        private Dictionary<Vector2, int> _layer2;
+        private Dictionary<Vector2, int> _background;
         private Dictionary<Vector2, int> _collisions;
         private Texture2D _tileset;
         private Texture2D _collisionTileset;
@@ -26,13 +25,11 @@ namespace PO_game.Src
             }
         }
 
-        public Map(string layer1, string collisions, string tileset, ContentManager content)
+        public Map(string csv_map, string tileset, ContentManager content)
         {
-            _layer1 = LoadMap(layer1);
+            _background = LoadMap(csv_map + "_Background.csv");
             _tileset = content.Load<Texture2D>(tileset);
-
-            //_layer2 = LoadMap(filename + "_layer2.csv");
-            _collisions = LoadMap(collisions);
+            _collisions = LoadMap(csv_map + "_Collisions.csv");
             _collisionTileset = content.Load<Texture2D>("collisions");
         }
 
@@ -88,10 +85,10 @@ namespace PO_game.Src
                 int y = tile.Value / (tileset.Width / GlobalSettings.TileSize);
 
                 Rectangle srect = new(
-                    x * GlobalSettings.TileSize,
-                    y * GlobalSettings.TileSize,
-                    GlobalSettings.TileSize,
-                    GlobalSettings.TileSize
+                    (int)(x * GlobalSettings.TileSize),
+                    (int)(y * GlobalSettings.TileSize),
+                    GlobalSettings.TileSize - 1, // resolves random lines on the screen, temp solution
+                    GlobalSettings.TileSize - 1 // - ,, -
                     );
 
                 spriteBatch.Draw(tileset, drect, srect, Color.White);
@@ -100,7 +97,7 @@ namespace PO_game.Src
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            DrawLayer(_layer1, _tileset, spriteBatch);
+            DrawLayer(_background, _tileset, spriteBatch);
             if (GlobalSettings.ShowCollisions)
             {
                 DrawLayer(_collisions, _collisionTileset, spriteBatch);
