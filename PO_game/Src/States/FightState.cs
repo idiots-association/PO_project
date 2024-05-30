@@ -35,57 +35,57 @@ namespace PO_game.Src.States;
             
             _button1 = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth/3 , GlobalSettings.ScreenHeight  - 
-                                                                      buttonSpacing - _buttonTexture.Height - 40),
+                Position = new Vector2(GlobalSettings.ScreenWidth/3 , 
+                 GlobalSettings.ScreenHeight - buttonSpacing - _buttonTexture.Height - 40),
                 Text = "1",
-                leftClick = new EventHandler(Button1_Click),
+                leftClick = new EventHandler(Button1Click),
                 Layer = 0.3f
             };
             
             _button2 = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) , GlobalSettings.ScreenHeight  - 
-                                                                         buttonSpacing - _buttonTexture.Height - 40),
+                Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) ,
+                 GlobalSettings.ScreenHeight - buttonSpacing - _buttonTexture.Height - 40),
                 Text = "2",
-                leftClick = new EventHandler(Button2_Click),
+                leftClick = new EventHandler(Button2Click),
                 Layer = 0.3f
             };
             
             _button3 = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 3 , GlobalSettings.ScreenHeight  
-                                                                        + buttonSpacing - _buttonTexture.Height),
+                Position = new Vector2(GlobalSettings.ScreenWidth / 3 ,
+                 GlobalSettings.ScreenHeight + buttonSpacing - _buttonTexture.Height),
                 Text = "3",
-                leftClick = new EventHandler(Button3_Click),
+                leftClick = new EventHandler(Button3Click),
                 Layer = 0.3f
             };
             
             _button4 = new Button(_buttonTexture, _buttonFont)
             {
-                Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) , GlobalSettings.ScreenHeight  
-                                                                        + buttonSpacing - _buttonTexture.Height),
+                Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) , 
+                 GlobalSettings.ScreenHeight  + buttonSpacing - _buttonTexture.Height),
                 Text = "4",
-                leftClick = new EventHandler(Button4_Click),
+                leftClick = new EventHandler(Button4Click),
                 Layer = 0.3f
             };
         }
         
-        public void Button1_Click(object sender, EventArgs e)
+        public void Button1Click(object sender, EventArgs e)
         {
             System.Console.WriteLine("Button 1 clicked");
         }
         
-        public void Button2_Click(object sender, EventArgs e)
+        public void Button2Click(object sender, EventArgs e)
         {
             System.Console.WriteLine("Button 2 clicked");
         }
         
-        public void Button3_Click(object sender, EventArgs e)
+        public void Button3Click(object sender, EventArgs e)
         {
             System.Console.WriteLine("Button 3 clicked");
         }
         
-        public void Button4_Click(object sender, EventArgs e)
+        public void Button4Click(object sender, EventArgs e)
         {
             System.Console.WriteLine("Button 4 clicked");
         }

@@ -102,7 +102,7 @@ namespace PO_game.Src.States
             {
                 Position = new Vector2(GlobalSettings.ScreenWidth - _buttonTexture.Width/2, _buttonTexture.Height/2),
                 Text = "Save and Exit",
-                leftClick = new EventHandler(ChangeStateButton_Click),
+                leftClick = new EventHandler(ChangeStateButtonClick),
                 Layer = 0.3f
             };
         }
@@ -117,7 +117,7 @@ namespace PO_game.Src.States
         }
         
         
-        private void ChangeStateButton_Click(object sender, EventArgs e)
+        private void ChangeStateButtonClick(object sender, EventArgs e)
         {
             _playerStats = new StatsToSave();
             {

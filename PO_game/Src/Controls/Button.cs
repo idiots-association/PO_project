@@ -11,62 +11,59 @@ namespace PO_game.Src.Controls
 
     public class Button
     {
-       #region Fields
-        private MouseState currentMouse;
-        private MouseState prevMouse;
-        private SpriteFont font;
-        private bool isHovering;
-        private Texture2D texture;
-        #endregion
+        private MouseState _currentMouse;
+        private MouseState _prevMouse;
+        private SpriteFont _font;
+        private bool _isHovering;
+        private Texture2D _texture;
 
-        #region Properties
         public EventHandler leftClick;
         public EventHandler rightClick;
         public bool Clicked { get; private set; }
         public float Layer { get; set; }
-        public Vector2 Origin 
+        public Vector2 Position { get; set; }
+        public string Text { get; set; }
+        private Vector2 _origin 
         { get
             {
-                return new Vector2(texture.Width/2, texture.Height/2);
+                return new Vector2(_texture.Width/2, _texture.Height/2);
             }
         }
-        public Vector2 Position { get; set; }
+        
 
-        public Rectangle Rectangle{
-            get
+        private Rectangle _rectangle
+        {  get
             {
-                return new Rectangle((int)Position.X - (int)Origin.X , (int)Position.Y - (int)Origin.Y, texture.Width, texture.Height);
+                return new Rectangle((int)Position.X - (int)_origin.X , (int)Position.Y - (int)_origin.Y, _texture.Width, _texture.Height);
             }
         }
 
-        public string Text { get; set; }
-        #endregion
+       
 
-        #region Methods
         public Button(Texture2D texture , SpriteFont font)
         {
-            this.texture = texture;
-            this.font = font;
+            _texture = texture;
+            _font = font;
         }
    
         public void Update()
         {
-            prevMouse = currentMouse;
-            currentMouse = Mouse.GetState();
+            _prevMouse = _currentMouse;
+            _currentMouse = Mouse.GetState();
 
-            var mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
+            var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
-            isHovering = false;
+            _isHovering = false;
 
-            if(mouseRectangle.Intersects(Rectangle))
+            if(mouseRectangle.Intersects(_rectangle))
             {
-                isHovering = true;
+                _isHovering = true;
 
-                if(currentMouse.LeftButton == ButtonState.Released && prevMouse.LeftButton == ButtonState.Pressed)
+                if(_currentMouse.LeftButton == ButtonState.Released && _prevMouse.LeftButton == ButtonState.Pressed)
                 {
                     leftClick?.Invoke(this, new EventArgs());
                 }
-                if(currentMouse.RightButton == ButtonState.Released && prevMouse.RightButton == ButtonState.Pressed)
+                if(_currentMouse.RightButton == ButtonState.Released && _prevMouse.RightButton == ButtonState.Pressed)
                 {
                     rightClick?.Invoke(this, new EventArgs());
                 }
@@ -76,20 +73,19 @@ namespace PO_game.Src.Controls
         {
             var color = Color.Gray;
             
-            if (isHovering)
+            if (_isHovering)
                 color = Color.DarkGray;
 
-            spriteBatch.Draw(texture, Position, null, color, 0f, Origin, 1f, SpriteEffects.None, Layer);
+            spriteBatch.Draw(_texture, Position, null, color, 0f, _origin, 1f, SpriteEffects.None, Layer);
 
             if (!string.IsNullOrEmpty(Text))
             {
-                var x = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (font.MeasureString(Text).Y / 2);
+                var x = _rectangle.X + _rectangle.Width / 2 - _font.MeasureString(Text).X / 2;
+                var y = _rectangle.Y + _rectangle.Height / 2 - _font.MeasureString(Text).Y / 2;
 
-                spriteBatch.DrawString(font, Text, new Vector2(x, y), Color.Black, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
+                spriteBatch.DrawString(_font, Text, new Vector2(x, y), Color.Black, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
             }
         }
 
-        #endregion
     }
 }
