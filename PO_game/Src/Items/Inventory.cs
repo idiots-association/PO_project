@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using PO_game.Src;
 using PO_game.Src.Items;
@@ -11,59 +12,60 @@ using System.Diagnostics;
 using System.IO;
 namespace PO_game.Src.Inv{
     public class Inventory{
-        public List<InventorySlot> Slots { get; set; }
+        public List<InventorySlot> slots { get; set; }
         public static int Capacity = 36;
         public int currentCapacity { get; set; }
         private Texture2D _texture;
-        public bool ShowInventory { get; set; }
-        public Inventory(Texture2D texture){
-            Slots = new List<InventorySlot>();
+        public bool showInventory { get; set; }
+        public Player player { get; set; }
+        public Inventory(Texture2D texture, Player player){
+            slots = new List<InventorySlot>();
             for (int i = 0; i < Capacity; i++){
-                Slots.Add(new InventorySlot(i, texture, null));
+                slots.Add(new InventorySlot(i, texture, null, player));
             }
             _texture = texture;
-            ShowInventory = false;
+            showInventory = false;
         }
         public void AddItem(Consumable item){
             if (Capacity <= currentCapacity){
-                Debug.WriteLine("Inventory is full!");//placeholder
+                Debug.WriteLine("Inventory is full!");
                 return;
             }
-            foreach (InventorySlot slot in Slots){
-                if (slot.Item == item){
-                    Consumable temp_item = (Consumable)slot.Item;
-                    temp_item.Quantity += item.Quantity;
-                    slot.Item = temp_item;
+            foreach (InventorySlot slot in slots){
+                if (slot.item == item){
+                    Consumable temp_item = (Consumable)slot.item;
+                    temp_item.Quantity += 1;
+                    slot.item = temp_item;
                     return;
                 }
-                else if (slot.Item == null){
-                    slot.Item = item;
+                else if (slot.item == null){
+                    slot.item = item;
                     return;
                 }
             }
         }
         public void AddItem(Weapon item){
             if (Capacity <= currentCapacity){
-                Debug.WriteLine("Inventory is full!");//placeholder
+                Debug.WriteLine("Inventory is full!");
                 return;
             }
-            foreach (InventorySlot slot in Slots){
-                 if (slot.Item == null){
-                    slot.Item = item;
+            foreach (InventorySlot slot in slots){
+                 if (slot.item == null){
+                    slot.item = item;
                     return;
                 }
             }
         }
         public void Update(){
-            foreach (InventorySlot slot in Slots){
-                if (slot.Item != null){
+            foreach (InventorySlot slot in slots){
+                if (slot.item != null){
                     slot.Update();
                 }
             }
         }
         public void Draw(SpriteBatch spriteBatch){
-            for (int i = 0; i < Slots.Count; i++){
-                Slots[i].Draw(spriteBatch);
+            for (int i = 0; i < slots.Count; i++){
+                slots[i].Draw(spriteBatch);
             }
         }
 

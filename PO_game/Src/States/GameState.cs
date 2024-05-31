@@ -20,7 +20,9 @@ namespace PO_game.Src.States
         private Camera _camera;
         private Player _player;
         private Inventory _inventory;
-        private HealthPotion _medpot;
+        private HealthPotion _medpot; //temporary
+        private Weapon _dagger; //temporary
+        private Weapon _mace; //temporary
         private Matrix _transformMatrix;
         private Matrix _scaleMatrix;
         private Matrix _originTranslationMatrix;
@@ -110,9 +112,11 @@ namespace PO_game.Src.States
                 leftClick = new EventHandler(ChangeStateButton_Click),
                 Layer = 0.3f
             };
-            _inventory = new Inventory(content.Load<Texture2D>("inv_slot_grey"));
+            _inventory = new Inventory(content.Load<Texture2D>("inv_slot_grey"), _player);
             _medpot = new HealthPotion(content.Load<Texture2D>("medium_health_potion"), "Medium HP Potion", "Potion Restores 10 hp", "uncommon", 10, 1,_player);
-        }
+            _dagger = new Weapon(content.Load<Texture2D>("dagger"), "Dagger", "A simple dagger", "common", 1, 10, _player);
+            _mace = new Weapon(content.Load<Texture2D>("mace"), "Mace", "A simple mace", "common", 4, 8, _player);
+        }   
 
         private bool CheckWarp()
         {
@@ -157,15 +161,24 @@ namespace PO_game.Src.States
             
             if (_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
             {
-                _inventory.ShowInventory = !_inventory.ShowInventory;
-                if (_inventory.ShowInventory)
-                {
-                    _inventory.Update();
-                }
+                _inventory.showInventory = !_inventory.showInventory;
+                
             }
-            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))
+            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))//temporary
             {
                 _inventory.AddItem(_medpot);
+            }
+            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))//temporary
+            {
+                _inventory.AddItem(_mace);
+            }
+            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))//temporary
+            {
+                _inventory.AddItem(_dagger);
+            }
+            if (_inventory.showInventory)
+            {
+                _inventory.Update();
             }
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -182,9 +195,9 @@ namespace PO_game.Src.States
                 enemy.Draw(spriteBatch);
             }
             spriteBatch.End();
-            spriteBatch.Begin();
+            spriteBatch.Begin();//?????
             _changeStateButton.Draw(spriteBatch);
-            if (_inventory.ShowInventory)
+            if (_inventory.showInventory)
             {
                 _inventory.Draw(spriteBatch);
             }

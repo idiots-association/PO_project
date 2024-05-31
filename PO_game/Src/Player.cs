@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using System.Collections.Generic;
 
@@ -9,10 +10,11 @@ namespace PO_game.Src
     public class Player : Character
     {
         private Vector2 _destination;
-        public int MaxHealth { get; set; }
-        public int Health { get; set; }
-        public int MaxMana { get; set; }
-        public int Mana { get; set; }
+        public int maxHealth { get; set; }
+        public int health { get; set; }
+        public int maxMana { get; set; }
+        public int mana { get; set; }
+        public Weapon weapon { get; set; }
         public Player(Sprite sprite) : base(sprite)
         {
             _destination = Sprite.Position;

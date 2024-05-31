@@ -9,12 +9,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 namespace PO_game.Src.Items{
-    public abstract class Weapon: Item{
-        public Tuple <int,int> Damage { get; set; }
-        public Weapon(Texture2D texture, string name, string description, string rarity, Tuple <int,int> damage, Player player): base(texture, name, description, rarity,player){
-            Damage = damage;
+    public class Weapon: Item{
+        public int minDamage { get; set; }
+        public int maxDamage { get; set; }
+        public Weapon(Texture2D texture, string name, string description, string rarity, int mindamage, int maxdamage, Player player): base(texture, name, description, rarity,player){
+            minDamage = mindamage;
+            maxDamage = maxdamage;
         }
-        public abstract void Attack(Player player);
+        //public abstract void Attack(Player player);
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position){
             spriteBatch.Draw(Texture, position, Color.White);

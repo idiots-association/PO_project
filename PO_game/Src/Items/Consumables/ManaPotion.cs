@@ -10,15 +10,15 @@ using System.Diagnostics;
 using System.IO;
 namespace PO_game.Src.Items.Consumables{
     public class ManaPotion: Consumable{
-        public int Mana { get; set; }
+        public int mana { get; set; }
         public ManaPotion(Texture2D texture, string name, string description, string rarity, int mana,int quantity,Player player): base(texture, name, description, rarity,quantity,player){
-            Mana = mana;
+            this.mana = mana;
         }
         public override void Use(){
-            if (_playerBinding.Mana + Mana > _playerBinding.MaxMana)
-                _playerBinding.Mana = _playerBinding.MaxMana;
+            if (_playerBinding.mana + mana > _playerBinding.maxMana)
+                _playerBinding.mana = _playerBinding.maxMana;
             else
-                _playerBinding.Mana += Mana;
+                _playerBinding.mana += mana;
             Quantity--;
         }
     }
