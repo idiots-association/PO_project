@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PO_game.Src.Utils;
 
 namespace PO_game.Src.Controls
 {
@@ -13,7 +14,6 @@ namespace PO_game.Src.Controls
     {
         private MouseState _currentMouse;
         private MouseState _prevMouse;
-        private SpriteFont _font;
         private bool _isHovering;
         private Texture2D _texture;
 
@@ -40,10 +40,9 @@ namespace PO_game.Src.Controls
 
        
 
-        public Button(Texture2D texture , SpriteFont font)
+        public Button(Texture2D texture)
         {
             _texture = texture;
-            _font = font;
         }
    
         public void Update()
@@ -80,10 +79,10 @@ namespace PO_game.Src.Controls
 
             if (!string.IsNullOrEmpty(Text))
             {
-                var x = _rectangle.X + _rectangle.Width / 2 - _font.MeasureString(Text).X / 2;
-                var y = _rectangle.Y + _rectangle.Height / 2 - _font.MeasureString(Text).Y / 2;
+                var x = _rectangle.X + _rectangle.Width / 2 - Globals.gameFont.MeasureString(Text).X / 2;
+                var y = _rectangle.Y + _rectangle.Height / 2 - Globals.gameFont.MeasureString(Text).Y / 2;
 
-                spriteBatch.DrawString(_font, Text, new Vector2(x, y), Color.Black, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
+                spriteBatch.DrawString(Globals.gameFont, Text, new Vector2(x, y), Color.Black, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
             }
         }
 

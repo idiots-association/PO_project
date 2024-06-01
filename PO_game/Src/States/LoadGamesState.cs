@@ -11,7 +11,6 @@ using PO_game.Src.Utils;
 public class LoadGameState: State
 {
     private Texture2D _buttonTexture;
-    private SpriteFont _buttonFont;
     private List<Button> _buttons;
     private Button _exitButton;
     private int buttonSpacing = 20;
@@ -20,16 +19,16 @@ public class LoadGameState: State
 
     public override void LoadContent()
     {
-        _buttonTexture = content.Load<Texture2D>("startButton");
-        _buttonFont = content.Load<SpriteFont>("Arial");
+        _buttonTexture = content.Load<Texture2D>("Others/startButton");
+
 
         _buttons = new List<Button>();
 
         for (int i = 0; i < 5; i++)
         {
-            var button = new Button(_buttonTexture, _buttonFont)
+            var button = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , _buttonTexture.Height + i * (_buttonTexture.Height + buttonSpacing)),
+                Position = new Vector2(Globals.ScreenWidth / 2 , _buttonTexture.Height + i * (_buttonTexture.Height + buttonSpacing)),
                 Text = "Empty Slot",
                 Layer = 0.3f
             };
@@ -81,7 +80,7 @@ public class LoadGameState: State
             _buttons.Add(button);
         }
         
-        _exitButton = new Button(_buttonTexture, _buttonFont)
+        _exitButton = new Button(_buttonTexture)
         {
             Position = new Vector2(_buttonTexture.Width/2, _buttonTexture.Height/2),
             Text = "Return to Menu",

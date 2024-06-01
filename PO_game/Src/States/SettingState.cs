@@ -10,18 +10,15 @@ namespace PO_game.Src.States
     public class SettingsState: State
     {
         private Texture2D _buttonTexture;
-        private SpriteFont _buttonFont;
         private Button _exitButton;
-        private int buttonSpacing = 20;
         public SettingsState(ContentManager content): base(content){}
         public override void LoadContent()
         {
-            _buttonTexture = content.Load<Texture2D>("startButton");
-            _buttonFont = content.Load<SpriteFont>("Arial"); 
+            _buttonTexture = content.Load<Texture2D>("Others/startButton"); 
             
-            _exitButton = new Button(_buttonTexture, _buttonFont)
+            _exitButton = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2),
+                Position = new Vector2(Globals.ScreenWidth / 2 , Globals.ScreenHeight / 2),
                 Text = "Exit Settings",
                 leftClick = new EventHandler(ButtonExit_Click),
                 Layer = 0.3f

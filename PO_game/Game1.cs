@@ -22,21 +22,21 @@ namespace PO_game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferWidth = GlobalSettings.ScreenWidth;
-            _graphics.PreferredBackBufferHeight = GlobalSettings.ScreenHeight;
+            _graphics.PreferredBackBufferWidth = Globals.ScreenWidth;
+            _graphics.PreferredBackBufferHeight = Globals.ScreenHeight;
             _graphics.ApplyChanges();
 
-            StateManager = StateManager.Instance;
         }
 
         protected override void Initialize()
         {
-            
+            StateManager = StateManager.Instance;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            Globals.gameFont = Content.Load<SpriteFont>("Fonts/Arial");
             StateManager.Instance.AddState(new StartState(Content));
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
@@ -45,7 +45,7 @@ namespace PO_game
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();  //do wyrzucenia potem, za to jest odpowiedzialny exit button i wszelkie klasy state
+                Exit();  
 
             StateManager.Instance.GetCurrentState().Update(gameTime);
 
@@ -56,16 +56,6 @@ namespace PO_game
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             StateManager.Instance.GetCurrentState().Draw(_spriteBatch);
-            /*switch(_stateManager.getCurrentState())
-            {
-                case StartState startState:
-                    startState.Draw(_spriteBatch);
-                    break;
-                case GameState gameState:
-                    gameState.Draw(_spriteBatch);
-                    break;
-            }*/
-
             base.Draw(gameTime);
         }
     }

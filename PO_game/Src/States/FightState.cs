@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
+using PO_game.Src.Entities;
 using PO_game.Src.Utils;
 
 namespace PO_game.Src.States;
 
-    public class FightingState: State
+public class FightingState: State
     {
         private Texture2D _playerTexture;
         private Texture2D _buttonTexture;
@@ -33,37 +34,37 @@ namespace PO_game.Src.States;
             _buttonTexture = content.Load<Texture2D>("startButton");
             _buttonFont = content.Load<SpriteFont>("Arial"); 
             
-            _button1 = new Button(_buttonTexture, _buttonFont)
+            _button1 = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth/3 , 
-                 GlobalSettings.ScreenHeight - buttonSpacing - _buttonTexture.Height - 40),
+                Position = new Vector2(Globals.ScreenWidth/3 , 
+                 Globals.ScreenHeight - buttonSpacing - _buttonTexture.Height - 40),
                 Text = "1",
                 leftClick = new EventHandler(Button1Click),
                 Layer = 0.3f
             };
             
-            _button2 = new Button(_buttonTexture, _buttonFont)
+            _button2 = new Button(_buttonTexture)
             {
-                Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) ,
-                 GlobalSettings.ScreenHeight - buttonSpacing - _buttonTexture.Height - 40),
+                Position = new Vector2((float)(Globals.ScreenWidth / 1.5) ,
+                 Globals.ScreenHeight - buttonSpacing - _buttonTexture.Height - 40),
                 Text = "2",
                 leftClick = new EventHandler(Button2Click),
                 Layer = 0.3f
             };
             
-            _button3 = new Button(_buttonTexture, _buttonFont)
+            _button3 = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 3 ,
-                 GlobalSettings.ScreenHeight + buttonSpacing - _buttonTexture.Height),
+                Position = new Vector2(Globals.ScreenWidth / 3 ,
+                 Globals.ScreenHeight + buttonSpacing - _buttonTexture.Height),
                 Text = "3",
                 leftClick = new EventHandler(Button3Click),
                 Layer = 0.3f
             };
             
-            _button4 = new Button(_buttonTexture, _buttonFont)
+            _button4 = new Button(_buttonTexture)
             {
-                Position = new Vector2((float)(GlobalSettings.ScreenWidth / 1.5) , 
-                 GlobalSettings.ScreenHeight  + buttonSpacing - _buttonTexture.Height),
+                Position = new Vector2((float)(Globals.ScreenWidth / 1.5) , 
+                 Globals.ScreenHeight  + buttonSpacing - _buttonTexture.Height),
                 Text = "4",
                 leftClick = new EventHandler(Button4Click),
                 Layer = 0.3f
@@ -103,10 +104,10 @@ namespace PO_game.Src.States;
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_playerTexture,
-                new Rectangle(GlobalSettings.ScreenWidth / 8, GlobalSettings.ScreenHeight / 4, 100, 200),
+                new Rectangle(Globals.ScreenWidth / 8, Globals.ScreenHeight / 4, 100, 200),
                 Color.White);
             spriteBatch.Draw(_playerTexture,
-                new Rectangle((int)(GlobalSettings.ScreenWidth / 1.33), GlobalSettings.ScreenHeight / 4, 100, 200),
+                new Rectangle((int)(Globals.ScreenWidth / 1.33), Globals.ScreenHeight / 4, 100, 200),
                 Color.White);
             _button1.Draw(spriteBatch);
             _button2.Draw(spriteBatch);

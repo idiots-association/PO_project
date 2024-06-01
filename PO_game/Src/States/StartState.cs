@@ -17,7 +17,6 @@ namespace PO_game.Src.States
     {
         private Texture2D _backgroundTexture;
         private Texture2D _buttonTexture;
-        private SpriteFont _buttonFont;
         private int buttonSpacing = 20;
         private Button _startButton;
         private Button _exitButton;
@@ -28,35 +27,34 @@ namespace PO_game.Src.States
         public StartState(ContentManager content) : base(content){}
         public override void LoadContent()
         {   
-            _backgroundTexture = content.Load<Texture2D>("cool_background");
-            _buttonTexture = content.Load<Texture2D>("startButton");
-            _buttonFont = content.Load<SpriteFont>("Arial");  
+            _backgroundTexture = content.Load<Texture2D>("Others/cool_background");
+            _buttonTexture = content.Load<Texture2D>("Others/startButton");
 
 
-            _startButton = new Button(_buttonTexture, _buttonFont)
+            _startButton = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 - _buttonTexture.Height - buttonSpacing),
+                Position = new Vector2(Globals.ScreenWidth / 2 , Globals.ScreenHeight / 2 - _buttonTexture.Height - buttonSpacing),
                 Text = "Start Game",
                 leftClick = new EventHandler(ButtonStart_Click),
                 Layer = 0.3f
             };
-            _loadButton = new Button(_buttonTexture, _buttonFont)
+            _loadButton = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 ),
+                Position = new Vector2(Globals.ScreenWidth / 2 , Globals.ScreenHeight / 2 ),
                 Text = "Load Game",
                 leftClick = new EventHandler(ButtonLoad_Click),
                 Layer = 0.3f
             };
-            _settingsButton = new Button (_buttonTexture, _buttonFont)
+            _settingsButton = new Button (_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2 + _buttonTexture.Height + buttonSpacing),
+                Position = new Vector2(Globals.ScreenWidth / 2 , Globals.ScreenHeight / 2 + _buttonTexture.Height + buttonSpacing),
                 Text = "Settings",
                 leftClick = new EventHandler(ButtonSettings_Click),
                 Layer = 0.3f
             };
-            _exitButton = new Button(_buttonTexture, _buttonFont)
+            _exitButton = new Button(_buttonTexture)
             {
-                Position = new Vector2(GlobalSettings.ScreenWidth / 2 , GlobalSettings.ScreenHeight / 2  + (_buttonTexture.Height + buttonSpacing)*2),
+                Position = new Vector2(Globals.ScreenWidth / 2 , Globals.ScreenHeight / 2  + (_buttonTexture.Height + buttonSpacing)*2),
                 Text = "Exit Game",
                 leftClick = new EventHandler(ButtonExit_Click),
                 Layer = 0.3f
@@ -103,7 +101,7 @@ namespace PO_game.Src.States
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(0,0,GlobalSettings.ScreenWidth,GlobalSettings.ScreenHeight), Color.White);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(0,0,Globals.ScreenWidth,Globals.ScreenHeight), Color.White);
             _startButton.Draw(spriteBatch);
             _settingsButton.Draw(spriteBatch);
             _exitButton.Draw(spriteBatch);
