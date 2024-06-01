@@ -19,10 +19,6 @@ namespace PO_game.Src.States
         private InputController _inputController;
         private Camera _camera;
         private Player _player;
-        private Inventory _inventory;
-        private HealthPotion _medpot; //temporary
-        private Weapon _dagger; //temporary
-        private Weapon _mace; //temporary
         private Matrix _transformMatrix;
         private Matrix _scaleMatrix;
         private Matrix _originTranslationMatrix;
@@ -71,17 +67,17 @@ namespace PO_game.Src.States
         }
         public override void LoadContent()
         {
+            var inventoryTexture = content.Load<Texture2D>("inv_slot_grey");
+            var playerTexture = content.Load<Texture2D>("playerxd");
             if (_loadingFromSave)
             {
                 _playerStats = LoadGame();
-                var playerTexture = content.Load<Texture2D>("playerxd");
-                _player = new Player(new Sprite(playerTexture, _playerStats.Position.ToVector2()));
+                _player = new Player(new Sprite(playerTexture, _playerStats.position.ToVector2()), new Inventory(inventoryTexture, _player));
             }
             else
             {
                 var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
-                var playerTexture = content.Load<Texture2D>("playerxd");
-                _player = new Player(new Sprite(playerTexture, playerPosition));
+                _player = new Player(new Sprite(playerTexture, playerPosition), new Inventory(inventoryTexture, _player));
             }
 
             var mapLayer1 = "../../../Content/placeholder_map_with_collisions_layer1.csv";
@@ -91,7 +87,7 @@ namespace PO_game.Src.States
 
             var enemyPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2 - 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var enemyTexture1 = content.Load<Texture2D>("playerxd");
-            var enemy1 = new Enemy(new Sprite(enemyTexture1, enemyPosition1));
+            var enemy1 = new Enemy(new Sprite(enemyTexture1, enemyPosition1), 50);
             _enemies.Add(enemy1);
             
             var npcPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2  + 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
@@ -112,10 +108,6 @@ namespace PO_game.Src.States
                 leftClick = new EventHandler(ChangeStateButton_Click),
                 Layer = 0.3f
             };
-            _inventory = new Inventory(content.Load<Texture2D>("inv_slot_grey"), _player);
-            _medpot = new HealthPotion(content.Load<Texture2D>("medium_health_potion"), "Medium HP Potion", "Potion Restores 10 hp", "uncommon", 10, 1,_player);
-            _dagger = new Weapon(content.Load<Texture2D>("dagger"), "Dagger", "A simple dagger", "common", 1, 10, _player);
-            _mace = new Weapon(content.Load<Texture2D>("mace"), "Mace", "A simple mace", "common", 4, 8, _player);
         }   
 
         private bool CheckWarp()
@@ -132,8 +124,8 @@ namespace PO_game.Src.States
         {
             _playerStats = new StatsToSave();
             {
-                _playerStats.Position = new Vector2Data(_player.Sprite.Position);
-                _playerStats.Name = "Player";
+                _playerStats.position = new Vector2Data(_player.Sprite.Position);
+                _playerStats.name = "Player";
             }
             SaveGame(_playerStats);
             StateManager.Instance.RemoveState();
@@ -158,28 +150,6 @@ namespace PO_game.Src.States
             Matrix translationMatrix = _camera.Transform;
             _transformMatrix =  translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
-            
-            if (_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
-            {
-                _inventory.showInventory = !_inventory.showInventory;
-                
-            }
-            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))//temporary
-            {
-                _inventory.AddItem(_medpot);
-            }
-            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))//temporary
-            {
-                _inventory.AddItem(_mace);
-            }
-            if(_inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))//temporary
-            {
-                _inventory.AddItem(_dagger);
-            }
-            if (_inventory.showInventory)
-            {
-                _inventory.Update();
-            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -195,12 +165,9 @@ namespace PO_game.Src.States
                 enemy.Draw(spriteBatch);
             }
             spriteBatch.End();
-            spriteBatch.Begin();//?????
+            spriteBatch.Begin();
             _changeStateButton.Draw(spriteBatch);
-            if (_inventory.showInventory)
-            {
-                _inventory.Draw(spriteBatch);
-            }
+            _player.inventory.Draw(spriteBatch);
             spriteBatch.End();
         }
         

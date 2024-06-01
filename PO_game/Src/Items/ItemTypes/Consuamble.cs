@@ -12,7 +12,7 @@ namespace PO_game.Src.Items{
     public abstract class Consumable: Item{
 
         public int Quantity { get; set; }
-        public Consumable(Texture2D texture, string name, string description, string rarity,int quantity, Player player): base(texture, name, description, rarity, player){
+        public Consumable(Texture2D texture, string name, string description, string rarity,int quantity, Character character): base(texture, name, description, rarity, character){
             Quantity = quantity;
         }
         public abstract void Use();

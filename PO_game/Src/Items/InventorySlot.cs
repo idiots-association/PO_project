@@ -21,13 +21,12 @@ namespace PO_game.Src.Inv{
         private Texture2D _texture;
         private MouseState currentMouse;
         private MouseState prevMouse;
-
-        public Player player { get; set; }
+        public Player player;
         public InventorySlot(int id,Texture2D texture,Item item, Player player){
             this.id = id;
             this.item = item;
             _texture = texture;
-            this.player = player;
+            this.player = player;  
         }
 
         public Vector2 Origin 
@@ -60,7 +59,6 @@ namespace PO_game.Src.Inv{
             {
                 if(currentMouse.RightButton == ButtonState.Released && prevMouse.RightButton == ButtonState.Pressed)
                 {
-                    Console.WriteLine("Clicked on slot " + id);
                     item = null;
                 }
                 if (currentMouse.LeftButton == ButtonState.Released && prevMouse.LeftButton == ButtonState.Pressed)
@@ -69,7 +67,6 @@ namespace PO_game.Src.Inv{
                     {
                         case Consumable:
                             Consumable tempConsumable = (Consumable)item;
-                            Console.WriteLine("Consumable used" + tempConsumable.Quantity);
                             tempConsumable.Use();
                             if (tempConsumable.Quantity == 0)
                             {
@@ -81,6 +78,7 @@ namespace PO_game.Src.Inv{
                             }
                             break;
                         case Weapon:
+                            Console.WriteLine(item.Name);
                             Weapon tempWeapon = (Weapon)item;
                             if (player.weapon != null)
                             {
