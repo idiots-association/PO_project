@@ -8,6 +8,7 @@ using PO_game.Src.Utils;
 using System;
 using System.IO;
 using System.Text.Json;
+using PO_game.Src.Items.Consumables;
 
 namespace PO_game.Src.States
 {
@@ -117,7 +118,7 @@ namespace PO_game.Src.States
             var loadedStats = JsonSerializer.Deserialize<StatsToSave>(serializedStats);
 
             var playerTexture = content.Load<Texture2D>("Sprites/playerxd");
-            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2());
+            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(), new Inventory(inventoryTexture, _player));
 
             MapManager.SetCurrentMap(loadedStats.CurrentMapId);
         }
@@ -126,7 +127,7 @@ namespace PO_game.Src.States
         {
             var playerPosition = new Vector2(10, 10);
             var playerTexture = content.Load<Texture2D>("Sprites/playerxd");
-            _player = new Player(new Sprite(playerTexture), playerPosition);
+            _player = new Player(new Sprite(playerTexture), playerPosition, new Inventory(inventoryTexture, _player));
             MapManager.SetCurrentMap(MapId.Lobby);
         }
 
@@ -135,7 +136,7 @@ namespace PO_game.Src.States
         {
             LoadMaps();
             _buttonTexture = content.Load<Texture2D>("Others/startButton");
-
+            var inventoryTexture = content.Load<Texture2D>("inv_slot_grey");
 
             if (_loadingFromSave)
             {
@@ -169,7 +170,6 @@ namespace PO_game.Src.States
             Matrix translationMatrix = _camera.Transform;
             _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
-
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -180,6 +180,7 @@ namespace PO_game.Src.States
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _changeStateButton.Draw(spriteBatch);
+            _player.inventory.Draw(spriteBatch);
             spriteBatch.End();
         }
 

@@ -8,6 +8,10 @@ namespace PO_game.Src.Entities
     {
         public Sprite Sprite { get; set; }
         public CharacterState State { get; set; }
+        public int maxHealth { get; set; }
+        public int health { get; set; }
+        public int maxMana { get; set; }
+        public int mana { get; set; }
         public Vector2 TilePosition { get; set; }
 
 
@@ -21,8 +25,13 @@ namespace PO_game.Src.Entities
                 TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
             State = CharacterState.Idle;
         }
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+        }
 
         public virtual void Update(GameTime gameTime) { }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Sprite.Texture, Sprite.Position, Color.White);

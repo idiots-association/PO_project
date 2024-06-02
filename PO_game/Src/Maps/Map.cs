@@ -7,6 +7,11 @@ using PO_game.Src.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using PO_game.Src.Utils;
+using Microsoft.Xna.Framework.Input;
 
 namespace PO_game.Src.Maps
 {
@@ -58,7 +63,7 @@ namespace PO_game.Src.Maps
 
         public Dictionary<Vector2, int> GetCollisionsMap()
         {
-            return _collisions;
+           return _collisions;
         }
 
 
@@ -69,7 +74,7 @@ namespace PO_game.Src.Maps
         }
 
         public Dictionary<Vector2, int> LoadMap(string filename)
-        {
+        { 
             Dictionary<Vector2, int> result = new();
 
             StreamReader reader = new(filename);

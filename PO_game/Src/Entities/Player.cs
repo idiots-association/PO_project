@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PO_game.Src.Inv;
+using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using System.Collections.Generic;
 
@@ -9,9 +11,15 @@ namespace PO_game.Src.Entities
     public class Player : Character
     {
         private Vector2 _destination;
-
-        public Player(Sprite sprite, Vector2 tilePosition) : base(sprite, tilePosition)
+        public Weapon weapon { get; set; }
+        public Inventory inventory { get; set; }
+        public Player(Sprite sprite, Vector2 tilePosition, Inventory inventory) : base(sprite, tilePosition)
         {
+            this.inventory = inventory;
+            maxHealth = 100;
+            maxMana = 100;
+            health = maxHealth;  //should not be like that
+            mana = maxMana;     //need to change it after a proper fighting implementation is done
             _destination = Sprite.Position;
         }
 
@@ -151,12 +159,43 @@ namespace PO_game.Src.Entities
             }
 
         }
-
-
+        public void Attack (Enemy enemy)
+        {
+            if (weapon != null)
+            {
+                weapon.Attack(enemy);
+            }
+            else
+            {
+                Random random = new Random();
+                enemy.health -= random.Next(2,4);
+            }
+        }
 
         public void Update(GameTime gameTime, InputController inputController, Dictionary<Vector2, int> collisionMap)
         {
             MovePlayer(gameTime, inputController, collisionMap);
+            if (inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
+            {
+                inventory.showInventory = !inventory.showInventory;
+                
+            }
+            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))//temporary
+            // {
+            //     inventory.AddItem(_medpot);
+            // }
+            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))//temporary
+            // {
+            //     inventory.AddItem(_mace);
+            // }
+            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))//temporary
+            // {
+            //     inventory.AddItem(_dagger);
+            // }
+            if (inventory.showInventory)
+            {
+                inventory.Update();
+            }
             //base.Update(gameTime);
         }
 
