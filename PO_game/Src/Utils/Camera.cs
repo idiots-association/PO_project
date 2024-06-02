@@ -1,18 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using PO_game.Src.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PO_game.Src.Entities;
 
-namespace PO_game.Src
+namespace PO_game.Src.Utils
 {
     public class Camera
     {
         public Matrix Transform { get; private set; }
 
-        public void Follow (Player player)
+        public void Follow(Player player)
         {
             var position = Matrix.CreateTranslation(
                                -player.Sprite.Position.X - player.Sprite.Texture.Width / 2,
@@ -20,8 +15,8 @@ namespace PO_game.Src
                                0);
 
             var offset = Matrix.CreateTranslation(
-                               GlobalSettings.ScreenWidth / 2,
-                               GlobalSettings.ScreenHeight / 2,
+                               Globals.ScreenWidth / 2,
+                               Globals.ScreenHeight / 2,
                                0);
 
             Transform = position * offset;

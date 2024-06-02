@@ -1,29 +1,28 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PO_game.Src.Entities;
 using System;
-using PO_game.Src;
-using PO_game.Src.Utils;
-using PO_game.Src.Controls;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-namespace PO_game.Src.Items{
-    public class Weapon: Item{
+namespace PO_game.Src.Items
+{
+    public class Weapon : Item
+    {
         public int minDamage { get; set; }
         public int maxDamage { get; set; }
-        public Weapon(Texture2D texture, string name, string description, string rarity, int mindamage, int maxdamage, Character character): base(texture, name, description, rarity,character){
+        public Weapon(Texture2D texture, string name, string description, string rarity, int mindamage, int maxdamage, Character character) : base(texture, name, description, rarity, character)
+        {
             minDamage = mindamage;
             maxDamage = maxdamage;
         }
-        public void Attack(Character target){
+        public void Attack(Character target)
+        {
             Random rand = new Random();
             int damage = rand.Next(minDamage, maxDamage);
             target.TakeDamage(damage);
         }
 
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position){
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position)
+        {
             spriteBatch.Draw(Texture, position, Color.White);
         }
     }

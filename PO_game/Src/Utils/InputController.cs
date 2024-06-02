@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 
 namespace PO_game.Src.Utils
 {
     public class InputController
-    {    
+    {
         private KeyboardState _oldKeyboardState, _currentKeyboardState;
-        
+
         public InputController(KeyboardState oldKeyboardState, KeyboardState currentKeyboardState)
         {
             _oldKeyboardState = oldKeyboardState;

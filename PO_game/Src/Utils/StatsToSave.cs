@@ -1,6 +1,5 @@
-using System.Numerics;
+using PO_game.Src.Maps;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
-using PO_game.Src.Inv;
 
 namespace PO_game.Src.Utils;
 
@@ -25,6 +24,7 @@ public class Vector2Data
 
 public class StatsToSave
 {
-    public Vector2Data position { get; set; }
-    public string name { get; set; }
+    public Vector2Data Position { get; set; }
+    public string Name { get; set; }
+    public MapId CurrentMapId { get; set; }
 }

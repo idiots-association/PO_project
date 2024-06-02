@@ -1,16 +1,13 @@
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Items;
 
-namespace PO_game.Src;
+namespace PO_game.Src.Entities;
 
 public class Enemy : Character
 {
     public Weapon weapon { get; set; }
     public bool IsDead { get; set; }
-    public Enemy(Sprite sprite, int maxHealth) : base(sprite)
+    public Enemy(Sprite sprite, Vector2 tilePosition, int maxHealth) : base(sprite, tilePosition)
     {
         this.maxHealth = maxHealth;
         health = maxHealth;

@@ -1,8 +1,10 @@
-﻿namespace PO_game.Src
+﻿using System.Numerics;
+
+namespace PO_game.Src.Entities
 {
     public class NPC : Character
     {
-        public NPC(Sprite sprite) : base(sprite)
+        public NPC(Sprite sprite, Vector2 tilePosition) : base(sprite, tilePosition)
         {
         }
     }
