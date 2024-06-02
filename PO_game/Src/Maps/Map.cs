@@ -1,15 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using PO_game.Src.Entities;
+using PO_game.Src.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using PO_game.Src.Utils;
-using Microsoft.Xna.Framework.Input;
-using PO_game.Src.Entities;
-using System.Diagnostics;
 
 namespace PO_game.Src.Maps
 {
@@ -31,7 +28,7 @@ namespace PO_game.Src.Maps
 
         private Tuple<MapId, Vector2> GetWarpDestination(Player player)
         {
-            if(Warps.Lobby.ContainsKey(player.TilePosition))
+            if (Warps.Lobby.ContainsKey(player.TilePosition))
             {
                 return Warps.Lobby[player.TilePosition];
             }
@@ -108,7 +105,7 @@ namespace PO_game.Src.Maps
                     Globals.TileSize
                     );
 
-                int x = tile.Value % (tileset.Width / (Globals.TileSize)); 
+                int x = tile.Value % (tileset.Width / (Globals.TileSize));
                 int y = tile.Value / (tileset.Width / (Globals.TileSize));
 
                 Rectangle srect = new(

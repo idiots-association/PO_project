@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PO_game.Src.Maps
 {
@@ -70,8 +67,8 @@ namespace PO_game.Src.Maps
         }
 
         public void ClearMaps()
-        { 
-           _maps.Clear();
+        {
+            _maps.Clear();
         }
     }
 }

@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PO_game.Src.Utils;
+using System;
 
 namespace PO_game.Src.Controls
 {
@@ -23,28 +20,30 @@ namespace PO_game.Src.Controls
         public float Layer { get; set; }
         public Vector2 Position { get; set; }
         public string Text { get; set; }
-        private Vector2 _origin 
-        { get
+        private Vector2 _origin
+        {
+            get
             {
-                return new Vector2(_texture.Width/2, _texture.Height/2);
+                return new Vector2(_texture.Width / 2, _texture.Height / 2);
             }
         }
-        
+
 
         private Rectangle _rectangle
-        {  get
+        {
+            get
             {
-                return new Rectangle((int)Position.X - (int)_origin.X , (int)Position.Y - (int)_origin.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X - (int)_origin.X, (int)Position.Y - (int)_origin.Y, _texture.Width, _texture.Height);
             }
         }
 
-       
+
 
         public Button(Texture2D texture)
         {
             _texture = texture;
         }
-   
+
         public void Update()
         {
             _prevMouse = _currentMouse;
@@ -54,15 +53,15 @@ namespace PO_game.Src.Controls
 
             _isHovering = false;
 
-            if(mouseRectangle.Intersects(_rectangle))
+            if (mouseRectangle.Intersects(_rectangle))
             {
                 _isHovering = true;
 
-                if(_currentMouse.LeftButton == ButtonState.Released && _prevMouse.LeftButton == ButtonState.Pressed)
+                if (_currentMouse.LeftButton == ButtonState.Released && _prevMouse.LeftButton == ButtonState.Pressed)
                 {
                     leftClick?.Invoke(this, new EventArgs());
                 }
-                if(_currentMouse.RightButton == ButtonState.Released && _prevMouse.RightButton == ButtonState.Pressed)
+                if (_currentMouse.RightButton == ButtonState.Released && _prevMouse.RightButton == ButtonState.Pressed)
                 {
                     rightClick?.Invoke(this, new EventArgs());
                 }
@@ -71,7 +70,7 @@ namespace PO_game.Src.Controls
         public void Draw(SpriteBatch spriteBatch)
         {
             var color = Color.Gray;
-            
+
             if (_isHovering)
                 color = Color.DarkGray;
 

@@ -1,19 +1,17 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using PO_game.Src.Utils;
 using PO_game.Src.Controls;
-using System.Collections.Generic;
-using System.Diagnostics;
+using PO_game.Src.Entities;
+using PO_game.Src.Maps;
+using PO_game.Src.Utils;
+using System;
 using System.IO;
 using System.Text.Json;
-using PO_game.Src.Maps;
-using PO_game.Src.Entities;
 
 namespace PO_game.Src.States
 {
-    public class GameState: State
+    public class GameState : State
     {
         private InputController _inputController;
         private Camera _camera;
@@ -57,7 +55,8 @@ namespace PO_game.Src.States
 
 
 
-        public GameState(ContentManager content, int save): base(content){
+        public GameState(ContentManager content, int save) : base(content)
+        {
             _inputController = new InputController();
             _camera = new Camera();
             _scaleMatrix = Matrix.CreateScale(Globals.Scale);
@@ -92,7 +91,7 @@ namespace PO_game.Src.States
         }
         private void UnloadGame()
         {
-             MapManager.Instance.ClearMaps();
+            MapManager.Instance.ClearMaps();
             _player = null;
             _camera = null;
             _inputController = null;
@@ -155,20 +154,20 @@ namespace PO_game.Src.States
                 Layer = 0.3f
             };
         }
-    
+
         public override void Update(GameTime gameTime)
         {
             _inputController.Update();
             var collisionMap = MapManager.Instance.GetMap(MapManager.CurrentMap).GetCollisionsMap();
             _player.Update(gameTime, _inputController, collisionMap);
-        //    Console.Write(_player.TilePosition); 
-        //    Console.WriteLine(_player.Sprite.Position);
+            //    Console.Write(_player.TilePosition); 
+            //    Console.WriteLine(_player.Sprite.Position);
 
             MapManager.Instance.GetMap(MapManager.CurrentMap).Update(gameTime, _inputController, _player);
             _camera.Follow(_player);
 
             Matrix translationMatrix = _camera.Transform;
-            _transformMatrix =  translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
+            _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
 
         }

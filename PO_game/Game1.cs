@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PO_game.Src;
 using PO_game.Src.States;
 using PO_game.Src.Utils;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text.Json;
 
 namespace PO_game
 {
@@ -45,7 +41,7 @@ namespace PO_game
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();  
+                Exit();
 
             StateManager.Instance.GetCurrentState().Update(gameTime);
 

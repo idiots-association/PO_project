@@ -1,21 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
 using PO_game.Src.States;
 using PO_game.Src.Utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
-public class LoadGameState: State
+public class LoadGameState : State
 {
     private Texture2D _buttonTexture;
     private List<Button> _buttons;
     private Button _exitButton;
     private int buttonSpacing = 20;
 
-    public LoadGameState(ContentManager content): base(content){}
+    public LoadGameState(ContentManager content) : base(content) { }
 
     public override void LoadContent()
     {
@@ -28,7 +28,7 @@ public class LoadGameState: State
         {
             var button = new Button(_buttonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2 , _buttonTexture.Height + i * (_buttonTexture.Height + buttonSpacing)),
+                Position = new Vector2(Globals.ScreenWidth / 2, _buttonTexture.Height + i * (_buttonTexture.Height + buttonSpacing)),
                 Text = "Empty Slot",
                 Layer = 0.3f
             };
@@ -79,10 +79,10 @@ public class LoadGameState: State
 
             _buttons.Add(button);
         }
-        
+
         _exitButton = new Button(_buttonTexture)
         {
-            Position = new Vector2(_buttonTexture.Width/2, _buttonTexture.Height/2),
+            Position = new Vector2(_buttonTexture.Width / 2, _buttonTexture.Height / 2),
             Text = "Return to Menu",
             leftClick = new EventHandler(Exit_Buttom_Click),
             Layer = 0.3f
@@ -153,7 +153,7 @@ public class LoadGameState: State
             //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
         }
     }
-    
+
     public void Safe1_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save1.json"))
@@ -167,7 +167,7 @@ public class LoadGameState: State
             //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
         }
     }
-    
+
     public void Safe2_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save2.json"))
@@ -181,7 +181,7 @@ public class LoadGameState: State
             //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
         }
     }
-    
+
     public void Safe3_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save3.json"))
@@ -195,7 +195,7 @@ public class LoadGameState: State
             //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
         }
     }
-    
+
     public void Safe4_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save4.json"))
@@ -209,7 +209,7 @@ public class LoadGameState: State
             //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
         }
     }
-    
+
     public void Safe5_right_Click(object sender, EventArgs e)
     {
         if (File.Exists("save5.json"))
@@ -223,7 +223,7 @@ public class LoadGameState: State
             //trzeba zaimplementować wyświetlanie komunikatu o braku zapisu
         }
     }
-    
+
     public void Exit_Buttom_Click(object sender, EventArgs e)
     {
         StateManager.Instance.RemoveState();

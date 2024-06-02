@@ -1,5 +1,4 @@
 using PO_game.Src.Maps;
-using System.Numerics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace PO_game.Src.Utils;
