@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using PO_game.Src.Utils;
 using Microsoft.Xna.Framework.Input;
+using PO_game.Src.Entities;
+using System.Diagnostics;
 
 namespace PO_game.Src.Maps
 {
@@ -17,11 +19,35 @@ namespace PO_game.Src.Maps
         private Dictionary<Vector2, int> _collisions;
         private Texture2D _tileset;
         private Texture2D _collisionTileset;
+
+
         private void ShowCollisions(InputController inputController)
         {
             if (inputController.isKeyPressed(Keys.C))
             {
                 Globals.ShowCollisions = !Globals.ShowCollisions;
+            }
+        }
+
+        private Tuple<MapId, Vector2> GetWarpDestination(Player player)
+        {
+            if(Warps.Lobby.ContainsKey(player.TilePosition))
+            {
+                return Warps.Lobby[player.TilePosition];
+            }
+            return null;
+        }
+
+        private void CheckWarpCollision(Player player)
+        {
+            if (_collisions.ContainsKey(player.TilePosition) && _collisions[player.TilePosition] == 1)
+            {
+                var warp = GetWarpDestination(player);
+                if (warp != null)
+                {
+                    MapManager.Instance.SetCurrentMap(warp.Item1);
+                    player.UpdatePosition(warp.Item2);
+                }
             }
         }
 
@@ -39,9 +65,10 @@ namespace PO_game.Src.Maps
         }
 
 
-        public void Update(GameTime gameTime, InputController inputController)
+        public void Update(GameTime gameTime, InputController inputController, Player player)
         {
             ShowCollisions(inputController);
+            CheckWarpCollision(player);
         }
 
         public Dictionary<Vector2, int> LoadMap(string filename)
@@ -81,14 +108,14 @@ namespace PO_game.Src.Maps
                     Globals.TileSize
                     );
 
-                int x = tile.Value % (tileset.Width / Globals.TileSize);
-                int y = tile.Value / (tileset.Width / Globals.TileSize);
+                int x = tile.Value % (tileset.Width / (Globals.TileSize)); 
+                int y = tile.Value / (tileset.Width / (Globals.TileSize));
 
                 Rectangle srect = new(
                     x * Globals.TileSize,
                     y * Globals.TileSize,
-                    Globals.TileSize - 1, // resolves random lines on the screen, temp solution
-                    Globals.TileSize - 1 // - ,, -
+                    Globals.TileSize,
+                    Globals.TileSize
                     );
 
                 spriteBatch.Draw(tileset, drect, srect, Color.White);

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using PO_game.Src.Maps;
+using PO_game.Src.Entities;
 
 namespace PO_game.Src.States
 {
@@ -22,13 +23,10 @@ namespace PO_game.Src.States
         private Matrix _scaleMatrix;
         private Matrix _originTranslationMatrix;
         private Matrix _inverseOriginTranslationMatrix;
-        private Map _lobby;
-        private Dictionary<Vector2, int> collisionMap;
         private Button _changeStateButton;
         private Texture2D _buttonTexture;
         private string _savePath;
         private bool _loadingFromSave;
-        private Vector2 _playerTile;
 
         private string GenerateSavePath(int save)
         {
@@ -82,11 +80,15 @@ namespace PO_game.Src.States
 
         private void LoadMaps()
         {
-            var lobby_map = "../../../Content/Maps/Lobby/MapWithPath";
             var tileset = "POtileset";
-            _lobby = new Map(lobby_map, tileset, content);
 
-            MapManager.Instance.AddMap(MapId.Lobby, _lobby);
+            var lobby_csv = "../../../Content/Maps/Lobby/MapWithPath";
+            var lobby_map = new Map(lobby_csv, tileset, content);
+            MapManager.Instance.AddMap(MapId.Lobby, lobby_map);
+
+            var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
+            var playerPath_map = new Map(playerPath_csv, tileset, content);
+            MapManager.Instance.AddMap(MapId.PlayerPath, playerPath_map);
         }
         private void UnloadGame()
         {
@@ -159,13 +161,10 @@ namespace PO_game.Src.States
             _inputController.Update();
             var collisionMap = MapManager.Instance.GetMap(MapManager.CurrentMap).GetCollisionsMap();
             _player.Update(gameTime, _inputController, collisionMap);
-            _playerTile = new Vector2(    // tmp
-                (int)(_player.Sprite.Position.X / Globals.TileSize), 
-                (int)((_player.Sprite.Position.Y + _player.Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
-            );
+        //    Console.Write(_player.TilePosition); 
+        //    Console.WriteLine(_player.Sprite.Position);
 
-
-            MapManager.Instance.GetMap(MapManager.CurrentMap).Update(gameTime, _inputController);
+            MapManager.Instance.GetMap(MapManager.CurrentMap).Update(gameTime, _inputController, _player);
             _camera.Follow(_player);
 
             Matrix translationMatrix = _camera.Transform;
@@ -175,14 +174,16 @@ namespace PO_game.Src.States
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(transformMatrix:_transformMatrix);
+            spriteBatch.Begin(transformMatrix: _transformMatrix, samplerState: SamplerState.PointClamp);
             MapManager.Instance.GetMap(MapManager.CurrentMap).Draw(spriteBatch);
             _player.Draw(spriteBatch);
             spriteBatch.End();
-            spriteBatch.Begin();
+
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _changeStateButton.Draw(spriteBatch);
             spriteBatch.End();
         }
+
 
     }
 }

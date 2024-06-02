@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using PO_game.Src.Utils;
 using System.Collections.Generic;
 
-namespace PO_game.Src
+namespace PO_game.Src.Entities
 {
     public class Player : Character
     {
@@ -29,7 +29,7 @@ namespace PO_game.Src
 
         private void AddPlayerPositionToCollisionMap(Vector2 playerTile, Dictionary<Vector2, int> collisionMap)
         {
-            collisionMap[TilePosition] = (collisionMap.ContainsKey(TilePosition) && collisionMap[TilePosition] > (int)Collision.NoColission) ? collisionMap[TilePosition] : (int)Collision.PlayerCollision;
+            collisionMap[TilePosition] = collisionMap.ContainsKey(TilePosition) && collisionMap[TilePosition] > (int)Collision.NoColission ? collisionMap[TilePosition] : (int)Collision.PlayerCollision;
         }
 
 
@@ -39,16 +39,16 @@ namespace PO_game.Src
                 (int)(Sprite.Position.X / Globals.TileSize),
                 (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
             );
-            switch(State)
+            switch (State)
             {
                 case CharacterState.Idle:
                     if (inputController.IsKeyDown(Keys.W) || inputController.IsKeyDown(Keys.Up))
-                    { 
+                    {
                         TilePosition = new Vector2(
-                            (int)(Sprite.Position.X / Globals.TileSize), 
+                            (int)(Sprite.Position.X / Globals.TileSize),
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize) - 1
                             );
-                        if (!(collisionMap.ContainsKey(TilePosition)) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingUp;
@@ -59,10 +59,10 @@ namespace PO_game.Src
                     else if (inputController.IsKeyDown(Keys.S) || inputController.IsKeyDown(Keys.Down))
                     {
                         TilePosition = new Vector2(
-                            (int)(Sprite.Position.X / Globals.TileSize), 
+                            (int)(Sprite.Position.X / Globals.TileSize),
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize) + 1
                             );
-                        if (!(collisionMap.ContainsKey(TilePosition)) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingDown;
@@ -73,10 +73,10 @@ namespace PO_game.Src
                     else if (inputController.IsKeyDown(Keys.A) || inputController.IsKeyDown(Keys.Left))
                     {
                         TilePosition = new Vector2(
-                            (int)(Sprite.Position.X / Globals.TileSize) - 1, 
-                            (int)((Sprite.Position.Y + Sprite.Position.Y%Globals.TileSize) / Globals.TileSize)
+                            (int)(Sprite.Position.X / Globals.TileSize) - 1,
+                            (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
                             );
-                        if (!(collisionMap.ContainsKey(TilePosition)) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingLeft;
@@ -87,10 +87,10 @@ namespace PO_game.Src
                     else if (inputController.IsKeyDown(Keys.D) || inputController.IsKeyDown(Keys.Right))
                     {
                         TilePosition = new Vector2(
-                            (int)(Sprite.Position.X / Globals.TileSize) + 1, 
+                            (int)(Sprite.Position.X / Globals.TileSize) + 1,
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
                             );
-                        if (!(collisionMap.ContainsKey(TilePosition)) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingRight;
@@ -101,7 +101,7 @@ namespace PO_game.Src
                     break;
 
                 case CharacterState.MovingUp:
-                    if(Sprite.Position.Y - (Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds) < _destination.Y)
+                    if (Sprite.Position.Y - Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds < _destination.Y)
                     {
                         Sprite.Position = new Vector2(Sprite.Position.X, _destination.Y);
                         State = CharacterState.Idle;
@@ -113,7 +113,7 @@ namespace PO_game.Src
                     break;
 
                 case CharacterState.MovingDown:
-                    if(Sprite.Position.Y + (Globals.MoveSpeed * Globals.Scale *  gameTime.ElapsedGameTime.TotalMilliseconds) > _destination.Y)
+                    if (Sprite.Position.Y + Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds > _destination.Y)
                     {
                         Sprite.Position = new Vector2(Sprite.Position.X, _destination.Y);
                         State = CharacterState.Idle;
@@ -123,9 +123,9 @@ namespace PO_game.Src
                         Sprite.Position = new Vector2(Sprite.Position.X, Sprite.Position.Y + (int)(Globals.MoveSpeed * gameTime.ElapsedGameTime.TotalMilliseconds));
                     }
                     break;
-                
+
                 case CharacterState.MovingLeft:
-                    if(Sprite.Position.X - (Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds) < _destination.X)
+                    if (Sprite.Position.X - Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds < _destination.X)
                     {
                         Sprite.Position = new Vector2(_destination.X, Sprite.Position.Y);
                         State = CharacterState.Idle;
@@ -137,7 +137,7 @@ namespace PO_game.Src
                     break;
 
                 case CharacterState.MovingRight:
-                    if(Sprite.Position.X + (Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds) > _destination.X)
+                    if (Sprite.Position.X + Globals.MoveSpeed * Globals.Scale * gameTime.ElapsedGameTime.TotalMilliseconds > _destination.X)
                     {
                         Sprite.Position = new Vector2(_destination.X, Sprite.Position.Y);
                         State = CharacterState.Idle;
@@ -158,6 +158,15 @@ namespace PO_game.Src
         {
             MovePlayer(gameTime, inputController, collisionMap);
             //base.Update(gameTime);
+        }
+
+        public void UpdatePosition(Vector2 tilePosition)
+        {
+            TilePosition = tilePosition;
+            Sprite.Position = new Vector2(
+                TilePosition.X * Globals.TileSize + Globals.TileSize / 2 + Sprite.Texture.Width % Globals.TileSize,
+                TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
+            _destination = Sprite.Position;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
