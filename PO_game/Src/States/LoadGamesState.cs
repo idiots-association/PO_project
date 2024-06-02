@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,7 +18,39 @@ public class LoadGameState : State
     private SpriteFont _windowFont;
     private Window _window = null;
 
-    public LoadGameState(ContentManager content): base(content){}
+    public LoadGameState(ContentManager content) : base(content) { }
+
+    public void OkCancelClick(object sender, EventArgs e)
+    {
+        StateManager.Instance.RemoveState();
+        StateManager.Instance.AddState(new LoadGameState(content));
+    }
+
+    public void DeleteClick(int slot, object sender, EventArgs e)
+    {
+        File.Delete("save" + slot + ".json");
+        StateManager.Instance.RemoveState();
+        StateManager.Instance.AddState(new LoadGameState(content));
+    }
+
+    public void CreateWindow(int number_of_buttons, int slot)
+    {
+        _windowTexture = content.Load<Texture2D>("Others/ramka1");
+        _window = new Window(_windowTexture, content, number_of_buttons)
+        {
+            Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
+            Text = "Zapis jest pusty",
+            Layer = 0.2f,
+        };
+        _window._exitButton.leftClick += OkCancelClick;
+
+        if (number_of_buttons == 2)
+        {
+            _window._exitButton2.leftClick += (sender, e) => DeleteClick(slot, sender, e);
+            _window.Text = "Czy usunac zapis?";
+            _window._exitButton2.Text = "Tak usun";
+        }
+    }
 
     public override void LoadContent()
     {
@@ -30,7 +58,7 @@ public class LoadGameState : State
 
 
         _buttons = new List<Button>();
-       
+
         for (int i = 0; i < 5; i++)
         {
             var button = new Button(_buttonTexture)
@@ -105,7 +133,7 @@ public class LoadGameState : State
         }
         else
         {
-            CreateWindow(1,0);
+            CreateWindow(1, 0);
         }
     }
 
@@ -118,7 +146,7 @@ public class LoadGameState : State
         }
         else
         {
-            CreateWindow(1,0);
+            CreateWindow(1, 0);
         }
     }
 
@@ -160,24 +188,24 @@ public class LoadGameState : State
             CreateWindow(1, 0);
         }
     }
-    
+
     public void Save1RightClick(object sender, EventArgs e)
     {
-        
+
         if (File.Exists("save1.json"))
         {
             CreateWindow(2, 1);
         }
     }
-    
+
     public void Save2RightClick(object sender, EventArgs e)
     {
         if (File.Exists("save2.json"))
         {
-            CreateWindow(2 ,2);
+            CreateWindow(2, 2);
         }
     }
-    
+
     public void Save3RightClick(object sender, EventArgs e)
     {
         if (File.Exists("save3.json"))
@@ -185,7 +213,7 @@ public class LoadGameState : State
             CreateWindow(2, 3);
         }
     }
-    
+
     public void Delete4RightClick(object sender, EventArgs e)
     {
         if (File.Exists("save4.json"))
@@ -193,7 +221,7 @@ public class LoadGameState : State
             CreateWindow(2, 4);
         }
     }
-    
+
     public void Delete5RightClick(object sender, EventArgs e)
     {
         if (File.Exists("save5.json"))
@@ -201,7 +229,7 @@ public class LoadGameState : State
             CreateWindow(2, 5);
         }
     }
-    
+
     public void ExitButtonClick(object sender, EventArgs e)
     {
         StateManager.Instance.RemoveState();
@@ -209,18 +237,19 @@ public class LoadGameState : State
 
     public override void Update(GameTime gameTime)
     {
-       
+
         _exitButton.Update();
         if (_window != null)
         {
             _window.Update();
         }
-        else{ 
+        else
+        {
             foreach (var button in _buttons)
             {
                 button.Update();
             }
-            
+
         }
     }
 

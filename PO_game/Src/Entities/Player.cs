@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using PO_game.Src.Inv;
 using PO_game.Src.Items;
 using PO_game.Src.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace PO_game.Src.Entities
@@ -159,7 +160,7 @@ namespace PO_game.Src.Entities
             }
 
         }
-        public void Attack (Enemy enemy)
+        public void Attack(Enemy enemy)
         {
             if (weapon != null)
             {
@@ -168,7 +169,7 @@ namespace PO_game.Src.Entities
             else
             {
                 Random random = new Random();
-                enemy.health -= random.Next(2,4);
+                enemy.health -= random.Next(2, 4);
             }
         }
 
@@ -178,7 +179,7 @@ namespace PO_game.Src.Entities
             if (inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
             {
                 inventory.showInventory = !inventory.showInventory;
-                
+
             }
             // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))//temporary
             // {

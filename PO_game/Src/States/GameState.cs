@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
 using PO_game.Src.Entities;
+using PO_game.Src.Inv;
 using PO_game.Src.Maps;
 using PO_game.Src.Utils;
 using System;
 using System.IO;
 using System.Text.Json;
-using PO_game.Src.Items.Consumables;
 
 namespace PO_game.Src.States
 {
@@ -23,9 +23,10 @@ namespace PO_game.Src.States
         private Matrix _originTranslationMatrix;
         private Matrix _inverseOriginTranslationMatrix;
         private Button _changeStateButton;
-        private Texture2D _buttonTexture;
         private string _savePath;
         private bool _loadingFromSave;
+        private Texture2D _inventoryTexture;
+        private Texture2D _buttonTexture;
 
         private string GenerateSavePath(int save)
         {
@@ -89,6 +90,7 @@ namespace PO_game.Src.States
             var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
             var playerPath_map = new Map(playerPath_csv, tileset, content);
             MapManager.Instance.AddMap(MapId.PlayerPath, playerPath_map);
+
         }
         private void UnloadGame()
         {
@@ -118,7 +120,7 @@ namespace PO_game.Src.States
             var loadedStats = JsonSerializer.Deserialize<StatsToSave>(serializedStats);
 
             var playerTexture = content.Load<Texture2D>("Sprites/playerxd");
-            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(), new Inventory(inventoryTexture, _player));
+            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(), new Inventory(_inventoryTexture, _player));
 
             MapManager.SetCurrentMap(loadedStats.CurrentMapId);
         }
@@ -127,7 +129,7 @@ namespace PO_game.Src.States
         {
             var playerPosition = new Vector2(10, 10);
             var playerTexture = content.Load<Texture2D>("Sprites/playerxd");
-            _player = new Player(new Sprite(playerTexture), playerPosition, new Inventory(inventoryTexture, _player));
+            _player = new Player(new Sprite(playerTexture), playerPosition, new Inventory(_inventoryTexture, _player));
             MapManager.SetCurrentMap(MapId.Lobby);
         }
 
@@ -136,7 +138,7 @@ namespace PO_game.Src.States
         {
             LoadMaps();
             _buttonTexture = content.Load<Texture2D>("Others/startButton");
-            var inventoryTexture = content.Load<Texture2D>("inv_slot_grey");
+            _inventoryTexture = content.Load<Texture2D>("Items/inv_slot_grey");
 
             if (_loadingFromSave)
             {

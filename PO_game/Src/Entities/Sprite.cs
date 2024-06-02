@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PO_game.Src.Utils;
 
 namespace PO_game.Src.Entities
 {
