@@ -2,12 +2,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using PO_game.Src.Items;
+using PO_game.Src.Inv;
 using PO_game.Src.Utils;
 using PO_game.Src.Controls;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
+using PO_game.Src.Items.Consumables;
 
 namespace PO_game.Src.States
 {
@@ -64,17 +67,17 @@ namespace PO_game.Src.States
         }
         public override void LoadContent()
         {
+            var inventoryTexture = content.Load<Texture2D>("inv_slot_grey");
+            var playerTexture = content.Load<Texture2D>("playerxd");
             if (_loadingFromSave)
             {
                 _playerStats = LoadGame();
-                var playerTexture = content.Load<Texture2D>("playerxd");
-                _player = new Player(new Sprite(playerTexture, _playerStats.Position.ToVector2()));
+                _player = new Player(new Sprite(playerTexture, _playerStats.position.ToVector2()), new Inventory(inventoryTexture, _player));
             }
             else
             {
                 var playerPosition = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
-                var playerTexture = content.Load<Texture2D>("playerxd");
-                _player = new Player(new Sprite(playerTexture, playerPosition));
+                _player = new Player(new Sprite(playerTexture, playerPosition), new Inventory(inventoryTexture, _player));
             }
 
             var mapLayer1 = "../../../Content/placeholder_map_with_collisions_layer1.csv";
@@ -84,7 +87,7 @@ namespace PO_game.Src.States
 
             var enemyPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2 - 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
             var enemyTexture1 = content.Load<Texture2D>("playerxd");
-            var enemy1 = new Enemy(new Sprite(enemyTexture1, enemyPosition1));
+            var enemy1 = new Enemy(new Sprite(enemyTexture1, enemyPosition1), 50);
             _enemies.Add(enemy1);
             
             var npcPosition1 = new Vector2(GlobalSettings.ScreenWidth / 2 - GlobalSettings.TileSize / 2  + 40, GlobalSettings.ScreenHeight / 2 - GlobalSettings.TileSize / 2);
@@ -105,7 +108,7 @@ namespace PO_game.Src.States
                 leftClick = new EventHandler(ChangeStateButton_Click),
                 Layer = 0.3f
             };
-        }
+        }   
 
         private bool CheckWarp()
         {
@@ -121,8 +124,8 @@ namespace PO_game.Src.States
         {
             _playerStats = new StatsToSave();
             {
-                _playerStats.Position = new Vector2Data(_player.Sprite.Position);
-                _playerStats.Name = "Player";
+                _playerStats.position = new Vector2Data(_player.Sprite.Position);
+                _playerStats.name = "Player";
             }
             SaveGame(_playerStats);
             StateManager.Instance.RemoveState();
@@ -147,7 +150,6 @@ namespace PO_game.Src.States
             Matrix translationMatrix = _camera.Transform;
             _transformMatrix =  translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
-
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -165,6 +167,7 @@ namespace PO_game.Src.States
             spriteBatch.End();
             spriteBatch.Begin();
             _changeStateButton.Draw(spriteBatch);
+            _player.inventory.Draw(spriteBatch);
             spriteBatch.End();
         }
         

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
+using PO_game.Src.Items.Consumables;
 using PO_game.Src.Utils;
 
 namespace PO_game.Src.States;
@@ -12,14 +13,16 @@ namespace PO_game.Src.States;
         private Texture2D _playerTexture;
         private Texture2D _buttonTexture;
         private SpriteFont _buttonFont;
-        private Button _button1;
+        private Button _attackButton;
         private Button _button2;
         private Button _button3;
         private Button _button4;
         private int buttonSpacing = 20;
         private Player _player;
         private Enemy _enemy;
+        private bool _playerTurn = true;
         private Texture2D _enemyTexture;
+        private HealthPotion _medpot;
 
         public FightingState(ContentManager content, Player player, Enemy enemy) : base(content)
         {
@@ -32,13 +35,14 @@ namespace PO_game.Src.States;
             _enemyTexture = _enemy.Sprite.Texture;
             _buttonTexture = content.Load<Texture2D>("startButton");
             _buttonFont = content.Load<SpriteFont>("Arial"); 
+            _medpot = new HealthPotion(content.Load<Texture2D>("medium_health_potion"), "Health Potion", "Heals 50 health", "Common", 50, 1, _player);
             
-            _button1 = new Button(_buttonTexture, _buttonFont)
+            _attackButton = new Button(_buttonTexture, _buttonFont)
             {
                 Position = new Vector2(GlobalSettings.ScreenWidth/3 , GlobalSettings.ScreenHeight  - 
                                                                       buttonSpacing - _buttonTexture.Height - 40),
-                Text = "1",
-                leftClick = new EventHandler(Button1_Click),
+                Text = "Attack",
+                leftClick = new EventHandler(AttackClick),
                 Layer = 0.3f
             };
             
@@ -70,9 +74,11 @@ namespace PO_game.Src.States;
             };
         }
         
-        public void Button1_Click(object sender, EventArgs e)
+        public void AttackClick(object sender, EventArgs e)
         {
-            System.Console.WriteLine("Button 1 clicked");
+            _player.Attack(_enemy);
+            Console.WriteLine("Player attacked " + _enemy.health + " health left");
+            _playerTurn = false;
         }
         
         public void Button2_Click(object sender, EventArgs e)
@@ -94,10 +100,32 @@ namespace PO_game.Src.States;
         
         public override void Update(GameTime gameTime)
         {
-            _button1.Update();
-            _button2.Update();
-            _button3.Update();
-            _button4.Update();
+            if (_playerTurn)
+            {
+                _attackButton.Update();
+                _button2.Update();
+                _button3.Update();
+                _button4.Update();
+            }
+            else
+            {
+                _playerTurn = true;
+                _enemy.Attack(_player);
+                Console.WriteLine("Enemy attacked " + _player.health + " health left");
+            }
+            if (_player.health <= 0)
+            {
+                Console.WriteLine("Player died");
+                StateManager.Instance.RemoveState();
+            }
+            else if (_enemy.health <= 0)
+            {
+                Console.WriteLine("Enemy died");
+                _player.inventory.AddItem(_medpot);
+                _enemy.IsDead = true;
+                StateManager.Instance.RemoveState();
+            }
+            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -108,7 +136,7 @@ namespace PO_game.Src.States;
             spriteBatch.Draw(_playerTexture,
                 new Rectangle((int)(GlobalSettings.ScreenWidth / 1.33), GlobalSettings.ScreenHeight / 4, 100, 200),
                 Color.White);
-            _button1.Draw(spriteBatch);
+            _attackButton.Draw(spriteBatch);
             _button2.Draw(spriteBatch);
             _button3.Draw(spriteBatch);
             _button4.Draw(spriteBatch);
