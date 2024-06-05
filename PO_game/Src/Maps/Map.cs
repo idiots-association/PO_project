@@ -69,6 +69,8 @@ namespace PO_game.Src.Maps
                 _enemiesLocations = new Dictionary<Vector2, int>();
                 _enemies = new List<Enemy>();
             }
+
+            UpdateEnemyCollisions();
         }
 
         public Dictionary<Vector2, int> GetCollisionsMap()
@@ -83,7 +85,7 @@ namespace PO_game.Src.Maps
             CheckWarpCollision(player);
         }
 
-        public Dictionary<Vector2, int> LoadLayer(string filename)
+        private Dictionary<Vector2, int> LoadLayer(string filename)
         {
             Dictionary<Vector2, int> result = new();
 
@@ -127,6 +129,17 @@ namespace PO_game.Src.Maps
             return enemies;
         }
 
+        private void UpdateEnemyCollisions()
+        {
+            foreach(var enemy in _enemiesLocations)
+            {
+                if (enemy.Value > -1)
+                {
+                    _collisions.Add(enemy.Key, 0);
+                }
+            }
+        }
+
         private void DrawEnemies(SpriteBatch spriteBatch)
         {
             foreach (var enemy in _enemies)
@@ -160,14 +173,24 @@ namespace PO_game.Src.Maps
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Player player)
         {
             DrawLayer(_background, _tileset, spriteBatch);
             if (Globals.ShowCollisions)
             {
                 DrawLayer(_collisions, _collisionTileset, spriteBatch);
             }
-            DrawEnemies(spriteBatch);
+
+
+            List<Character> gameObjects = new List<Character>(_enemies);
+
+            gameObjects.Add(player);
+            gameObjects.Sort((a, b) => a.TilePosition.Y.CompareTo(b.TilePosition.Y));
+
+            foreach (Character gameObject in gameObjects)
+            {
+                gameObject.Draw(spriteBatch);
+            }
         }
 
     };
