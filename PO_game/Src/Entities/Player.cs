@@ -208,13 +208,5 @@ namespace PO_game.Src.Entities
                 TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
             _destination = Sprite.Position;
         }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            Vector2 position = new Vector2(Sprite.Position.X - Sprite.Texture.Width / 2f, Sprite.Position.Y - Sprite.Texture.Height / 2f + Sprite.Texture.Height / 2f);
-            spriteBatch.Draw(Sprite.Texture, position, Color.White);
-        }
-
-
     }
 }
