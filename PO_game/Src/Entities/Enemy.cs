@@ -35,7 +35,7 @@ namespace PO_game.Src.Entities
                     return null;
             }
 
-            return new Enemy(new Sprite(enemyTexture), tilePosition, (int)enemyType * 5 + 20);
+            return new Enemy(new Sprite(enemyTexture), tilePosition, (int)enemyType * 5 + 20); // temp, will handle this in cases above
         }
 
     }
