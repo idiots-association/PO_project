@@ -115,10 +115,14 @@ namespace PO_game.Src.Maps
 
             foreach (var enemy in _enemiesLocations)
             {
+                if (enemy.Value == -1)
+                    continue;
+
                 EnemyType enemyType = (EnemyType)enemy.Value;
                 Vector2 enemyPosition = enemy.Key;
                 enemies.Add(EnemyFactory.CreateEnemy(enemyType, enemyPosition, content));
             }
+
 
             return enemies;
         }
