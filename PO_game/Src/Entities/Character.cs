@@ -34,7 +34,8 @@ namespace PO_game.Src.Entities
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite.Texture, Sprite.Position, Color.White);
+            Vector2 position = new Vector2(Sprite.Position.X - Sprite.Texture.Width / 2f, Sprite.Position.Y - Sprite.Texture.Height / 2f + Sprite.Texture.Height / 2f);
+            spriteBatch.Draw(Sprite.Texture, position, Color.White);
         }
 
     }

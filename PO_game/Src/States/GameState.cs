@@ -176,8 +176,7 @@ namespace PO_game.Src.States
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix: _transformMatrix, samplerState: SamplerState.PointClamp);
-            MapManager.Instance.GetMap(MapManager.CurrentMap).Draw(spriteBatch);
-            _player.Draw(spriteBatch);
+            MapManager.Instance.GetMap(MapManager.CurrentMap).Draw(spriteBatch, _player);
             spriteBatch.End();
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);

@@ -38,73 +38,75 @@ namespace PO_game.Src.Entities
 
         private void AddPlayerPositionToCollisionMap(Vector2 playerTile, Dictionary<Vector2, int> collisionMap)
         {
-            collisionMap[TilePosition] = collisionMap.ContainsKey(TilePosition) && collisionMap[TilePosition] > (int)Collision.NoColission ? collisionMap[TilePosition] : (int)Collision.PlayerCollision;
+            collisionMap[playerTile] = collisionMap.ContainsKey(playerTile) && collisionMap[playerTile] > (int)Collision.NoColission ? collisionMap[playerTile] : (int)Collision.PlayerCollision;
         }
 
 
         public void MovePlayer(GameTime gameTime, InputController inputController, Dictionary<Vector2, int> collisionMap)
         {
-            TilePosition = new Vector2(
-                (int)(Sprite.Position.X / Globals.TileSize),
-                (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
-            );
+            var newTilePosition = TilePosition;
+
             switch (State)
             {
                 case CharacterState.Idle:
                     if (inputController.IsKeyDown(Keys.W) || inputController.IsKeyDown(Keys.Up))
                     {
-                        TilePosition = new Vector2(
+                        newTilePosition = new Vector2(
                             (int)(Sprite.Position.X / Globals.TileSize),
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize) - 1
                             );
-                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(newTilePosition) || collisionMap[newTilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingUp;
                             _destination.Y -= Globals.TileSize;
-                            AddPlayerPositionToCollisionMap(TilePosition, collisionMap);
+                            AddPlayerPositionToCollisionMap(newTilePosition, collisionMap);
+                            TilePosition = newTilePosition;
                         }
                     }
                     else if (inputController.IsKeyDown(Keys.S) || inputController.IsKeyDown(Keys.Down))
                     {
-                        TilePosition = new Vector2(
+                        newTilePosition = new Vector2(
                             (int)(Sprite.Position.X / Globals.TileSize),
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize) + 1
                             );
-                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(newTilePosition) || collisionMap[newTilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingDown;
                             _destination.Y += Globals.TileSize;
-                            AddPlayerPositionToCollisionMap(TilePosition, collisionMap);
+                            AddPlayerPositionToCollisionMap(newTilePosition, collisionMap);
+                            TilePosition = newTilePosition;
                         }
                     }
                     else if (inputController.IsKeyDown(Keys.A) || inputController.IsKeyDown(Keys.Left))
                     {
-                        TilePosition = new Vector2(
+                        newTilePosition = new Vector2(
                             (int)(Sprite.Position.X / Globals.TileSize) - 1,
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
                             );
-                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(newTilePosition) || collisionMap[newTilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingLeft;
                             _destination.X -= Globals.TileSize;
-                            AddPlayerPositionToCollisionMap(TilePosition, collisionMap);
+                            AddPlayerPositionToCollisionMap(newTilePosition, collisionMap);
+                            TilePosition = newTilePosition;
                         }
                     }
                     else if (inputController.IsKeyDown(Keys.D) || inputController.IsKeyDown(Keys.Right))
                     {
-                        TilePosition = new Vector2(
+                        newTilePosition = new Vector2(
                             (int)(Sprite.Position.X / Globals.TileSize) + 1,
                             (int)((Sprite.Position.Y + Sprite.Position.Y % Globals.TileSize) / Globals.TileSize)
                             );
-                        if (!collisionMap.ContainsKey(TilePosition) || collisionMap[TilePosition] != 0)
+                        if (!collisionMap.ContainsKey(newTilePosition) || collisionMap[newTilePosition] != 0)
                         {
                             RemoveOldPositionFromCollisionMap(collisionMap);
                             State = CharacterState.MovingRight;
                             _destination.X += Globals.TileSize;
-                            AddPlayerPositionToCollisionMap(TilePosition, collisionMap);
+                            AddPlayerPositionToCollisionMap(newTilePosition, collisionMap);
+                            TilePosition = newTilePosition;
                         }
                     }
                     break;
@@ -208,13 +210,5 @@ namespace PO_game.Src.Entities
                 TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
             _destination = Sprite.Position;
         }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            Vector2 position = new Vector2(Sprite.Position.X - Sprite.Texture.Width / 2f, Sprite.Position.Y - Sprite.Texture.Height / 2f + Sprite.Texture.Height / 2f);
-            spriteBatch.Draw(Sprite.Texture, position, Color.White);
-        }
-
-
     }
 }

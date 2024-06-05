@@ -15,8 +15,10 @@ namespace PO_game.Src.Maps
     {
         private Dictionary<Vector2, int> _background;
         private Dictionary<Vector2, int> _collisions;
+        private Dictionary<Vector2, int> _enemiesLocations;
         private Texture2D _tileset;
         private Texture2D _collisionTileset;
+        private List<Enemy> _enemies;
 
 
         private void ShowCollisions(InputController inputController)
@@ -51,10 +53,24 @@ namespace PO_game.Src.Maps
 
         public Map(string csv_map, string tileset, ContentManager content)
         {
-            _background = LoadMap(csv_map + "_Background.csv");
+            _background = LoadLayer(csv_map + "_Background.csv");
             _tileset = content.Load<Texture2D>("Tilesets/" + tileset);
-            _collisions = LoadMap(csv_map + "_Collisions.csv");
+            _collisions = LoadLayer(csv_map + "_Collisions.csv");
             _collisionTileset = content.Load<Texture2D>("Tilesets/collisions");
+
+            string enemiesCsvPath = csv_map + "_Enemies.csv";
+            if (File.Exists(enemiesCsvPath))
+            {
+                _enemiesLocations = LoadLayer(enemiesCsvPath);
+                _enemies = CreateEnemies(content);
+            }
+            else
+            {
+                _enemiesLocations = new Dictionary<Vector2, int>();
+                _enemies = new List<Enemy>();
+            }
+
+            UpdateEnemyCollisions();
         }
 
         public Dictionary<Vector2, int> GetCollisionsMap()
@@ -69,7 +85,7 @@ namespace PO_game.Src.Maps
             CheckWarpCollision(player);
         }
 
-        public Dictionary<Vector2, int> LoadMap(string filename)
+        private Dictionary<Vector2, int> LoadLayer(string filename)
         {
             Dictionary<Vector2, int> result = new();
 
@@ -93,6 +109,43 @@ namespace PO_game.Src.Maps
                 y++;
             }
             return result;
+        }
+
+        private List<Enemy> CreateEnemies(ContentManager content)
+        { 
+            List<Enemy> enemies = new();
+
+            foreach (var enemy in _enemiesLocations)
+            {
+                if (enemy.Value == -1)
+                    continue;
+
+                EnemyType enemyType = (EnemyType)enemy.Value;
+                Vector2 enemyPosition = enemy.Key;
+                enemies.Add(EnemyFactory.CreateEnemy(enemyType, enemyPosition, content));
+            }
+
+
+            return enemies;
+        }
+
+        private void UpdateEnemyCollisions()
+        {
+            foreach(var enemy in _enemiesLocations)
+            {
+                if (enemy.Value > -1)
+                {
+                    _collisions.Add(enemy.Key, 0);
+                }
+            }
+        }
+
+        private void DrawEnemies(SpriteBatch spriteBatch)
+        {
+            foreach (var enemy in _enemies)
+            {
+                enemy.Draw(spriteBatch);
+            }
         }
 
         private void DrawLayer(Dictionary<Vector2, int> layer, Texture2D tileset, SpriteBatch spriteBatch)
@@ -120,12 +173,23 @@ namespace PO_game.Src.Maps
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Player player)
         {
             DrawLayer(_background, _tileset, spriteBatch);
             if (Globals.ShowCollisions)
             {
                 DrawLayer(_collisions, _collisionTileset, spriteBatch);
+            }
+
+
+            List<Character> gameObjects = new List<Character>(_enemies);
+
+            gameObjects.Add(player);
+            gameObjects.Sort((a, b) => a.TilePosition.Y.CompareTo(b.TilePosition.Y));
+
+            foreach (Character gameObject in gameObjects)
+            {
+                gameObject.Draw(spriteBatch);
             }
         }
 
