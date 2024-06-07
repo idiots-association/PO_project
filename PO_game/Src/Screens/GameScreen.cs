@@ -165,6 +165,10 @@ namespace PO_game.Src.Screens
             _player.Update(gameTime, _inputController, collisionMap);
             //    Console.Write(_player.TilePosition); 
             //    Console.WriteLine(_player.Sprite.Position);
+            foreach (var enemy in MapManager.Instance.GetMap(MapManager.CurrentMap).GetEnemies())
+            {
+                enemy.Update(content,_player);
+            }
 
             MapManager.Instance.GetMap(MapManager.CurrentMap).Update(gameTime, _inputController, _player);
             _camera.Follow(_player);

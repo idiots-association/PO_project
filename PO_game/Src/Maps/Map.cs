@@ -83,6 +83,10 @@ namespace PO_game.Src.Maps
         {
             ShowCollisions(inputController);
             CheckWarpCollision(player);
+            foreach (var enemy in _enemies)
+            {
+                
+            }
         }
 
         private Dictionary<Vector2, int> LoadLayer(string filename)
@@ -125,8 +129,11 @@ namespace PO_game.Src.Maps
                 enemies.Add(EnemyFactory.CreateEnemy(enemyType, enemyPosition, content));
             }
 
-
             return enemies;
+        }
+        public List<Enemy> GetEnemies()
+        {
+            return _enemies;
         }
 
         private void UpdateEnemyCollisions()
@@ -135,9 +142,15 @@ namespace PO_game.Src.Maps
             {
                 if (enemy.Value > -1)
                 {
-                    _collisions.Add(enemy.Key, 0);
+                    _collisions.Add(enemy.Key, (int)Collision.NoPassCollision);
                 }
             }
+        }
+
+        public void RemoveEnemy(Enemy enemy)
+        {
+            _enemies.Remove(enemy);
+            _collisions[enemy.TilePosition] = (int)Collision.NoColission;
         }
 
         private void DrawEnemies(SpriteBatch spriteBatch)
