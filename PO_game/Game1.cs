@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PO_game.Src.States;
+using PO_game.Src.Screens;
 using PO_game.Src.Utils;
+
 
 namespace PO_game
 {
@@ -10,7 +11,7 @@ namespace PO_game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        public StateManager StateManager { get; private set; }
+        public ScreenManager ScreenManager { get; private set; }
 
         public Game1()
         {
@@ -26,14 +27,14 @@ namespace PO_game
 
         protected override void Initialize()
         {
-            StateManager = StateManager.Instance;
+            ScreenManager = ScreenManager.Instance;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             Globals.gameFont = Content.Load<SpriteFont>("Fonts/Arial");
-            StateManager.Instance.AddState(new StartState(Content));
+            ScreenManager.Instance.AddScreen(new StartScreen(Content));
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -43,7 +44,7 @@ namespace PO_game
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            StateManager.Instance.GetCurrentState().Update(gameTime);
+            ScreenManager.Instance.GetCurrentScreen().Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -51,7 +52,7 @@ namespace PO_game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            StateManager.Instance.GetCurrentState().Draw(_spriteBatch);
+            ScreenManager.Instance.GetCurrentScreen().Draw(_spriteBatch);
             base.Draw(gameTime);
         }
     }
