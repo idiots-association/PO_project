@@ -7,9 +7,9 @@ using PO_game.Src.Items.Consumables;
 using PO_game.Src.Utils;
 using System;
 
-namespace PO_game.Src.States;
+namespace PO_game.Src.Screens;
 
-public class FightingState : State
+public class BattleScreen : Screen
 {
     private Texture2D _playerTexture;
     private Texture2D _buttonTexture;
@@ -24,7 +24,7 @@ public class FightingState : State
     private Texture2D _enemyTexture;
     private HealthPotion _medpot;
 
-    public FightingState(ContentManager content, Player player, Enemy enemy) : base(content)
+    public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
     {
         _player = player;
         _enemy = enemy;
@@ -115,14 +115,14 @@ public class FightingState : State
         if (_player.health <= 0)
         {
             Console.WriteLine("Player died");
-            StateManager.Instance.RemoveState();
+            ScreenManager.Instance.RemoveScreen();
         }
         else if (_enemy.health <= 0)
         {
             Console.WriteLine("Enemy died");
             _player.inventory.AddItem(_medpot);
             _enemy.IsDead = true;
-            StateManager.Instance.RemoveState();
+            ScreenManager.Instance.RemoveScreen();
         }
 
     }

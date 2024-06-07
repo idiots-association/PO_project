@@ -2,13 +2,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PO_game.Src.States
+namespace PO_game.Src.Screens
 {
-    public abstract class State
+    public abstract class Screen
     {
         protected GraphicsDeviceManager graphics;
         protected ContentManager content;
-        public State(ContentManager content)
+        public Screen(ContentManager content)
         {
             this.content = content;
         }

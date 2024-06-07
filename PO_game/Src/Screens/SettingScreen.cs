@@ -5,13 +5,13 @@ using PO_game.Src.Controls;
 using PO_game.Src.Utils;
 using System;
 
-namespace PO_game.Src.States
+namespace PO_game.Src.Screens
 {
-    public class SettingsState : State
+    public class SettingsScreen : Screen
     {
         private Texture2D _buttonTexture;
         private Button _exitButton;
-        public SettingsState(ContentManager content) : base(content) { }
+        public SettingsScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {
             _buttonTexture = content.Load<Texture2D>("Others/startButton");
@@ -28,7 +28,7 @@ namespace PO_game.Src.States
 
         public void ButtonExit_Click(object sender, EventArgs e)
         {
-            StateManager.Instance.RemoveState();
+            ScreenManager.Instance.RemoveScreen();
         }
         public override void Update(GameTime gameTime)
         {

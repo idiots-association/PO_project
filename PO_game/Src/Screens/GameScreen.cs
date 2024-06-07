@@ -10,9 +10,9 @@ using System;
 using System.IO;
 using System.Text.Json;
 
-namespace PO_game.Src.States
+namespace PO_game.Src.Screens
 {
-    public class GameState : State
+    public class GameScreen : Screen
     {
         private InputController _inputController;
         private Camera _camera;
@@ -57,7 +57,7 @@ namespace PO_game.Src.States
 
 
 
-        public GameState(ContentManager content, int save) : base(content)
+        public GameScreen(ContentManager content, int save) : base(content)
         {
             _inputController = new InputController();
             _camera = new Camera();
@@ -111,7 +111,7 @@ namespace PO_game.Src.States
             File.WriteAllText(_savePath, serializedStats);
 
             UnloadGame();
-            StateManager.Instance.RemoveState();
+            ScreenManager.Instance.RemoveScreen();
         }
 
         private void LoadFromSave()
