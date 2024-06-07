@@ -8,7 +8,7 @@ namespace PO_game.Src.Items
     {
         public int minDamage { get; set; }
         public int maxDamage { get; set; }
-        public Weapon(Texture2D texture, string name, string description, string rarity, int mindamage, int maxdamage, Character character) : base(texture, name, description, rarity, character)
+        public Weapon(Texture2D texture, string name, string description, string rarity, int mindamage, int maxdamage) : base(texture, name, description, rarity)
         {
             minDamage = mindamage;
             maxDamage = maxdamage;

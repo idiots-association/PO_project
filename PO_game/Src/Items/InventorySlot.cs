@@ -65,7 +65,7 @@ namespace PO_game.Src.Inv
                     {
                         case Consumable:
                             Consumable tempConsumable = (Consumable)item;
-                            tempConsumable.Use();
+                            tempConsumable.Use(player);
                             if (tempConsumable.Quantity == 0)
                             {
                                 item = null;
