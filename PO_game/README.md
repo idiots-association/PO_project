@@ -56,13 +56,13 @@
   - [RemoveOldPositionFromCollisionMap(collisionMap)](#M-PO_game-Src-Entities-Player-RemoveOldPositionFromCollisionMap-System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.RemoveOldPositionFromCollisionMap(System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [Update(gameTime,inputController,collisionMap)](#M-PO_game-Src-Entities-Player-Update-Microsoft-Xna-Framework-GameTime,PO_game-Src-Utils-InputController,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.Update(Microsoft.Xna.Framework.GameTime,PO_game.Src.Utils.InputController,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [UpdatePosition(tilePosition)](#M-PO_game-Src-Entities-Player-UpdatePosition-Microsoft-Xna-Framework-Vector2- 'PO_game.Src.Entities.Player.UpdatePosition(Microsoft.Xna.Framework.Vector2)')
-- [Program](#T-Program 'Program')
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
 - [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
 - [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
+- [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
 - [Window](#T-PO_game-Src-Controls-Window 'PO_game.Src.Controls.Window')
   - [buttonUpdate()](#M-PO_game-Src-Controls-Window-buttonUpdate 'PO_game.Src.Controls.Window.buttonUpdate')
@@ -752,17 +752,6 @@ Updates the player's tile and sprite position. The method is called during warp 
 | ---- | ---- | ----------- |
 | tilePosition | [Microsoft.Xna.Framework.Vector2](#T-Microsoft-Xna-Framework-Vector2 'Microsoft.Xna.Framework.Vector2') |  |
 
-<a name='T-Program'></a>
-## Program `type`
-
-##### Namespace
-
-
-
-##### Summary
-
-Initializes and runs project.
-
 <a name='T-PO_game-Src-Screens-Screen'></a>
 ## Screen `type`
 
@@ -838,6 +827,17 @@ PO_game.Src.Utils
 `StatsToSave` is a class that represents the stats of the player that need to be saved.
 
 For now, it contains the position, name and current map of the player.
+
+<a name='T-PO_game-Src-Maps-Warps'></a>
+## Warps `type`
+
+##### Namespace
+
+PO_game.Src.Maps
+
+##### Summary
+
+`Warps`> class contains the warp points for each map.
 
 <a name='T-PO_game-Src-Items-Weapon'></a>
 ## Weapon `type`
