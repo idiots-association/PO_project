@@ -62,6 +62,7 @@ namespace PO_game.Src.Entities
     public class Enemy : Character
     {
         public Weapon weapon { get; set; }
+        public bool isDead { get; set; }
         public bool isAgressive { get; set; }
 
         private Rectangle _rectangle
