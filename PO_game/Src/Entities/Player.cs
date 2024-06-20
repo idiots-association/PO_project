@@ -9,6 +9,10 @@ using System.Collections.Generic;
 
 namespace PO_game.Src.Entities
 {
+    /// <summary>
+    /// <c>Player</c> is a class that represents the player character in the game.
+    /// <para>The player class stores all the player's attributes, such as health, mana, weapon and inventory and some movement and collision logic.</para>
+    /// </summary>
     public class Player : Character
     {
         private Vector2 _destination;

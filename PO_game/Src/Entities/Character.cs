@@ -4,6 +4,10 @@ using PO_game.Src.Utils;
 
 namespace PO_game.Src.Entities
 {
+    /// <summary>
+    /// <c>Character</c> is a class that represents a character in the game, be it player or NPC.
+    /// <para>It allows the creation of characters with custom sprites, health, mana and position.</para>
+    /// </summary>
     public class Character
     {
         public Sprite Sprite { get; set; }
