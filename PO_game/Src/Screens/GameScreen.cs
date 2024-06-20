@@ -167,7 +167,7 @@ namespace PO_game.Src.Screens
             //    Console.WriteLine(_player.Sprite.Position);
             foreach (var enemy in MapManager.Instance.GetMap(MapManager.CurrentMap).GetEnemies())
             {
-                enemy.Update(content,_player);
+                enemy.Update(content,_player,_inputController);
             }
 
             MapManager.Instance.GetMap(MapManager.CurrentMap).Update(gameTime, _inputController, _player);

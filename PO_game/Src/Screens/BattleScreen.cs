@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
 using PO_game.Src.Entities;
 using PO_game.Src.Items.Consumables;
+using PO_game.Src.Maps;
 using PO_game.Src.Utils;
 using System;
 
@@ -68,7 +69,7 @@ public class BattleScreen : Screen
                 fleeText = "You can't flee from this enemy";
                 break;
             case false:
-                fleeText = "flee";
+                fleeText = "Flee";
                 break;
         }
         _fleeButton = new Button(_buttonTexture)
@@ -135,7 +136,8 @@ public class BattleScreen : Screen
         else if (_enemy.health <= 0)
         {
             Console.WriteLine("Enemy died");
-            _enemy.IsDead = true;
+            _enemy.isDead = true;
+            MapManager.Instance.GetCurrentMap().RemoveEnemy(_enemy);
             ScreenManager.Instance.RemoveScreen();
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Security.AccessControl;
 using Microsoft.Xna.Framework;
@@ -13,6 +14,7 @@ using PO_game.Src.Utils;
 
 namespace PO_game.Src.Entities
 {
+
     public enum EnemyType
     {
         Goblin,
@@ -54,16 +56,9 @@ namespace PO_game.Src.Entities
     public class Enemy : Character
     {
         public Weapon weapon { get; set; }
-        public bool IsDead { get; set; }
+        public bool isDead { get; set; }
         public bool isAgressive { get; set; }
 
-        private Rectangle _rectangle
-        {
-            get
-            {
-                return new Rectangle((int)Sprite.Position.X - (Sprite.Texture.Width/2), (int)Sprite.Position.Y - (Sprite.Texture.Height/2), Sprite.Texture.Width, Sprite.Texture.Height);
-            }
-        }
         public Enemy(Sprite sprite, Vector2 tilePosition, int maxHealth, Weapon weapon, bool isAgressive) : base(sprite, tilePosition)
         {
             this.maxHealth = maxHealth;
@@ -71,23 +66,27 @@ namespace PO_game.Src.Entities
             this.weapon = weapon;
             this.isAgressive = isAgressive;
         }
-        public void CheckAgression(ContentManager content, Player player)
-        {
-            if (isAgressive)
-            {
-                if (Vector2.Distance(player.TilePosition, TilePosition) < 2 && player.State == CharacterState.Idle)
+        private void CheckAgression(ContentManager content, Player player, InputController inputController)
+        {       
+             
+            if (Vector2.Distance(player.TilePosition, TilePosition) < 2 && player.State == CharacterState.Idle)
                 {
-                    ScreenManager.Instance.AddScreen(new BattleScreen (content, player, this));
+                    if (isAgressive)
+                    {
+                        ScreenManager.Instance.AddScreen(new BattleScreen (content, player, this));
+                    } 
+                    else
+                    {// if there is more than one enemy in the radius, i dont know what will happen, will need to fix it somehow
+                        if (inputController.isKeyPressed(Keys.F) && player.health > 0)
+                        {
+                            ScreenManager.Instance.AddScreen(new BattleScreen(content, player, this));
+                        }
+                    }  
                 }
             }
-        }
-        public void Update(ContentManager content, Player player)
+        public void Update(ContentManager content, Player player, InputController inputController)
         {
-            CheckAgression(content, player);
-        }
-        public void ShowDetails()
-        {
-            // show enemy details
+            CheckAgression(content, player, inputController);
         }
         public void Attack(Character target)
         {
