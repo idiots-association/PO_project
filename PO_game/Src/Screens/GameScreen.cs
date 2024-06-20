@@ -94,7 +94,11 @@ namespace PO_game.Src.Screens
             _camera = null;
             _inputController = null;
         }
-
+        
+        /// <summary>
+        /// A method that saves the game to a file.
+        /// </summary>
+        
         private void SaveGame(object sender, EventArgs e)
         {
             var playerStats = new StatsToSave();
@@ -109,6 +113,9 @@ namespace PO_game.Src.Screens
             ScreenManager.Instance.RemoveScreen();
         }
 
+        /// <summary>
+        /// A method that loads the game from a save file.
+        /// </summary>
         private void LoadFromSave()
         {
             var serializedStats = File.ReadAllText(_savePath);

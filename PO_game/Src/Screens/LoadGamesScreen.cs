@@ -9,6 +9,12 @@ using System.IO;
 
 namespace PO_game.Src.Screens
 {
+    /// <summary>
+    ///<c>LoadingGameScreen</c> is a class handling the loading of the game.
+    /// <para>It allows the player to load the game from one of the five save slots.</para>
+    /// </summary>
+    
+    
 public class LoadGameScreen : Screen
 {
     private Texture2D _buttonTexture;
@@ -33,7 +39,14 @@ public class LoadGameScreen : Screen
         ScreenManager.Instance.RemoveScreen();
         ScreenManager.Instance.AddScreen(new LoadGameScreen(content));
     }
-
+    
+    /// <summary>
+    /// A method that creates a window with a message and buttons.
+    /// </summary>
+    /// <param name="number_of_buttons">Number of buttons in the window</param>
+    /// <param name="slot"></param>
+    
+    
     public void CreateWindow(int number_of_buttons, int slot)
     {
         _windowTexture = content.Load<Texture2D>("Others/ramka1");

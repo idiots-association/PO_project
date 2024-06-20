@@ -8,6 +8,11 @@ using System.IO;
 
 namespace PO_game.Src.Screens
 {
+    /// <summary>
+    /// <c>StatScreen</c> is a class handling the contents of the start screen.
+    /// <para> From this screen, the player can start the game, load a game, go to settings or exit the game.</para>
+    /// </summary>
+    
     public class StartScreen : Screen
     {
         private Texture2D _backgroundTexture;
