@@ -16,7 +16,7 @@ namespace PO_game.Src.Maps
 
 
     /// <summary>
-    /// <c>Warps> class contains the warp points for each map.
+    /// <c>Warps</c>> class contains the warp points for each map.
     /// </summary>
     public static class Warps
     {

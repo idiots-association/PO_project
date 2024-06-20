@@ -78,11 +78,20 @@ namespace PO_game.Src.Screens
         {
             var tileset = "POtileset";
 
-            var lobby_csv = "../../../Content/Maps/Lobby/MapWithPath";
+
+#if DEBUG
+                var lobby_csv = "../../../Content/Maps/Lobby/MapWithPath";
+                var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
+#else
+            var lobby_csv = "Content/Maps/Lobby/MapWithPath";
+            var playerPath_csv = "Content/Maps/PlayerPath/PlayerPath";
+#endif
+
+
             var lobby_map = new Map(lobby_csv, tileset, content);
             MapManager.Instance.AddMap(MapId.Lobby, lobby_map);
 
-            var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
+
             var playerPath_map = new Map(playerPath_csv, tileset, content);
             MapManager.Instance.AddMap(MapId.PlayerPath, playerPath_map);
 

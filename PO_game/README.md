@@ -13,6 +13,7 @@
 - [Consumable](#T-PO_game-Src-Items-Consumable 'PO_game.Src.Items.Consumable')
 - [Enemy](#T-PO_game-Src-Entities-Enemy 'PO_game.Src.Entities.Enemy')
 - [EnemyFactory](#T-PO_game-Src-Entities-EnemyFactory 'PO_game.Src.Entities.EnemyFactory')
+- [EnemyType](#T-PO_game-Src-Entities-EnemyType 'PO_game.Src.Entities.EnemyType')
 - [Game1](#T-PO_game-Game1 'PO_game.Game1')
   - [#ctor()](#M-PO_game-Game1-#ctor 'PO_game.Game1.#ctor')
   - [ScreenManager](#P-PO_game-Game1-ScreenManager 'PO_game.Game1.ScreenManager')
@@ -51,10 +52,10 @@
   - [RemoveOldPositionFromCollisionMap(collisionMap)](#M-PO_game-Src-Entities-Player-RemoveOldPositionFromCollisionMap-System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.RemoveOldPositionFromCollisionMap(System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [Update(gameTime,inputController,collisionMap)](#M-PO_game-Src-Entities-Player-Update-Microsoft-Xna-Framework-GameTime,PO_game-Src-Utils-InputController,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.Update(Microsoft.Xna.Framework.GameTime,PO_game.Src.Utils.InputController,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [UpdatePosition(tilePosition)](#M-PO_game-Src-Entities-Player-UpdatePosition-Microsoft-Xna-Framework-Vector2- 'PO_game.Src.Entities.Player.UpdatePosition(Microsoft.Xna.Framework.Vector2)')
-- [Program](#T-Program 'Program')
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
+- [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
 
 <a name='T-PO_game-Src-Screens-BattleScreen'></a>
@@ -180,6 +181,17 @@ PO_game.Src.Entities
 
 Class `EnemyFactory` is a class that creates enemies based on the type of enemy requested.
 It stores all the pre-set enemy types and their respective textures and weapons.
+
+<a name='T-PO_game-Src-Entities-EnemyType'></a>
+## EnemyType `type`
+
+##### Namespace
+
+PO_game.Src.Entities
+
+##### Summary
+
+Defines the types of enemies that can be created.
 
 <a name='T-PO_game-Game1'></a>
 ## Game1 `type`
@@ -682,17 +694,6 @@ Updates the player's tile and sprite position. The method is called during warp 
 | ---- | ---- | ----------- |
 | tilePosition | [Microsoft.Xna.Framework.Vector2](#T-Microsoft-Xna-Framework-Vector2 'Microsoft.Xna.Framework.Vector2') |  |
 
-<a name='T-Program'></a>
-## Program `type`
-
-##### Namespace
-
-
-
-##### Summary
-
-Initializes and runs project.
-
 <a name='T-PO_game-Src-Screens-Screen'></a>
 ## Screen `type`
 
@@ -729,6 +730,17 @@ PO_game.Src.Entities
 `Sprite` is a class that represents a sprite in the game.
 
 It allows the creation of sprites with custom textures and positions.
+
+<a name='T-PO_game-Src-Maps-Warps'></a>
+## Warps `type`
+
+##### Namespace
+
+PO_game.Src.Maps
+
+##### Summary
+
+`Warps`> class contains the warp points for each map.
 
 <a name='T-PO_game-Src-Items-Weapon'></a>
 ## Weapon `type`
