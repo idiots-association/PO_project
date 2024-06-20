@@ -23,6 +23,8 @@
   - [Update(gameTime)](#M-PO_game-Game1-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Game1.Update(Microsoft.Xna.Framework.GameTime)')
 - [GameScreen](#T-PO_game-Src-Screens-GameScreen 'PO_game.Src.Screens.GameScreen')
   - [Draw(spriteBatch)](#M-PO_game-Src-Screens-GameScreen-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch- 'PO_game.Src.Screens.GameScreen.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch)')
+  - [LoadFromSave()](#M-PO_game-Src-Screens-GameScreen-LoadFromSave 'PO_game.Src.Screens.GameScreen.LoadFromSave')
+  - [SaveGame()](#M-PO_game-Src-Screens-GameScreen-SaveGame-System-Object,System-EventArgs- 'PO_game.Src.Screens.GameScreen.SaveGame(System.Object,System.EventArgs)')
   - [Update(gameTime)](#M-PO_game-Src-Screens-GameScreen-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Src.Screens.GameScreen.Update(Microsoft.Xna.Framework.GameTime)')
 - [Globals](#T-PO_game-Src-Utils-Globals 'PO_game.Src.Utils.Globals')
 - [HealthPotion](#T-PO_game-Src-Items-Consumables-HealthPotion 'PO_game.Src.Items.Consumables.HealthPotion')
@@ -30,6 +32,8 @@
 - [Inventory](#T-PO_game-Src-Inv-Inventory 'PO_game.Src.Inv.Inventory')
 - [InventorySlot](#T-PO_game-Src-Inv-InventorySlot 'PO_game.Src.Inv.InventorySlot')
 - [Item](#T-PO_game-Src-Items-Item 'PO_game.Src.Items.Item')
+- [LoadGameScreen](#T-PO_game-Src-Screens-LoadGameScreen 'PO_game.Src.Screens.LoadGameScreen')
+  - [CreateWindow(number_of_buttons,slot)](#M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32- 'PO_game.Src.Screens.LoadGameScreen.CreateWindow(System.Int32,System.Int32)')
 - [ManaPotion](#T-PO_game-Src-Items-Consumables-ManaPotion 'PO_game.Src.Items.Consumables.ManaPotion')
 - [Map](#T-PO_game-Src-Maps-Map 'PO_game.Src.Maps.Map')
   - [#ctor(csv_map,tileset,content)](#M-PO_game-Src-Maps-Map-#ctor-System-String,System-String,Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Maps.Map.#ctor(System.String,System.String,Microsoft.Xna.Framework.Content.ContentManager)')
@@ -54,9 +58,14 @@
   - [UpdatePosition(tilePosition)](#M-PO_game-Src-Entities-Player-UpdatePosition-Microsoft-Xna-Framework-Vector2- 'PO_game.Src.Entities.Player.UpdatePosition(Microsoft.Xna.Framework.Vector2)')
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
+- [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
 - [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
+- [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
+- [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
+- [Window](#T-PO_game-Src-Controls-Window 'PO_game.Src.Controls.Window')
+  - [buttonUpdate()](#M-PO_game-Src-Controls-Window-buttonUpdate 'PO_game.Src.Controls.Window.buttonUpdate')
 
 <a name='T-PO_game-Src-Screens-BattleScreen'></a>
 ## BattleScreen `type`
@@ -296,6 +305,28 @@ It calls the Draw method of the current map, the player inventory and the change
 | ---- | ---- | ----------- |
 | spriteBatch | [Microsoft.Xna.Framework.Graphics.SpriteBatch](#T-Microsoft-Xna-Framework-Graphics-SpriteBatch 'Microsoft.Xna.Framework.Graphics.SpriteBatch') |  |
 
+<a name='M-PO_game-Src-Screens-GameScreen-LoadFromSave'></a>
+### LoadFromSave() `method`
+
+##### Summary
+
+A method that loads the game from a save file.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PO_game-Src-Screens-GameScreen-SaveGame-System-Object,System-EventArgs-'></a>
+### SaveGame() `method`
+
+##### Summary
+
+A method that saves the game to a file.
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-PO_game-Src-Screens-GameScreen-Update-Microsoft-Xna-Framework-GameTime-'></a>
 ### Update(gameTime) `method`
 
@@ -385,6 +416,33 @@ PO_game.Src.Items
 `Item` is an abstract class that represents an item in the game.
 
 It allows the creation of items with custom textures, names, descriptions and rarities.
+
+<a name='T-PO_game-Src-Screens-LoadGameScreen'></a>
+## LoadGameScreen `type`
+
+##### Namespace
+
+PO_game.Src.Screens
+
+##### Summary
+
+`LoadingGameScreen` is a class handling the loading of the game.
+
+It allows the player to load the game from one of the five save slots.
+
+<a name='M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32-'></a>
+### CreateWindow(number_of_buttons,slot) `method`
+
+##### Summary
+
+A method that creates a window with a message and buttons.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| number_of_buttons | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Number of buttons in the window |
+| slot | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='T-PO_game-Src-Items-Consumables-ManaPotion'></a>
 ## ManaPotion `type`
@@ -718,6 +776,19 @@ PO_game.Src.Screens
 
 It contains instance of itself to ensure so that there is only one Screen Manager per build.
 
+<a name='T-PO_game-Src-Screens-SettingsScreen'></a>
+## SettingsScreen `type`
+
+##### Namespace
+
+PO_game.Src.Screens
+
+##### Summary
+
+`SettingsScreen` is a class handling the contents of the settings screen.
+
+For now, it contains only an exit button.
+
 <a name='T-PO_game-Src-Entities-Sprite'></a>
 ## Sprite `type`
 
@@ -731,6 +802,7 @@ PO_game.Src.Entities
 
 It allows the creation of sprites with custom textures and positions.
 
+
 <a name='T-PO_game-Src-Maps-Warps'></a>
 ## Warps `type`
 
@@ -741,6 +813,33 @@ PO_game.Src.Maps
 ##### Summary
 
 `Warps`> class contains the warp points for each map.
+
+<a name='T-PO_game-Src-Screens-StartScreen'></a>
+## StartScreen `type`
+
+##### Namespace
+
+PO_game.Src.Screens
+
+##### Summary
+
+`StatScreen` is a class handling the contents of the start screen.
+
+From this screen, the player can start the game, load a game, go to settings or exit the game.
+
+<a name='T-PO_game-Src-Utils-Vector2Data'></a>
+## Vector2Data `type`
+
+##### Namespace
+
+PO_game.Src.Utils
+
+##### Summary
+
+`StatsToSave` is a class that represents the stats of the player that need to be saved.
+
+For now, it contains the position, name and current map of the player.
+
 
 <a name='T-PO_game-Src-Items-Weapon'></a>
 ## Weapon `type`
@@ -754,3 +853,27 @@ PO_game.Src.Items
 `Weapon` is a class that represents a weapon in the game.
 
 It allows the creation of weapons with custom damage values.
+
+<a name='T-PO_game-Src-Controls-Window'></a>
+## Window `type`
+
+##### Namespace
+
+PO_game.Src.Controls
+
+##### Summary
+
+`Window` is a class that represents a window in the game.
+
+It allows the creation of windows with custom text, texture and buttons.
+
+<a name='M-PO_game-Src-Controls-Window-buttonUpdate'></a>
+### buttonUpdate() `method`
+
+##### Summary
+
+A method that creates a window with a message and buttons.
+
+##### Parameters
+
+This method has no parameters.

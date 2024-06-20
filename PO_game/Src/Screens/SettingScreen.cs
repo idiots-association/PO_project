@@ -7,6 +7,11 @@ using System;
 
 namespace PO_game.Src.Screens
 {
+    /// <summary>
+    /// <c>SettingsScreen</c> is a class handling the contents of the settings screen.
+    /// <para> For now, it contains only an exit button.</para>
+    /// </summary>
+    
     public class SettingsScreen : Screen
     {
         private Texture2D _buttonTexture;
