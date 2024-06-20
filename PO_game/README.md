@@ -60,9 +60,9 @@
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
-- [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
 - [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
+- [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
 - [Window](#T-PO_game-Src-Controls-Window 'PO_game.Src.Controls.Window')
   - [buttonUpdate()](#M-PO_game-Src-Controls-Window-buttonUpdate 'PO_game.Src.Controls.Window.buttonUpdate')
@@ -802,18 +802,6 @@ PO_game.Src.Entities
 
 It allows the creation of sprites with custom textures and positions.
 
-
-<a name='T-PO_game-Src-Maps-Warps'></a>
-## Warps `type`
-
-##### Namespace
-
-PO_game.Src.Maps
-
-##### Summary
-
-`Warps`> class contains the warp points for each map.
-
 <a name='T-PO_game-Src-Screens-StartScreen'></a>
 ## StartScreen `type`
 
@@ -840,6 +828,16 @@ PO_game.Src.Utils
 
 For now, it contains the position, name and current map of the player.
 
+<a name='T-PO_game-Src-Maps-Warps'></a>
+## Warps `type`
+
+##### Namespace
+
+PO_game.Src.Maps
+
+##### Summary
+
+`Warps`> class contains the warp points for each map.
 
 <a name='T-PO_game-Src-Items-Weapon'></a>
 ## Weapon `type`
