@@ -12,6 +12,10 @@ using System.Text.Json;
 
 namespace PO_game.Src.Screens
 {
+
+    /// <summary>
+    /// <c>GameScreen</c> is a class handling the contents of the game.
+    /// </summary>
     public class GameScreen : Screen
     {
         private InputController _inputController;
@@ -69,15 +73,6 @@ namespace PO_game.Src.Screens
             MapManager = MapManager.Instance;
 
         }
-
-        private Vector2 TileToPixelPosition(Vector2 tilePosition)
-        {
-            return new Vector2(
-                (int)(tilePosition.X * Globals.TileSize) + Globals.TileSize / 2,
-                tilePosition.Y * Globals.TileSize - 22 // tmp
-            );
-        }
-
 
         private void LoadMaps()
         {
@@ -158,6 +153,14 @@ namespace PO_game.Src.Screens
             };
         }
 
+
+        /// <summary>
+        /// Update method called by Update in Game1 class.
+        /// <para>
+        /// It handles input controller logic, all entities updates, camera following the player, map updates and button updates.
+        /// </para>
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             _inputController.Update();
@@ -177,6 +180,14 @@ namespace PO_game.Src.Screens
             _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
         }
+
+        /// <summary>
+        /// Draw method called by Draw in Game1 class.
+        /// <para>
+        /// It calls the Draw method of the current map, the player inventory and the change state button.
+        /// </para>
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix: _transformMatrix, samplerState: SamplerState.PointClamp);

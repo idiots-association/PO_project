@@ -11,6 +11,26 @@ using System.IO;
 
 namespace PO_game.Src.Maps
 {
+
+    /// <summary>
+    /// <c>Map</c> class to manage the map of the game.
+    /// <para>
+    /// <list type="bullet">
+    /// <item>
+    /// <description><c>_background</c> is a dictionary containing tile position of a tile, represented as a number corresponding with specific graphic from the <c>_tileset</c>.</description>
+    /// </item>
+    /// <item>
+    /// <description><c>_collisions</c> is a dictionary containing tile position of a collision, represented as a number corresponding with specific type of collision and a graphic from the <c>_collisionTileset</c></description>
+    /// </item>
+    /// <item>
+    /// <description><c>_enemies_Locations</c> is a dictionary containing tile position of an enemy, represented as a number corresponding with specific type of enemy.</description>
+    /// </item>
+    /// <item>
+    /// <description><c>_enemies</c> is a list of <c>Enemy</c> objects <see cref="Enemy"/>/></description>
+    /// </item>
+    /// </list>
+    /// </para>
+    /// </summary>
     public class Map
     {
         private Dictionary<Vector2, int> _background;
@@ -20,7 +40,10 @@ namespace PO_game.Src.Maps
         private Texture2D _collisionTileset;
         private List<Enemy> _enemies;
 
-
+        /// <summary>
+        /// A method to show collisions.
+        /// </summary>
+        /// <param name="inputController"></param>
         private void ShowCollisions(InputController inputController)
         {
             if (inputController.isKeyPressed(Keys.C))
@@ -29,6 +52,11 @@ namespace PO_game.Src.Maps
             }
         }
 
+        /// <summary>
+        /// A method to get the destination of a warp using the player's position.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns>Destination of a warp</returns>
         private Tuple<MapId, Vector2> GetWarpDestination(Player player)
         {
             if (Warps.Lobby.ContainsKey(player.TilePosition))
@@ -38,6 +66,11 @@ namespace PO_game.Src.Maps
             return null;
         }
 
+
+        /// <summary>
+        /// Method called in the Update method to check if the player has collided with a warp.
+        /// </summary>
+        /// <param name="player"></param>
         private void CheckWarpCollision(Player player)
         {
             if (_collisions.ContainsKey(player.TilePosition) && _collisions[player.TilePosition] == 1)
@@ -51,6 +84,17 @@ namespace PO_game.Src.Maps
             }
         }
 
+
+        /// <summary>
+        /// <c>Map</c> constructor. It loads the map from the csvs files and the tileset from the content.
+        /// <para>
+        /// Enemy csv file is optional. 
+        /// If it exists, it creates enemies from the csv file and calls the <c>UpdateEnemyCollisions</c> method to add enemies collisions to the _collisions map.
+        /// </para>
+        /// </summary>
+        /// <param name="csv_map"></param>
+        /// <param name="tileset"></param>
+        /// <param name="content"></param>
         public Map(string csv_map, string tileset, ContentManager content)
         {
             _background = LoadLayer(csv_map + "_Background.csv");
@@ -78,7 +122,12 @@ namespace PO_game.Src.Maps
             return _collisions;
         }
 
-
+        /// <summary>
+        /// Map Update method. Handles the collisions, warps and enemies logic and is called by the Update method in the <c>GameScreen</c> class.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="inputController"></param>
+        /// <param name="player"></param>
         public void Update(GameTime gameTime, InputController inputController, Player player)
         {
             ShowCollisions(inputController);
@@ -89,6 +138,12 @@ namespace PO_game.Src.Maps
             }
         }
 
+
+        /// <summary>
+        /// Method to load a layer from a csv file.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns>The dictionary witch contains a tile position of an object paired with some number associated with the object type.</returns>
         private Dictionary<Vector2, int> LoadLayer(string filename)
         {
             Dictionary<Vector2, int> result = new();
@@ -115,6 +170,12 @@ namespace PO_game.Src.Maps
             return result;
         }
 
+
+        /// <summary>
+        /// A method to create enemies from the csv file.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns>List of <c>Enemy<c> objects associated with this map.</c></c></returns>
         private List<Enemy> CreateEnemies(ContentManager content)
         { 
             List<Enemy> enemies = new();
@@ -136,6 +197,9 @@ namespace PO_game.Src.Maps
             return _enemies;
         }
 
+        /// <summary>
+        /// A method to update the collisions map with the enemies collisions. Called after creating enemies.
+        /// </summary>
         private void UpdateEnemyCollisions()
         {
             foreach(var enemy in _enemiesLocations)
@@ -147,11 +211,16 @@ namespace PO_game.Src.Maps
             }
         }
 
+        /// <summary>
+        /// Method to remove enemy from the map after it's defeated.
+        /// </summary>
+        /// <param name="enemy"></param>
         public void RemoveEnemy(Enemy enemy)
         {
             _enemies.Remove(enemy);
-            _collisions[enemy.TilePosition] = (int)Collision.NoColission;
+            _collisions[enemy.TilePosition] = (int)Collision.NoCollision;
         }
+
 
         private void DrawEnemies(SpriteBatch spriteBatch)
         {
@@ -161,6 +230,13 @@ namespace PO_game.Src.Maps
             }
         }
 
+
+        /// <summary>
+        /// A method to draw a layer of the map. It uses the <c>_tileset</c> to draw the tiles.
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="tileset"></param>
+        /// <param name="spriteBatch"></param>
         private void DrawLayer(Dictionary<Vector2, int> layer, Texture2D tileset, SpriteBatch spriteBatch)
         {
             foreach (var tile in layer)
@@ -186,6 +262,9 @@ namespace PO_game.Src.Maps
             }
         }
 
+        /// <summary>
+        /// A method to draw the map. It draws the background, collisions (if enabled) and the enteties of the map (including player, enemies and NPCs).
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch, Player player)
         {
             DrawLayer(_background, _tileset, spriteBatch);

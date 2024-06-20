@@ -3,10 +3,20 @@ using PO_game.Src.Entities;
 
 namespace PO_game.Src.Utils
 {
+    /// <summary>
+    /// <c>Camera</c> class to follow the player.
+    /// </summary>
     public class Camera
     {
         public Matrix Transform { get; private set; }
 
+        /// <summary>
+        /// <c>Camera</c> method to follow the player.
+        /// <para>
+        /// Follow takes <paramref name="player"/> as a parameter and by using the <paramref name="=player.Sprite.Position"/>, it sets the camera's position to follow the player, 
+        /// keeping the player in the center of the screen. <see cref="Sprite"/>
+        /// </para>
+        /// </summary>
         public void Follow(Player player)
         {
             var position = Matrix.CreateTranslation(

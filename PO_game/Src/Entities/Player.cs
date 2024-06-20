@@ -28,6 +28,11 @@ namespace PO_game.Src.Entities
             _destination = Sprite.Position;
         }
 
+
+        /// <summary>
+        /// If player moves to the new position, remove the old position from the collision map.
+        /// </summary>
+        /// <param name="collisionMap"></param>
         private void RemoveOldPositionFromCollisionMap(Dictionary<Vector2, int> collisionMap)
         {
             Vector2 oldPlayerTile = new Vector2(
@@ -40,12 +45,29 @@ namespace PO_game.Src.Entities
             }
         }
 
+        /// <summary>
+        /// If the player moves to the new position, add the new position to the collision map.
+        /// </summary>
+        /// <param name="playerTile"></param>
+        /// <param name="collisionMap"></param>
         private void AddPlayerPositionToCollisionMap(Vector2 playerTile, Dictionary<Vector2, int> collisionMap)
         {
-            collisionMap[playerTile] = collisionMap.ContainsKey(playerTile) && collisionMap[playerTile] > (int)Collision.NoColission ? collisionMap[playerTile] : (int)Collision.PlayerCollision;
+            collisionMap[playerTile] = collisionMap.ContainsKey(playerTile) && collisionMap[playerTile] > (int)Collision.NoCollision ? collisionMap[playerTile] : (int)Collision.PlayerCollision;
         }
 
-
+        /// <summary>
+        /// The method to Move the player character.
+        /// <para>
+        /// Depending on the state of the player character, the player will move in the direction of the key pressed.
+        /// Movement is done by changing the position of the player character's sprite.
+        /// However, movement always begins with the player character's sprite moving towards the center of the tile and doesn't stop until the sprite is in the center of the tile.
+        /// This way, we can ensure that the player character's sprite is always aligned with the tile grid.
+        /// No diagonall movement is allowed.
+        /// </para>
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="inputController"></param>
+        /// <param name="collisionMap"></param>
         public void MovePlayer(GameTime gameTime, InputController inputController, Dictionary<Vector2, int> collisionMap)
         {
             var newTilePosition = TilePosition;
@@ -179,6 +201,13 @@ namespace PO_game.Src.Entities
             }
         }
 
+
+        /// <summary>
+        /// Updates the player character's logic.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="inputController"></param>
+        /// <param name="collisionMap"></param>
         public void Update(GameTime gameTime, InputController inputController, Dictionary<Vector2, int> collisionMap)
         {
             MovePlayer(gameTime, inputController, collisionMap);
@@ -206,6 +235,10 @@ namespace PO_game.Src.Entities
             //base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Updates the player's tile and sprite position. The method is called during warp events.
+        /// </summary>
+        /// <param name="tilePosition"></param>
         public void UpdatePosition(Vector2 tilePosition)
         {
             TilePosition = tilePosition;

@@ -13,6 +13,10 @@ using PO_game.Src.Utils;
 
 namespace PO_game.Src.Entities
 {
+
+    /// <summary>
+    ///  Defines the types of enemies that can be created.
+    /// </summary>
     public enum EnemyType
     {
         Goblin,
