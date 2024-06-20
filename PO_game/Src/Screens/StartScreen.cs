@@ -6,9 +6,14 @@ using PO_game.Src.Utils;
 using System;
 using System.IO;
 
-namespace PO_game.Src.States
+namespace PO_game.Src.Screens
 {
-    public class StartState : State
+    /// <summary>
+    /// <c>StatScreen</c> is a class handling the contents of the start screen.
+    /// <para> From this screen, the player can start the game, load a game, go to settings or exit the game.</para>
+    /// </summary>
+    
+    public class StartScreen : Screen
     {
         private Texture2D _backgroundTexture;
         private Texture2D _buttonTexture;
@@ -19,7 +24,7 @@ namespace PO_game.Src.States
         private Button _loadButton;
 
 
-        public StartState(ContentManager content) : base(content) { }
+        public StartScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {
             _backgroundTexture = content.Load<Texture2D>("Others/cool_background");
@@ -67,16 +72,16 @@ namespace PO_game.Src.States
             }
             if (check)
             {
-                StateManager.Instance.AddState(new LoadGameState(content));
+                ScreenManager.Instance.AddScreen(new LoadGameScreen(content));
             }
             else
             {
-                StateManager.Instance.AddState(new GameState(content, 0));
+                ScreenManager.Instance.AddScreen(new GameScreen(content, 0));
             }
         }
         public void ButtonSettings_Click(object sender, EventArgs e)
         {
-            StateManager.Instance.AddState(new SettingsState(content));
+            ScreenManager.Instance.AddScreen(new SettingsScreen(content));
         }
         public void ButtonExit_Click(object sender, EventArgs e)
         {
@@ -84,7 +89,7 @@ namespace PO_game.Src.States
         }
         public void ButtonLoad_Click(object sender, EventArgs e)
         {
-            StateManager.Instance.AddState(new LoadGameState(content));
+            ScreenManager.Instance.AddScreen(new LoadGameScreen(content));
         }
         public override void Update(GameTime gameTime)
         {

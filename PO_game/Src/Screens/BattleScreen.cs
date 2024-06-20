@@ -7,24 +7,26 @@ using PO_game.Src.Items.Consumables;
 using PO_game.Src.Utils;
 using System;
 
-namespace PO_game.Src.States;
-
-public class FightingState : State
+namespace PO_game.Src.Screens;
+/// <summary>
+/// <c>BattleScreen</c> is a class that represents the battle screen in the game.
+/// <para> It allows the <c>Player</c> to fight an <c>Enemy</c> in a classical turn-based style. </para>
+/// </summary>
+public class BattleScreen : Screen
 {
     private Texture2D _playerTexture;
     private Texture2D _buttonTexture;
     private Button _attackButton;
     private Button _button2;
     private Button _button3;
-    private Button _button4;
+    private Button _fleeButton;
     private int buttonSpacing = 20;
     private Player _player;
     private Enemy _enemy;
     private bool _playerTurn = true;
     private Texture2D _enemyTexture;
-    private HealthPotion _medpot;
 
-    public FightingState(ContentManager content, Player player, Enemy enemy) : base(content)
+    public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
     {
         _player = player;
         _enemy = enemy;
@@ -34,7 +36,6 @@ public class FightingState : State
         _playerTexture = _player.Sprite.Texture;
         _enemyTexture = _enemy.Sprite.Texture;
         _buttonTexture = content.Load<Texture2D>("Others/startButton");
-        _medpot = new HealthPotion(content.Load<Texture2D>("Items/medium_health_potion"), "Health Potion", "Heals 50 health", "Common", 50, 1, _player);
 
         _attackButton = new Button(_buttonTexture)
         {
@@ -63,12 +64,22 @@ public class FightingState : State
             Layer = 0.3f
         };
 
-        _button4 = new Button(_buttonTexture)
+        var fleeText = "";
+        switch(_enemy.isAgressive)
+        {    
+            case true:
+                fleeText = "You can't flee from this enemy";
+                break;
+            case false:
+                fleeText = "flee";
+                break;
+        }
+        _fleeButton = new Button(_buttonTexture)
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight
                                                                     + buttonSpacing - _buttonTexture.Height),
-            Text = "4",
-            leftClick = new EventHandler(Button4_Click),
+            Text = fleeText,
+            leftClick = new EventHandler(FleeClick),
             Layer = 0.3f
         };
     }
@@ -90,9 +101,16 @@ public class FightingState : State
         System.Console.WriteLine("Button 3 clicked");
     }
 
-    public void Button4_Click(object sender, EventArgs e)
+    public void FleeClick(object sender, EventArgs e)
     {
-        System.Console.WriteLine("Button 4 clicked");
+        switch (_enemy.isAgressive)
+        {
+            case true:
+                break;
+            case false:
+                ScreenManager.Instance.RemoveScreen();
+                break;
+        }
     }
 
 
@@ -104,7 +122,7 @@ public class FightingState : State
             _attackButton.Update();
             _button2.Update();
             _button3.Update();
-            _button4.Update();
+            _fleeButton.Update();
         }
         else
         {
@@ -115,14 +133,13 @@ public class FightingState : State
         if (_player.health <= 0)
         {
             Console.WriteLine("Player died");
-            StateManager.Instance.RemoveState();
+            ScreenManager.Instance.RemoveScreen();
         }
         else if (_enemy.health <= 0)
         {
             Console.WriteLine("Enemy died");
-            _player.inventory.AddItem(_medpot);
-            _enemy.IsDead = true;
-            StateManager.Instance.RemoveState();
+            _enemy.isDead = true;
+            ScreenManager.Instance.RemoveScreen();
         }
 
     }
@@ -132,13 +149,13 @@ public class FightingState : State
         spriteBatch.Draw(_playerTexture,
             new Rectangle(Globals.ScreenWidth / 8, Globals.ScreenHeight / 4, 100, 200),
             Color.White);
-        spriteBatch.Draw(_playerTexture,
+        spriteBatch.Draw(_enemyTexture,
             new Rectangle((int)(Globals.ScreenWidth / 1.33), Globals.ScreenHeight / 4, 100, 200),
             Color.White);
         _attackButton.Draw(spriteBatch);
         _button2.Draw(spriteBatch);
         _button3.Draw(spriteBatch);
-        _button4.Draw(spriteBatch);
+        _fleeButton.Draw(spriteBatch);
         spriteBatch.End();
     }
 }

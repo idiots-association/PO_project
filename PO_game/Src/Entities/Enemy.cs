@@ -1,12 +1,22 @@
+using System.IO;
+using System.Security.AccessControl;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using PO_game.Src.Items;
+using PO_game.Src.Screens;
+using PO_game.Src.Utils;
+
 
 
 
 namespace PO_game.Src.Entities
 {
+
+    /// <summary>
+    ///  Defines the types of enemies that can be created.
+    /// </summary>
     public enum EnemyType
     {
         Goblin,
@@ -14,41 +24,82 @@ namespace PO_game.Src.Entities
         Troll
     }
 
+    /// <summary>
+    /// Class <c>EnemyFactory</c> is a class that creates enemies based on the type of enemy requested.
+    /// It stores all the pre-set enemy types and their respective textures and weapons.
+    /// </summary>
     public static class EnemyFactory
     {
         public static Enemy CreateEnemy(EnemyType enemyType, Vector2 tilePosition, ContentManager content)
         {
             Texture2D enemyTexture;
+            Texture2D weaponTexture;
+            Weapon weapon;
 
             switch (enemyType)
             {
                 case EnemyType.Goblin:
                     enemyTexture = content.Load<Texture2D>("Sprites/goblin");
-                    break;
+                    weaponTexture = content.Load<Texture2D>("Items/dagger");
+                    weapon = new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", "Common",1,4);
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, false);
                 case EnemyType.Orc:
                     enemyTexture = content.Load<Texture2D>("Sprites/orc");
-                    break;
+                    weaponTexture = content.Load<Texture2D>("Items/mace");
+                    weapon = new Weapon(weaponTexture, "Orcish Mace", "A simple mace used by the most common of orcs", "Common",4,5);
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false);
                 case EnemyType.Troll:
                     enemyTexture = content.Load<Texture2D>("Sprites/troll");
-                    break;
+                    weaponTexture = content.Load<Texture2D>("Items/mace"); // need to add a club texture
+                    weapon = new Weapon(weaponTexture, "Troll Club", "A large club used by trolls to crush their enemies", "Uncommon",6,8);
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 70, weapon, false);
                 default:
                     return null;
             }
-
-            return new Enemy(new Sprite(enemyTexture), tilePosition, (int)enemyType * 5 + 20); // temp, will handle this in cases above
         }
-
     }
 
+    /// <summary>
+    /// <c>Enemy</c> is a class that represents an enemy character in the game.
+    /// <para>It stores all the enemy's attributes, such as health, weapon, and agression.</para>
+    /// </summary>
     public class Enemy : Character
     {
         public Weapon weapon { get; set; }
-        public bool IsDead { get; set; }
-        public Enemy(Sprite sprite, Vector2 tilePosition, int maxHealth) : base(sprite, tilePosition)
+        public bool isDead { get; set; }
+        public bool isAgressive { get; set; }
+
+        private Rectangle _rectangle
+        {
+            get
+            {
+                return new Rectangle((int)Sprite.Position.X - (Sprite.Texture.Width/2), (int)Sprite.Position.Y - (Sprite.Texture.Height/2), Sprite.Texture.Width, Sprite.Texture.Height);
+            }
+        }
+        public Enemy(Sprite sprite, Vector2 tilePosition, int maxHealth, Weapon weapon, bool isAgressive) : base(sprite, tilePosition)
         {
             this.maxHealth = maxHealth;
             health = maxHealth;
-            weapon = new Weapon(null, "Some weapon", "Enemy weapon", "Common", 1, 5, this);
+            this.weapon = weapon;
+            this.isAgressive = isAgressive;
+        }
+        public void CheckAgression(ContentManager content, Player player)
+        {
+            if (isAgressive)
+            {
+                if (Vector2.Distance(player.TilePosition, TilePosition) < 2 && player.State == CharacterState.Idle)
+                {
+                    ScreenManager.Instance.AddScreen(new BattleScreen (content, player, this));
+                }
+            }
+        }
+        public void Update(ContentManager content, Player player)
+        {
+            CheckAgression(content, player);
+        }
+        public void ShowDetails()
+        {
+            // show enemy details
         }
         public void Attack(Character target)
         {

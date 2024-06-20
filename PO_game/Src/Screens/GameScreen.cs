@@ -10,9 +10,13 @@ using System;
 using System.IO;
 using System.Text.Json;
 
-namespace PO_game.Src.States
+namespace PO_game.Src.Screens
 {
-    public class GameState : State
+
+    /// <summary>
+    /// <c>GameScreen</c> is a class handling the contents of the game.
+    /// </summary>
+    public class GameScreen : Screen
     {
         private InputController _inputController;
         private Camera _camera;
@@ -57,7 +61,7 @@ namespace PO_game.Src.States
 
 
 
-        public GameState(ContentManager content, int save) : base(content)
+        public GameScreen(ContentManager content, int save) : base(content)
         {
             _inputController = new InputController();
             _camera = new Camera();
@@ -69,15 +73,6 @@ namespace PO_game.Src.States
             MapManager = MapManager.Instance;
 
         }
-
-        private Vector2 TileToPixelPosition(Vector2 tilePosition)
-        {
-            return new Vector2(
-                (int)(tilePosition.X * Globals.TileSize) + Globals.TileSize / 2,
-                tilePosition.Y * Globals.TileSize - 22 // tmp
-            );
-        }
-
 
         private void LoadMaps()
         {
@@ -99,7 +94,11 @@ namespace PO_game.Src.States
             _camera = null;
             _inputController = null;
         }
-
+        
+        /// <summary>
+        /// A method that saves the game to a file.
+        /// </summary>
+        
         private void SaveGame(object sender, EventArgs e)
         {
             var playerStats = new StatsToSave();
@@ -111,9 +110,12 @@ namespace PO_game.Src.States
             File.WriteAllText(_savePath, serializedStats);
 
             UnloadGame();
-            StateManager.Instance.RemoveState();
+            ScreenManager.Instance.RemoveScreen();
         }
 
+        /// <summary>
+        /// A method that loads the game from a save file.
+        /// </summary>
         private void LoadFromSave()
         {
             var serializedStats = File.ReadAllText(_savePath);
@@ -158,6 +160,14 @@ namespace PO_game.Src.States
             };
         }
 
+
+        /// <summary>
+        /// Update method called by Update in Game1 class.
+        /// <para>
+        /// It handles input controller logic, all entities updates, camera following the player, map updates and button updates.
+        /// </para>
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             _inputController.Update();
@@ -165,6 +175,10 @@ namespace PO_game.Src.States
             _player.Update(gameTime, _inputController, collisionMap);
             //    Console.Write(_player.TilePosition); 
             //    Console.WriteLine(_player.Sprite.Position);
+            foreach (var enemy in MapManager.Instance.GetMap(MapManager.CurrentMap).GetEnemies())
+            {
+                enemy.Update(content,_player);
+            }
 
             MapManager.Instance.GetMap(MapManager.CurrentMap).Update(gameTime, _inputController, _player);
             _camera.Follow(_player);
@@ -173,6 +187,14 @@ namespace PO_game.Src.States
             _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _changeStateButton.Update();
         }
+
+        /// <summary>
+        /// Draw method called by Draw in Game1 class.
+        /// <para>
+        /// It calls the Draw method of the current map, the player inventory and the change state button.
+        /// </para>
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix: _transformMatrix, samplerState: SamplerState.PointClamp);

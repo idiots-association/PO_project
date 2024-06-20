@@ -2,13 +2,20 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
-using PO_game.Src.States;
 using PO_game.Src.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-public class LoadGameState : State
+namespace PO_game.Src.Screens
+{
+    /// <summary>
+    ///<c>LoadingGameScreen</c> is a class handling the loading of the game.
+    /// <para>It allows the player to load the game from one of the five save slots.</para>
+    /// </summary>
+    
+    
+public class LoadGameScreen : Screen
 {
     private Texture2D _buttonTexture;
     private List<Button> _buttons;
@@ -18,21 +25,28 @@ public class LoadGameState : State
     private SpriteFont _windowFont;
     private Window _window = null;
 
-    public LoadGameState(ContentManager content) : base(content) { }
+    public LoadGameScreen(ContentManager content) : base(content) { }
 
     public void OkCancelClick(object sender, EventArgs e)
     {
-        StateManager.Instance.RemoveState();
-        StateManager.Instance.AddState(new LoadGameState(content));
+        ScreenManager.Instance.RemoveScreen();
+        ScreenManager.Instance.AddScreen(new LoadGameScreen(content));
     }
 
     public void DeleteClick(int slot, object sender, EventArgs e)
     {
         File.Delete("save" + slot + ".json");
-        StateManager.Instance.RemoveState();
-        StateManager.Instance.AddState(new LoadGameState(content));
+        ScreenManager.Instance.RemoveScreen();
+        ScreenManager.Instance.AddScreen(new LoadGameScreen(content));
     }
-
+    
+    /// <summary>
+    /// A method that creates a window with a message and buttons.
+    /// </summary>
+    /// <param name="number_of_buttons">Number of buttons in the window</param>
+    /// <param name="slot"></param>
+    
+    
     public void CreateWindow(int number_of_buttons, int slot)
     {
         _windowTexture = content.Load<Texture2D>("Others/ramka1");
@@ -128,8 +142,8 @@ public class LoadGameState : State
     {
         if (File.Exists("save1.json"))
         {
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new GameState(content, 1));
+            ScreenManager.Instance.RemoveScreen();
+            ScreenManager.Instance.AddScreen(new GameScreen(content, 1));
         }
         else
         {
@@ -141,8 +155,8 @@ public class LoadGameState : State
     {
         if (File.Exists("save2.json"))
         {
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new GameState(content, 2));
+            ScreenManager.Instance.RemoveScreen();
+            ScreenManager.Instance.AddScreen(new GameScreen(content, 2));
         }
         else
         {
@@ -154,8 +168,8 @@ public class LoadGameState : State
     {
         if (File.Exists("save3.json"))
         {
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new GameState(content, 3));
+            ScreenManager.Instance.RemoveScreen();
+            ScreenManager.Instance.AddScreen(new GameScreen(content, 3));
         }
         else
         {
@@ -167,8 +181,8 @@ public class LoadGameState : State
     {
         if (File.Exists("save4.json"))
         {
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new GameState(content, 4));
+            ScreenManager.Instance.RemoveScreen();
+            ScreenManager.Instance.AddScreen(new GameScreen(content, 4));
         }
         else
         {
@@ -180,8 +194,8 @@ public class LoadGameState : State
     {
         if (File.Exists("save5.json"))
         {
-            StateManager.Instance.RemoveState();
-            StateManager.Instance.AddState(new GameState(content, 5));
+            ScreenManager.Instance.RemoveScreen();
+            ScreenManager.Instance.AddScreen(new GameScreen(content, 5));
         }
         else
         {
@@ -232,7 +246,7 @@ public class LoadGameState : State
 
     public void ExitButtonClick(object sender, EventArgs e)
     {
-        StateManager.Instance.RemoveState();
+        ScreenManager.Instance.RemoveScreen();
     }
 
     public override void Update(GameTime gameTime)
@@ -267,4 +281,5 @@ public class LoadGameState : State
         }
         spriteBatch.End();
     }
+}
 }

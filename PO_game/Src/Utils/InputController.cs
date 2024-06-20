@@ -2,6 +2,9 @@
 
 namespace PO_game.Src.Utils
 {
+    /// <summary>
+    /// <c>InputController</c> class to manage input from the keyboard.
+    /// </summary>
     public class InputController
     {
         private KeyboardState _oldKeyboardState, _currentKeyboardState;
