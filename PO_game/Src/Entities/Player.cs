@@ -6,6 +6,9 @@ using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using System;
 using System.Collections.Generic;
+using System.Net.Mime;
+using PO_game.Src.Controls;
+using Microsoft.Xna.Framework.Content;
 
 namespace PO_game.Src.Entities
 {
@@ -18,6 +21,8 @@ namespace PO_game.Src.Entities
         private Vector2 _destination;
         public Weapon weapon { get; set; }
         public Inventory inventory { get; set; }
+        
+        
         public Player(Sprite sprite, Vector2 tilePosition, Inventory inventory) : base(sprite, tilePosition)
         {
             this.inventory = inventory;
@@ -231,6 +236,10 @@ namespace PO_game.Src.Entities
             if (inventory.showInventory)
             {
                 inventory.Update();
+            }
+            if (inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.K)) // Nowa linia
+            {
+                TakeDamage(10); // Nowa linia
             }
             //base.Update(gameTime);
         }

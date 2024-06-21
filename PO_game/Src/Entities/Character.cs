@@ -12,8 +12,8 @@ namespace PO_game.Src.Entities
     {
         public Sprite Sprite { get; set; }
         public CharacterState State { get; set; }
-        public int maxHealth { get; set; }
-        public int health { get; set; }
+        public float maxHealth { get; set; }
+        public float health { get; set; }
         public int maxMana { get; set; }
         public int mana { get; set; }
         public Vector2 TilePosition { get; set; }
