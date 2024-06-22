@@ -53,16 +53,19 @@ public class LoadGameScreen : Screen
         _window = new Window(_windowTexture, content, number_of_buttons)
         {
             Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
-            Text = "Zapis jest pusty",
+            Text = "Save is empty",
             Layer = 0.2f,
+            
         };
         _window._exitButton.leftClick += OkCancelClick;
+        _window._exitButton.Scale = 3f;
 
         if (number_of_buttons == 2)
         {
             _window._exitButton2.leftClick += (sender, e) => DeleteClick(slot, sender, e);
-            _window.Text = "Czy usunac zapis?";
-            _window._exitButton2.Text = "Tak usun";
+            _window.Text = "Do you want to delete this save?";
+            _window._exitButton2.Text = "Yes";
+            _window._exitButton2.Scale = 3f;
         }
     }
 
@@ -269,6 +272,7 @@ public class LoadGameScreen : Screen
 
     public override void Draw(SpriteBatch spriteBatch)
     {
+        // spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
         spriteBatch.Begin();
         foreach (var button in _buttons)
         {

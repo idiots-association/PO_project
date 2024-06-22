@@ -28,6 +28,7 @@ namespace PO_game.Src.Items
         public override void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position, Color.White);
+            
         }
     }
 }

@@ -132,7 +132,7 @@ namespace PO_game.Src.Screens
             var loadedStats = JsonSerializer.Deserialize<StatsToSave>(serializedStats);
 
             var playerTexture = content.Load<Texture2D>("Sprites/hero");
-            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(),_inventoryTexture);
+            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(),_inventoryTexture, content);
 
             MapManager.SetCurrentMap(loadedStats.CurrentMapId);
         }
@@ -141,7 +141,7 @@ namespace PO_game.Src.Screens
         {
             var playerPosition = new Vector2(10, 10);
             var playerTexture = content.Load<Texture2D>("Sprites/hero");
-            _player = new Player(new Sprite(playerTexture), playerPosition, _inventoryTexture);
+            _player = new Player(new Sprite(playerTexture), playerPosition, _inventoryTexture, content);
             MapManager.SetCurrentMap(MapId.Lobby);
         }
 

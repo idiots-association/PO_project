@@ -23,7 +23,7 @@ namespace PO_game.Src.Entities
         public Inventory inventory { get; set; }
            
         
-        public Player(Sprite sprite, Vector2 tilePosition, Texture2D invTexture) : base(sprite, tilePosition)
+        public Player(Sprite sprite, Vector2 tilePosition, Texture2D invTexture, ContentManager content) : base(sprite, tilePosition)
         {
             inventory = new Inventory(invTexture, this);
             maxHealth = 100;
@@ -31,6 +31,8 @@ namespace PO_game.Src.Entities
             health = maxHealth;  //should not be like that
             mana = maxMana;     //need to change it after a proper fighting implementation is done
             _destination = Sprite.Position;
+            Texture2D weaponTexture = content.Load<Texture2D>("Items/mace");
+            weapon = new Weapon(weaponTexture, "Sword", "A sword", ItemRarity.Common, 1, 3);
         }
 
 
@@ -239,6 +241,19 @@ namespace PO_game.Src.Entities
                 TilePosition.X * Globals.TileSize + Globals.TileSize / 2 + Sprite.Texture.Width % Globals.TileSize,
                 TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
             _destination = Sprite.Position;
+        }
+        
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (weapon != null)
+            {
+                float scale = 0.3f;
+                Vector2 weaponOffset = new Vector2(0, -2); 
+                Vector2 weaponPosition = Sprite.Position + weaponOffset;
+
+                spriteBatch.Draw(weapon.Texture, weaponPosition, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            }
         }
     }
 }
