@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PO_game.Src.Controls;
 using PO_game.Src.Items;
+using PO_game.Src.Items.Consumables;
 using PO_game.Src.Screens;
 using PO_game.Src.Utils;
 
@@ -45,21 +46,21 @@ namespace PO_game.Src.Entities
                 case EnemyType.Goblin:
                     enemyTexture = content.Load<Texture2D>("Sprites/goblin");
                     weaponTexture = content.Load<Texture2D>("Items/dagger");
-                    weapon = new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", ItemRarity.Common ,1 ,4);
+                    weapon = new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", "Common",1,4);
                     _loot.Add(weapon);
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 1, content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, false, _loot);
                 case EnemyType.Orc:
                     enemyTexture = content.Load<Texture2D>("Sprites/orc");
                     weaponTexture = content.Load<Texture2D>("Items/mace");
-                    weapon = new Weapon(weaponTexture, "Orcish Mace", "A simple mace used by the most orcs", ItemRarity.Common ,4 ,5);
+                    weapon = new Weapon(weaponTexture, "Orcish Mace", "A simple mace used by the most common of orcs", "Common",4,5);
                     _loot.Add(weapon);
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, random.Next(1,2), content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false, _loot);
                 case EnemyType.Troll:
                     enemyTexture = content.Load<Texture2D>("Sprites/troll");
                     weaponTexture = content.Load<Texture2D>("Items/mace"); // need to add a club texture
-                    weapon = new Weapon(weaponTexture, "Troll Club", "A large club used by trolls to crush their enemies", ItemRarity.Uncommon ,6 ,8);
+                    weapon = new Weapon(weaponTexture, "Troll Club", "A large club used by trolls to crush their enemies", "Uncommon",6,8);
                     _loot.Add(weapon);
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Uncommon, random.Next(1,2), content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 70, weapon, false, _loot);

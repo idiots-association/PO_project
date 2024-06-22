@@ -5,7 +5,7 @@
 
 - [BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen')
   - [LoadContent()](#M-PO_game-Src-Screens-BattleScreen-LoadContent 'PO_game.Src.Screens.BattleScreen.LoadContent')
-  - [RollItemDrop(rarity)](#M-PO_game-Src-Screens-BattleScreen-RollItemDrop-PO_game-Src-Items-ItemRarity- 'PO_game.Src.Screens.BattleScreen.RollItemDrop(PO_game.Src.Items.ItemRarity)')
+  - [RollItemDrop(rarity)](#M-PO_game-Src-Screens-BattleScreen-RollItemDrop-System-String- 'PO_game.Src.Screens.BattleScreen.RollItemDrop(System.String)')
 - [Button](#T-PO_game-Src-Controls-Button 'PO_game.Src.Controls.Button')
 - [Camera](#T-PO_game-Src-Utils-Camera 'PO_game.Src.Utils.Camera')
   - [Follow()](#M-PO_game-Src-Utils-Camera-Follow-PO_game-Src-Entities-Player- 'PO_game.Src.Utils.Camera.Follow(PO_game.Src.Entities.Player)')
@@ -99,7 +99,7 @@ It loads the textures of the player, enemy, and buttons, and creates the health 
 
 This method has no parameters.
 
-<a name='M-PO_game-Src-Screens-BattleScreen-RollItemDrop-PO_game-Src-Items-ItemRarity-'></a>
+<a name='M-PO_game-Src-Screens-BattleScreen-RollItemDrop-System-String-'></a>
 ### RollItemDrop(rarity) `method`
 
 ##### Summary
@@ -116,7 +116,7 @@ Looks up the global drop rates for rarities and returns a boolean value.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| rarity | [PO_game.Src.Items.ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity') | The rarity of the item from the monsters loot table. |
+| rarity | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The rarity of the item from the monsters loot table. |
 
 <a name='T-PO_game-Src-Controls-Button'></a>
 ## Button `type`
