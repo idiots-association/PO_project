@@ -31,6 +31,9 @@ namespace PO_game.Src.Screens
         private bool _loadingFromSave;
         private Texture2D _inventoryTexture;
         private Texture2D _buttonTexture;
+        private Health_bar _healthBar;
+        private Texture2D _bg;
+        private Texture2D _fg;
 
         private string GenerateSavePath(int save)
         {
@@ -167,6 +170,10 @@ namespace PO_game.Src.Screens
                 leftClick = new EventHandler(SaveGame),
                 Layer = 0.3f
             };
+            
+            _bg = content.Load<Texture2D>("Others/emptybar");
+            _fg = content.Load<Texture2D>("Others/healthbar");
+            _healthBar = new Health_bar(_bg, _fg, new(10, 10), _player.maxHealth);
         }
 
 
@@ -194,6 +201,7 @@ namespace PO_game.Src.Screens
 
             Matrix translationMatrix = _camera.Transform;
             _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
+            _healthBar.Update(_player.health);
             _changeStateButton.Update();
         }
 
@@ -213,6 +221,7 @@ namespace PO_game.Src.Screens
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _changeStateButton.Draw(spriteBatch);
             _player.inventory.Draw(spriteBatch);
+            _healthBar.Draw(spriteBatch);
             spriteBatch.End();
         }
 
