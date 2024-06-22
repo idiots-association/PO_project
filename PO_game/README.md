@@ -4,6 +4,8 @@
 ## Contents
 
 - [BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen')
+  - [LoadContent()](#M-PO_game-Src-Screens-BattleScreen-LoadContent 'PO_game.Src.Screens.BattleScreen.LoadContent')
+  - [RollItemDrop(rarity)](#M-PO_game-Src-Screens-BattleScreen-RollItemDrop-System-String- 'PO_game.Src.Screens.BattleScreen.RollItemDrop(System.String)')
 - [Button](#T-PO_game-Src-Controls-Button 'PO_game.Src.Controls.Button')
 - [Camera](#T-PO_game-Src-Utils-Camera 'PO_game.Src.Utils.Camera')
   - [Follow()](#M-PO_game-Src-Utils-Camera-Follow-PO_game-Src-Entities-Player- 'PO_game.Src.Utils.Camera.Follow(PO_game.Src.Entities.Player)')
@@ -32,6 +34,7 @@
 - [Inventory](#T-PO_game-Src-Inv-Inventory 'PO_game.Src.Inv.Inventory')
 - [InventorySlot](#T-PO_game-Src-Inv-InventorySlot 'PO_game.Src.Inv.InventorySlot')
 - [Item](#T-PO_game-Src-Items-Item 'PO_game.Src.Items.Item')
+- [ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity')
 - [LoadGameScreen](#T-PO_game-Src-Screens-LoadGameScreen 'PO_game.Src.Screens.LoadGameScreen')
   - [CreateWindow(number_of_buttons,slot)](#M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32- 'PO_game.Src.Screens.LoadGameScreen.CreateWindow(System.Int32,System.Int32)')
 - [ManaPotion](#T-PO_game-Src-Items-Consumables-ManaPotion 'PO_game.Src.Items.Consumables.ManaPotion')
@@ -56,6 +59,9 @@
   - [RemoveOldPositionFromCollisionMap(collisionMap)](#M-PO_game-Src-Entities-Player-RemoveOldPositionFromCollisionMap-System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.RemoveOldPositionFromCollisionMap(System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [Update(gameTime,inputController,collisionMap)](#M-PO_game-Src-Entities-Player-Update-Microsoft-Xna-Framework-GameTime,PO_game-Src-Utils-InputController,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.Update(Microsoft.Xna.Framework.GameTime,PO_game.Src.Utils.InputController,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [UpdatePosition(tilePosition)](#M-PO_game-Src-Entities-Player-UpdatePosition-Microsoft-Xna-Framework-Vector2- 'PO_game.Src.Entities.Player.UpdatePosition(Microsoft.Xna.Framework.Vector2)')
+- [PotionFactory](#T-PO_game-Src-Items-PotionFactory 'PO_game.Src.Items.PotionFactory')
+  - [CreatePotion(potionType,itemRarity,quantity,content)](#M-PO_game-Src-Items-PotionFactory-CreatePotion-PO_game-Src-Items-PotionType,PO_game-Src-Items-ItemRarity,System-Int32,Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Items.PotionFactory.CreatePotion(PO_game.Src.Items.PotionType,PO_game.Src.Items.ItemRarity,System.Int32,Microsoft.Xna.Framework.Content.ContentManager)')
+- [PotionType](#T-PO_game-Src-Items-PotionType 'PO_game.Src.Items.PotionType')
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
@@ -79,6 +85,38 @@ PO_game.Src.Screens
 `BattleScreen` is a class that represents the battle screen in the game.
 
 It allows the `Player` to fight an `Enemy` in a classical turn-based style.
+
+<a name='M-PO_game-Src-Screens-BattleScreen-LoadContent'></a>
+### LoadContent() `method`
+
+##### Summary
+
+`LoadContent` is a method that loads the content of the battle screen.
+
+It loads the textures of the player, enemy, and buttons, and creates the health bars for the player and the enemy.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PO_game-Src-Screens-BattleScreen-RollItemDrop-System-String-'></a>
+### RollItemDrop(rarity) `method`
+
+##### Summary
+
+`RollItemDrop` is a method that rolls a chance for an item to drop.
+
+Looks up the global drop rates for rarities and returns a boolean value.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| rarity | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The rarity of the item from the monsters loot table. |
 
 <a name='T-PO_game-Src-Controls-Button'></a>
 ## Button `type`
@@ -417,6 +455,17 @@ PO_game.Src.Items
 
 It allows the creation of items with custom textures, names, descriptions and rarities.
 
+<a name='T-PO_game-Src-Items-ItemRarity'></a>
+## ItemRarity `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+Represents the possible item rarities in the game.
+
 <a name='T-PO_game-Src-Screens-LoadGameScreen'></a>
 ## LoadGameScreen `type`
 
@@ -751,6 +800,49 @@ Updates the player's tile and sprite position. The method is called during warp 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | tilePosition | [Microsoft.Xna.Framework.Vector2](#T-Microsoft-Xna-Framework-Vector2 'Microsoft.Xna.Framework.Vector2') |  |
+
+<a name='T-PO_game-Src-Items-PotionFactory'></a>
+## PotionFactory `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+Class `PotionFactory` is a class that creates consumable items based on the type of potion requested.
+It stores all the pre-set potion types and their respective textures, names, descriptions, rarities and health restored.
+
+<a name='M-PO_game-Src-Items-PotionFactory-CreatePotion-PO_game-Src-Items-PotionType,PO_game-Src-Items-ItemRarity,System-Int32,Microsoft-Xna-Framework-Content-ContentManager-'></a>
+### CreatePotion(potionType,itemRarity,quantity,content) `method`
+
+##### Summary
+
+Creates a potion based on the type of potion requested.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| potionType | [PO_game.Src.Items.PotionType](#T-PO_game-Src-Items-PotionType 'PO_game.Src.Items.PotionType') | The type of potion to be created. |
+| itemRarity | [PO_game.Src.Items.ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity') | The rarity of the potion to be created. |
+| quantity | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | The quantity of the potion to be created. |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') | The content manager used to load the textures of the potions. |
+
+<a name='T-PO_game-Src-Items-PotionType'></a>
+## PotionType `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+Defines the types of consumable items that can be created.
 
 <a name='T-PO_game-Src-Screens-Screen'></a>
 ## Screen `type`

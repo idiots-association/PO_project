@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.AccessControl;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PO_game.Src.Controls;
 using PO_game.Src.Items;
+using PO_game.Src.Items.Consumables;
 using PO_game.Src.Screens;
 using PO_game.Src.Utils;
 
@@ -35,6 +38,8 @@ namespace PO_game.Src.Entities
             Texture2D enemyTexture;
             Texture2D weaponTexture;
             Weapon weapon;
+            List<Item> _loot = new List<Item>();
+            Random random = new Random();
 
             switch (enemyType)
             {
@@ -42,17 +47,23 @@ namespace PO_game.Src.Entities
                     enemyTexture = content.Load<Texture2D>("Sprites/goblin");
                     weaponTexture = content.Load<Texture2D>("Items/dagger");
                     weapon = new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", "Common",1,4);
-                    return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, false);
+                    _loot.Add(weapon);
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 1, content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, false, _loot);
                 case EnemyType.Orc:
                     enemyTexture = content.Load<Texture2D>("Sprites/orc");
                     weaponTexture = content.Load<Texture2D>("Items/mace");
                     weapon = new Weapon(weaponTexture, "Orcish Mace", "A simple mace used by the most common of orcs", "Common",4,5);
-                    return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false);
+                    _loot.Add(weapon);
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, random.Next(1,2), content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false, _loot);
                 case EnemyType.Troll:
                     enemyTexture = content.Load<Texture2D>("Sprites/troll");
                     weaponTexture = content.Load<Texture2D>("Items/mace"); // need to add a club texture
                     weapon = new Weapon(weaponTexture, "Troll Club", "A large club used by trolls to crush their enemies", "Uncommon",6,8);
-                    return new Enemy(new Sprite(enemyTexture), tilePosition, 70, weapon, false);
+                    _loot.Add(weapon);
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Uncommon, random.Next(1,2), content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 70, weapon, false, _loot);
                 default:
                     return null;
             }
@@ -66,15 +77,16 @@ namespace PO_game.Src.Entities
     public class Enemy : Character
     {
         public Weapon weapon { get; set; }
-        public bool isDead { get; set; }
         public bool isAgressive { get; set; }
+        public List<Item> loot { get; set; }
 
-        public Enemy(Sprite sprite, Vector2 tilePosition, int maxHealth, Weapon weapon, bool isAgressive) : base(sprite, tilePosition)
+        public Enemy(Sprite sprite, Vector2 tilePosition, int maxHealth, Weapon weapon, bool isAgressive, List<Item> loot) : base(sprite, tilePosition)
         {
             this.maxHealth = maxHealth;
             health = maxHealth;
             this.weapon = weapon;
             this.isAgressive = isAgressive;
+            this.loot = loot;   
         }
         private void CheckAgression(ContentManager content, Player player, InputController inputController)
         {       
@@ -86,7 +98,7 @@ namespace PO_game.Src.Entities
                         ScreenManager.Instance.AddScreen(new BattleScreen (content, player, this));
                     } 
                     else
-                    {// if there is more than one enemy in the radius, i dont know what will happen, will need to fix it somehow
+                    {// if there is more than one enemy in the radius, i dont know what will happen, will need to fix it somehow later
                         if (inputController.isKeyPressed(Keys.F) && player.health > 0)
                         {
                             ScreenManager.Instance.AddScreen(new BattleScreen(content, player, this));

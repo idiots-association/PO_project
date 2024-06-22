@@ -5,6 +5,7 @@ using PO_game.Src.Entities;
 using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using System;
+using System.Security;
 namespace PO_game.Src.Inv
 {
     /// <summary>
@@ -71,7 +72,7 @@ namespace PO_game.Src.Inv
                         case Consumable:
                             Consumable tempConsumable = (Consumable)item;
                             tempConsumable.Use(player);
-                            if (tempConsumable.Quantity == 0)
+                            if(tempConsumable.Quantity == 0)
                             {
                                 item = null;
                             }

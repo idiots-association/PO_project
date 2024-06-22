@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
 using PO_game.Src.Entities;
-using PO_game.Src.Items.Consumables;
 using PO_game.Src.Maps;
+using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using System;
 
@@ -16,6 +16,7 @@ namespace PO_game.Src.Screens;
 public class BattleScreen : Screen
 {
     private Texture2D _playerTexture;
+    private Texture2D _enemyTexture;
     private Texture2D _buttonTexture;
     private Button _attackButton;
     private Button _button2;
@@ -25,15 +26,24 @@ public class BattleScreen : Screen
     private Player _player;
     private Enemy _enemy;
     private bool _playerTurn = true;
-    private Texture2D _enemyTexture;
+    private Health_bar _playerHealthBar;
+    private Health_bar _enemyHealthBar;
+    
 
     public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
     {
         _player = player;
         _enemy = enemy;
     }
+
+    /// <summary>
+    /// <c>LoadContent</c> is a method that loads the content of the battle screen.
+    /// <para>It loads the textures of the player, enemy, and buttons, and creates the health bars for the player and the enemy.</para>
+    /// </summary>
     public override void LoadContent()
     {
+        _playerHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), _player.maxHealth);
+        _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), _enemy.maxHealth);
         _playerTexture = _player.Sprite.Texture;
         _enemyTexture = _enemy.Sprite.Texture;
         _buttonTexture = content.Load<Texture2D>("Others/startButton");
@@ -113,9 +123,20 @@ public class BattleScreen : Screen
                 break;
         }
     }
-
-
-
+    /// <summary>
+    /// <c>RollItemDrop</c> is a method that rolls a chance for an item to drop.
+    /// <para> Looks up the global drop rates for rarities and returns a boolean value.</para>
+    /// </summary>
+    /// <param name="rarity"> The rarity of the item from the monsters loot table.</param>
+    /// <returns></returns>
+    private bool RollItemDrop(ItemRarity rarity)
+    {
+        Random random = new Random();
+        int roll = random.Next(0, 100);
+        if (roll <= Globals.dropChance[rarity])
+            return true;
+        return false;
+    }
     public override void Update(GameTime gameTime)
     {
         if (_playerTurn)
@@ -124,6 +145,8 @@ public class BattleScreen : Screen
             _button2.Update();
             _button3.Update();
             _fleeButton.Update();
+            _enemyHealthBar.Update(_enemy.health);
+            _playerHealthBar.Update(_player.health);
         }
         else
         {
@@ -133,17 +156,18 @@ public class BattleScreen : Screen
         }
         if (_player.health <= 0)
         {
-            Console.WriteLine("Player died");
             ScreenManager.Instance.RemoveScreen();
         }
         else if (_enemy.health <= 0)
         {
-            Console.WriteLine("Enemy died");
-            _enemy.isDead = true;
+            foreach (Item item in _enemy.loot)
+            {
+                if (RollItemDrop(item.Rarity))
+                    _player.inventory.AddItem(item);
+            }
             MapManager.Instance.GetCurrentMap().RemoveEnemy(_enemy);
             ScreenManager.Instance.RemoveScreen();
         }
-
     }
     public override void Draw(SpriteBatch spriteBatch)
     {
@@ -158,6 +182,8 @@ public class BattleScreen : Screen
         _button2.Draw(spriteBatch);
         _button3.Draw(spriteBatch);
         _fleeButton.Draw(spriteBatch);
+        _playerHealthBar.Draw(spriteBatch);
+        _enemyHealthBar.Draw(spriteBatch);
         spriteBatch.End();
     }
 }

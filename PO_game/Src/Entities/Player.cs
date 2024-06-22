@@ -21,11 +21,11 @@ namespace PO_game.Src.Entities
         private Vector2 _destination;
         public Weapon weapon { get; set; }
         public Inventory inventory { get; set; }
+           
         
-        
-        public Player(Sprite sprite, Vector2 tilePosition, Inventory inventory) : base(sprite, tilePosition)
+        public Player(Sprite sprite, Vector2 tilePosition, Texture2D invTexture) : base(sprite, tilePosition)
         {
-            this.inventory = inventory;
+            inventory = new Inventory(invTexture, this);
             maxHealth = 100;
             maxMana = 100;
             health = maxHealth;  //should not be like that
@@ -202,7 +202,7 @@ namespace PO_game.Src.Entities
             else
             {
                 Random random = new Random();
-                enemy.health -= random.Next(2, 4);
+                enemy.health -= random.Next(1, 3);
             }
         }
 
@@ -221,25 +221,9 @@ namespace PO_game.Src.Entities
                 inventory.showInventory = !inventory.showInventory;
 
             }
-            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))//temporary
-            // {
-            //     inventory.AddItem(_medpot);
-            // }
-            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))//temporary
-            // {
-            //     inventory.AddItem(_mace);
-            // }
-            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))//temporary
-            // {
-            //     inventory.AddItem(_dagger);
-            // }
             if (inventory.showInventory)
             {
                 inventory.Update();
-            }
-            if (inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.K)) // Nowa linia
-            {
-                TakeDamage(10); // Nowa linia
             }
             //base.Update(gameTime);
         }

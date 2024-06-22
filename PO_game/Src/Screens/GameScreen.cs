@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
 using PO_game.Src.Entities;
+using PO_game.Src.Items;
 using PO_game.Src.Inv;
 using PO_game.Src.Maps;
 using PO_game.Src.Utils;
@@ -32,8 +33,6 @@ namespace PO_game.Src.Screens
         private Texture2D _inventoryTexture;
         private Texture2D _buttonTexture;
         private Health_bar _healthBar;
-        private Texture2D _bg;
-        private Texture2D _fg;
 
         private string GenerateSavePath(int save)
         {
@@ -74,7 +73,6 @@ namespace PO_game.Src.Screens
             _savePath = GenerateSavePath(save);
             _loadingFromSave = File.Exists(_savePath);
             MapManager = MapManager.Instance;
-
         }
 
         private void LoadMaps()
@@ -133,8 +131,8 @@ namespace PO_game.Src.Screens
             var serializedStats = File.ReadAllText(_savePath);
             var loadedStats = JsonSerializer.Deserialize<StatsToSave>(serializedStats);
 
-            var playerTexture = content.Load<Texture2D>("Sprites/playerxd");
-            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(), new Inventory(_inventoryTexture, _player));
+            var playerTexture = content.Load<Texture2D>("Sprites/hero");
+            _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(),_inventoryTexture);
 
             MapManager.SetCurrentMap(loadedStats.CurrentMapId);
         }
@@ -142,8 +140,8 @@ namespace PO_game.Src.Screens
         private void StartNewGame()
         {
             var playerPosition = new Vector2(10, 10);
-            var playerTexture = content.Load<Texture2D>("Sprites/playerxd");
-            _player = new Player(new Sprite(playerTexture), playerPosition, new Inventory(_inventoryTexture, _player));
+            var playerTexture = content.Load<Texture2D>("Sprites/hero");
+            _player = new Player(new Sprite(playerTexture), playerPosition, _inventoryTexture);
             MapManager.SetCurrentMap(MapId.Lobby);
         }
 
@@ -170,10 +168,8 @@ namespace PO_game.Src.Screens
                 leftClick = new EventHandler(SaveGame),
                 Layer = 0.3f
             };
-            
-            _bg = content.Load<Texture2D>("Others/emptybar");
-            _fg = content.Load<Texture2D>("Others/healthbar");
-            _healthBar = new Health_bar(_bg, _fg, new(10, 10), _player.maxHealth);
+
+            _healthBar = new Health_bar(content, new(10, 10), _player.maxHealth);
         }
 
 
