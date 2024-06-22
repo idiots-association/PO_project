@@ -4,6 +4,10 @@ using PO_game.Src.Entities;
 using System;
 namespace PO_game.Src.Items
 {
+    /// <summary>
+    /// <c>Weapon</c> is a class that represents a weapon in the game.
+    /// <para>It allows the creation of weapons with custom damage values.</para>
+    /// </summary>
     public class Weapon : Item
     {
         public int minDamage { get; set; }

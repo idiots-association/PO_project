@@ -6,7 +6,10 @@ using System;
 
 namespace PO_game.Src.Controls
 {
-
+    /// <summary>
+    /// <c>Button</c> is a class that represents a button in the game.
+    /// <para>It allows the creation of buttons with custom text, texture and different functions.</para>
+    /// </summary>
     public class Button
     {
         private MouseState _currentMouse;
@@ -16,7 +19,6 @@ namespace PO_game.Src.Controls
 
         public EventHandler leftClick;
         public EventHandler rightClick;
-        public bool Clicked { get; private set; }
         public float Layer { get; set; }
         public Vector2 Position { get; set; }
         public string Text { get; set; }

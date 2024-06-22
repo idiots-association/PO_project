@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PO_game.Src.Maps
 {
+    /// <summary>
+    /// Enum representing the different maps in the game.
+    /// </summary>
     public enum MapId
     {
         Lobby,
@@ -11,6 +14,10 @@ namespace PO_game.Src.Maps
         Dungeon
     }
 
+
+    /// <summary>
+    /// <c>Warps</c>> class contains the warp points for each map.
+    /// </summary>
     public static class Warps
     {
         public static Dictionary<Vector2, Tuple<MapId, Vector2>> Lobby = new Dictionary<Vector2, Tuple<MapId, Vector2>>()
@@ -19,7 +26,9 @@ namespace PO_game.Src.Maps
         };
     }
 
-
+    /// <summary>
+    /// <c>MapManager</c> class manages the maps in the game.
+    /// </summary>
     public class MapManager
     {
 

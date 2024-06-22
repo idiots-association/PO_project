@@ -14,7 +14,9 @@ using PO_game.Src.Utils;
 
 namespace PO_game.Src.Entities
 {
-
+    /// <summary>
+    ///  Defines the types of enemies that can be created.
+    /// </summary>
     public enum EnemyType
     {
         Goblin,
@@ -22,6 +24,10 @@ namespace PO_game.Src.Entities
         Troll
     }
 
+    /// <summary>
+    /// Class <c>EnemyFactory</c> is a class that creates enemies based on the type of enemy requested.
+    /// It stores all the pre-set enemy types and their respective textures and weapons.
+    /// </summary>
     public static class EnemyFactory
     {
         public static Enemy CreateEnemy(EnemyType enemyType, Vector2 tilePosition, ContentManager content)
@@ -53,6 +59,10 @@ namespace PO_game.Src.Entities
         }
     }
 
+    /// <summary>
+    /// <c>Enemy</c> is a class that represents an enemy character in the game.
+    /// <para>It stores all the enemy's attributes, such as health, weapon, and agression.</para>
+    /// </summary>
     public class Enemy : Character
     {
         public Weapon weapon { get; set; }

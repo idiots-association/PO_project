@@ -10,7 +10,10 @@
     <list default="true" id="667ef977-c88e-4082-acc3-ce2eec5124d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/Controls/Window.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Controls/Window.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/States/LoadGamesState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/States/LoadGamesState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/LoadGamesScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/LoadGamesScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/SettingScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/SettingScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/StartScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/StartScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Utils/StatsToSave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Utils/StatsToSave.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +55,7 @@
   "keyToString": {
     ".NET Project.PO_game.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "windows",
+    "git-widget-placeholder": "documentation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -102,6 +105,7 @@
       <workItem from="1716724619504" duration="1503000" />
       <workItem from="1716740608963" duration="2446000" />
       <workItem from="1716743104674" duration="7675000" />
+      <workItem from="1718907111722" duration="2415000" />
     </task>
     <servers />
   </component>

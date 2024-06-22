@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace PO_game.Src.Screens
 {
+    /// <summary>
+    /// <c>ScreenManager</c> class to manage screens.
+    /// <para>
+    /// It contains instance of itself to ensure so that there is only one Screen Manager per build.</para>
+    /// </summary>
     public class ScreenManager
     {
         private static ScreenManager _instance;

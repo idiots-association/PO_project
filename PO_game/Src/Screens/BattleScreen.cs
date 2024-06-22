@@ -9,7 +9,10 @@ using PO_game.Src.Utils;
 using System;
 
 namespace PO_game.Src.Screens;
-
+/// <summary>
+/// <c>BattleScreen</c> is a class that represents the battle screen in the game.
+/// <para> It allows the <c>Player</c> to fight an <c>Enemy</c> in a classical turn-based style. </para>
+/// </summary>
 public class BattleScreen : Screen
 {
     private Texture2D _playerTexture;

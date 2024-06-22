@@ -6,6 +6,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 namespace PO_game.Src.Inv
 {
+    /// <summary>
+    /// <c>Inventory</c> is a class that represents an inventory in the game.
+    /// <para>
+    /// It allows the creation of inventories with custom textures and player references and consists of 36 <c>InventorySlots.</c>
+    /// <c>Consumable</c> items are stackable, <c>Weapon</c>s are not.</para>
+    /// </summary>
     public class Inventory
     {
         public List<InventorySlot> slots { get; set; }

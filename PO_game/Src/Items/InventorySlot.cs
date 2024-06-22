@@ -7,6 +7,11 @@ using PO_game.Src.Utils;
 using System;
 namespace PO_game.Src.Inv
 {
+    /// <summary>
+    /// <c>InventorySlot</c> is a class that represents an inventory slot in the game.
+    /// <para>It allows the creation of inventory slots with custom textures and items and allows the player to interact with the items in the inventory.
+    /// Any <c>InventorySlot</c> can hold only one type of an item at a time. </para>
+    /// </summary>
     public class InventorySlot
     {
 
