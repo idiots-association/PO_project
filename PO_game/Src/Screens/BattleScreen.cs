@@ -145,6 +145,8 @@ public class BattleScreen : Screen
             _button2.Update();
             _button3.Update();
             _fleeButton.Update();
+            _enemyHealthBar.Update(_enemy.health);
+            _playerHealthBar.Update(_player.health);
         }
         else
         {
@@ -152,8 +154,6 @@ public class BattleScreen : Screen
             _enemy.Attack(_player);
             Console.WriteLine("Enemy attacked " + _player.health + " health left");
         }
-        _enemyHealthBar.Update(_enemy.health);
-        _playerHealthBar.Update(_player.health);
         if (_player.health <= 0)
         {
             ScreenManager.Instance.RemoveScreen();
