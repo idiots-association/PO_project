@@ -12,22 +12,23 @@ namespace PO_game.Src.Items
     {
         public int minDamage { get; set; }
         public int maxDamage { get; set; }
-        public Weapon(Texture2D texture, string name, string description, string rarity, int mindamage, int maxdamage) : base(texture, name, description, rarity)
+        public Weapon(Texture2D texture, string name, string description, ItemRarity rarity, int mindamage, int maxdamage) : base(texture, name, description, rarity)
         {
             minDamage = mindamage;
             maxDamage = maxdamage;
         }
-        public void Attack(Character target)
+        public int Attack()
         {
             Random rand = new Random();
             int damage = rand.Next(minDamage, maxDamage);
-            target.TakeDamage(damage);
+            return damage;
         }
 
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position, Color.White);
+            
         }
     }
 }

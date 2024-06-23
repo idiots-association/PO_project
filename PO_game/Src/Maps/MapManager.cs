@@ -63,6 +63,11 @@ namespace PO_game.Src.Maps
             return _maps[mapId];
         }
 
+        public Map GetCurrentMap()
+        {
+            return _maps[CurrentMap];
+        }   
+
         public void SetCurrentMap(MapId mapId)
         {
             if (_maps.ContainsKey(mapId))

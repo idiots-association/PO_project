@@ -4,14 +4,20 @@
 ## Contents
 
 - [BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen')
+  - [LoadContent()](#M-PO_game-Src-Screens-BattleScreen-LoadContent 'PO_game.Src.Screens.BattleScreen.LoadContent')
+  - [RollItemDrop(rarity)](#M-PO_game-Src-Screens-BattleScreen-RollItemDrop-PO_game-Src-Items-ItemRarity- 'PO_game.Src.Screens.BattleScreen.RollItemDrop(PO_game.Src.Items.ItemRarity)')
+  - [Update(gameTime)](#M-PO_game-Src-Screens-BattleScreen-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Src.Screens.BattleScreen.Update(Microsoft.Xna.Framework.GameTime)')
 - [Button](#T-PO_game-Src-Controls-Button 'PO_game.Src.Controls.Button')
 - [Camera](#T-PO_game-Src-Utils-Camera 'PO_game.Src.Utils.Camera')
   - [Follow()](#M-PO_game-Src-Utils-Camera-Follow-PO_game-Src-Entities-Player- 'PO_game.Src.Utils.Camera.Follow(PO_game.Src.Entities.Player)')
 - [Character](#T-PO_game-Src-Entities-Character 'PO_game.Src.Entities.Character')
+  - [DeFortify()](#M-PO_game-Src-Entities-Character-DeFortify-System-Int32- 'PO_game.Src.Entities.Character.DeFortify(System.Int32)')
+  - [Fortify(amount)](#M-PO_game-Src-Entities-Character-Fortify-System-Int32- 'PO_game.Src.Entities.Character.Fortify(System.Int32)')
 - [CharacterState](#T-PO_game-Src-Utils-CharacterState 'PO_game.Src.Utils.CharacterState')
 - [Collision](#T-PO_game-Src-Utils-Collision 'PO_game.Src.Utils.Collision')
 - [Consumable](#T-PO_game-Src-Items-Consumable 'PO_game.Src.Items.Consumable')
 - [Enemy](#T-PO_game-Src-Entities-Enemy 'PO_game.Src.Entities.Enemy')
+  - [CheckAgression(content,player,inputController)](#M-PO_game-Src-Entities-Enemy-CheckAgression-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Utils-InputController- 'PO_game.Src.Entities.Enemy.CheckAgression(Microsoft.Xna.Framework.Content.ContentManager,PO_game.Src.Entities.Player,PO_game.Src.Utils.InputController)')
 - [EnemyFactory](#T-PO_game-Src-Entities-EnemyFactory 'PO_game.Src.Entities.EnemyFactory')
 - [EnemyType](#T-PO_game-Src-Entities-EnemyType 'PO_game.Src.Entities.EnemyType')
 - [Game1](#T-PO_game-Game1 'PO_game.Game1')
@@ -32,6 +38,7 @@
 - [Inventory](#T-PO_game-Src-Inv-Inventory 'PO_game.Src.Inv.Inventory')
 - [InventorySlot](#T-PO_game-Src-Inv-InventorySlot 'PO_game.Src.Inv.InventorySlot')
 - [Item](#T-PO_game-Src-Items-Item 'PO_game.Src.Items.Item')
+- [ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity')
 - [LoadGameScreen](#T-PO_game-Src-Screens-LoadGameScreen 'PO_game.Src.Screens.LoadGameScreen')
   - [CreateWindow(number_of_buttons,slot)](#M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32- 'PO_game.Src.Screens.LoadGameScreen.CreateWindow(System.Int32,System.Int32)')
 - [ManaPotion](#T-PO_game-Src-Items-Consumables-ManaPotion 'PO_game.Src.Items.Consumables.ManaPotion')
@@ -50,17 +57,24 @@
 - [MapId](#T-PO_game-Src-Maps-MapId 'PO_game.Src.Maps.MapId')
 - [MapManager](#T-PO_game-Src-Maps-MapManager 'PO_game.Src.Maps.MapManager')
 - [NPC](#T-PO_game-Src-Entities-NPC 'PO_game.Src.Entities.NPC')
+- [OffHand](#T-PO_game-Src-Items-OffHand 'PO_game.Src.Items.OffHand')
 - [Player](#T-PO_game-Src-Entities-Player 'PO_game.Src.Entities.Player')
   - [AddPlayerPositionToCollisionMap(playerTile,collisionMap)](#M-PO_game-Src-Entities-Player-AddPlayerPositionToCollisionMap-Microsoft-Xna-Framework-Vector2,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.AddPlayerPositionToCollisionMap(Microsoft.Xna.Framework.Vector2,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [MovePlayer(gameTime,inputController,collisionMap)](#M-PO_game-Src-Entities-Player-MovePlayer-Microsoft-Xna-Framework-GameTime,PO_game-Src-Utils-InputController,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.MovePlayer(Microsoft.Xna.Framework.GameTime,PO_game.Src.Utils.InputController,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [RemoveOldPositionFromCollisionMap(collisionMap)](#M-PO_game-Src-Entities-Player-RemoveOldPositionFromCollisionMap-System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.RemoveOldPositionFromCollisionMap(System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [Update(gameTime,inputController,collisionMap)](#M-PO_game-Src-Entities-Player-Update-Microsoft-Xna-Framework-GameTime,PO_game-Src-Utils-InputController,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.Update(Microsoft.Xna.Framework.GameTime,PO_game.Src.Utils.InputController,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [UpdatePosition(tilePosition)](#M-PO_game-Src-Entities-Player-UpdatePosition-Microsoft-Xna-Framework-Vector2- 'PO_game.Src.Entities.Player.UpdatePosition(Microsoft.Xna.Framework.Vector2)')
+- [PotionFactory](#T-PO_game-Src-Items-PotionFactory 'PO_game.Src.Items.PotionFactory')
+  - [CreatePotion(potionType,itemRarity,quantity,content)](#M-PO_game-Src-Items-PotionFactory-CreatePotion-PO_game-Src-Items-PotionType,PO_game-Src-Items-ItemRarity,System-Int32,Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Items.PotionFactory.CreatePotion(PO_game.Src.Items.PotionType,PO_game.Src.Items.ItemRarity,System.Int32,Microsoft.Xna.Framework.Content.ContentManager)')
+- [PotionType](#T-PO_game-Src-Items-PotionType 'PO_game.Src.Items.PotionType')
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
+- [Shield](#T-PO_game-Src-Items-Shield 'PO_game.Src.Items.Shield')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
 - [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
+- [StatusEffects](#T-PO_game-Src-Effects-StatusEffects 'PO_game.Src.Effects.StatusEffects')
+  - [UpdateEffects(screen,character)](#M-PO_game-Src-Effects-StatusEffects-UpdateEffects-PO_game-Src-Screens-BattleScreen,PO_game-Src-Entities-Character- 'PO_game.Src.Effects.StatusEffects.UpdateEffects(PO_game.Src.Screens.BattleScreen,PO_game.Src.Entities.Character)')
 - [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
 - [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
@@ -79,6 +93,53 @@ PO_game.Src.Screens
 `BattleScreen` is a class that represents the battle screen in the game.
 
 It allows the `Player` to fight an `Enemy` in a classical turn-based style.
+
+<a name='M-PO_game-Src-Screens-BattleScreen-LoadContent'></a>
+### LoadContent() `method`
+
+##### Summary
+
+`LoadContent` is a method that loads the content of the battle screen.
+
+It loads the textures of the player, enemy, and buttons, and creates the health bars for the player and the enemy.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PO_game-Src-Screens-BattleScreen-RollItemDrop-PO_game-Src-Items-ItemRarity-'></a>
+### RollItemDrop(rarity) `method`
+
+##### Summary
+
+`RollItemDrop` is a method that rolls a chance for an item to drop.
+
+Looks up the global drop rates for rarities and returns a boolean value.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| rarity | [PO_game.Src.Items.ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity') | The rarity of the item from the monsters loot table. |
+
+<a name='M-PO_game-Src-Screens-BattleScreen-Update-Microsoft-Xna-Framework-GameTime-'></a>
+### Update(gameTime) `method`
+
+##### Summary
+
+`Update` is a method that updates the battle screen.
+
+It updates the player and enemy effects, checks if the player or the enemy is dead, updates the health bars and changes the turns.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| gameTime | [Microsoft.Xna.Framework.GameTime](#T-Microsoft-Xna-Framework-GameTime 'Microsoft.Xna.Framework.GameTime') |  |
 
 <a name='T-PO_game-Src-Controls-Button'></a>
 ## Button `type`
@@ -131,6 +192,30 @@ PO_game.Src.Entities
 
 It allows the creation of characters with custom sprites, health, mana and position.
 
+<a name='M-PO_game-Src-Entities-Character-DeFortify-System-Int32-'></a>
+### DeFortify() `method`
+
+##### Summary
+
+Decreases the character's damage reduction by the specified amount and sets it to zero if it would fall below.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PO_game-Src-Entities-Character-Fortify-System-Int32-'></a>
+### Fortify(amount) `method`
+
+##### Summary
+
+Increases the character's damage reduction by the specified amount.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| amount | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
 <a name='T-PO_game-Src-Utils-CharacterState'></a>
 ## CharacterState `type`
 
@@ -178,6 +263,21 @@ PO_game.Src.Entities
 `Enemy` is a class that represents an enemy character in the game.
 
 It stores all the enemy's attributes, such as health, weapon, and agression.
+
+<a name='M-PO_game-Src-Entities-Enemy-CheckAgression-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Utils-InputController-'></a>
+### CheckAgression(content,player,inputController) `method`
+
+##### Summary
+
+Checks if the player is in the aggro radius of the enemy and initiates the fight if the criteria are met.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+| player | [PO_game.Src.Entities.Player](#T-PO_game-Src-Entities-Player 'PO_game.Src.Entities.Player') |  |
+| inputController | [PO_game.Src.Utils.InputController](#T-PO_game-Src-Utils-InputController 'PO_game.Src.Utils.InputController') |  |
 
 <a name='T-PO_game-Src-Entities-EnemyFactory'></a>
 ## EnemyFactory `type`
@@ -416,6 +516,17 @@ PO_game.Src.Items
 `Item` is an abstract class that represents an item in the game.
 
 It allows the creation of items with custom textures, names, descriptions and rarities.
+
+<a name='T-PO_game-Src-Items-ItemRarity'></a>
+## ItemRarity `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+Represents the possible item rarities in the game.
 
 <a name='T-PO_game-Src-Screens-LoadGameScreen'></a>
 ## LoadGameScreen `type`
@@ -663,6 +774,19 @@ PO_game.Src.Entities
 
 Doesn't do much for now.
 
+<a name='T-PO_game-Src-Items-OffHand'></a>
+## OffHand `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+`OffHand` is a class that represents a Off-Hand item in the game.
+
+It allows the creation of a Off-Hand item with custom effects in combat.
+
 <a name='T-PO_game-Src-Entities-Player'></a>
 ## Player `type`
 
@@ -752,6 +876,49 @@ Updates the player's tile and sprite position. The method is called during warp 
 | ---- | ---- | ----------- |
 | tilePosition | [Microsoft.Xna.Framework.Vector2](#T-Microsoft-Xna-Framework-Vector2 'Microsoft.Xna.Framework.Vector2') |  |
 
+<a name='T-PO_game-Src-Items-PotionFactory'></a>
+## PotionFactory `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+Class `PotionFactory` is a class that creates consumable items based on the type of potion requested.
+It stores all the pre-set potion types and their respective textures, names, descriptions, rarities and health restored.
+
+<a name='M-PO_game-Src-Items-PotionFactory-CreatePotion-PO_game-Src-Items-PotionType,PO_game-Src-Items-ItemRarity,System-Int32,Microsoft-Xna-Framework-Content-ContentManager-'></a>
+### CreatePotion(potionType,itemRarity,quantity,content) `method`
+
+##### Summary
+
+Creates a potion based on the type of potion requested.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| potionType | [PO_game.Src.Items.PotionType](#T-PO_game-Src-Items-PotionType 'PO_game.Src.Items.PotionType') | The type of potion to be created. |
+| itemRarity | [PO_game.Src.Items.ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity') | The rarity of the potion to be created. |
+| quantity | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | The quantity of the potion to be created. |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') | The content manager used to load the textures of the potions. |
+
+<a name='T-PO_game-Src-Items-PotionType'></a>
+## PotionType `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+Defines the types of consumable items that can be created.
+
 <a name='T-PO_game-Src-Screens-Screen'></a>
 ## Screen `type`
 
@@ -789,6 +956,19 @@ PO_game.Src.Screens
 
 For now, it contains only an exit button.
 
+<a name='T-PO_game-Src-Items-Shield'></a>
+## Shield `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+`Shield` is a class that represents a Shield item in the game.
+
+It allows the creation of a Shield item with blocking and other effects.
+
 <a name='T-PO_game-Src-Entities-Sprite'></a>
 ## Sprite `type`
 
@@ -814,6 +994,33 @@ PO_game.Src.Screens
 `StatScreen` is a class handling the contents of the start screen.
 
 From this screen, the player can start the game, load a game, go to settings or exit the game.
+
+<a name='T-PO_game-Src-Effects-StatusEffects'></a>
+## StatusEffects `type`
+
+##### Namespace
+
+PO_game.Src.Effects
+
+##### Summary
+
+`StatusEffect` is a class that represents a status effects in the game.
+
+It allows to apply status effects such as stun or recovery to characters.
+
+<a name='M-PO_game-Src-Effects-StatusEffects-UpdateEffects-PO_game-Src-Screens-BattleScreen,PO_game-Src-Entities-Character-'></a>
+### UpdateEffects(screen,character) `method`
+
+##### Summary
+
+Activates all the effects affecting the character and lowers their duration every turn.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| screen | [PO_game.Src.Screens.BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen') |  |
+| character | [PO_game.Src.Entities.Character](#T-PO_game-Src-Entities-Character 'PO_game.Src.Entities.Character') |  |
 
 <a name='T-PO_game-Src-Utils-Vector2Data'></a>
 ## Vector2Data `type`

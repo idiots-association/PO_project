@@ -5,6 +5,7 @@ using PO_game.Src.Entities;
 using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using System;
+using System.Security;
 namespace PO_game.Src.Inv
 {
     /// <summary>
@@ -51,6 +52,14 @@ namespace PO_game.Src.Inv
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
+        
+        public void CheckAndRemoveItemIfEmpty()
+        {
+            if (item is Consumable consumable && consumable.Quantity == 0)
+            {
+                item = null;
+            }
+        }
         public void Update()
         {
             prevMouse = currentMouse;
@@ -71,7 +80,7 @@ namespace PO_game.Src.Inv
                         case Consumable:
                             Consumable tempConsumable = (Consumable)item;
                             tempConsumable.Use(player);
-                            if (tempConsumable.Quantity == 0)
+                            if(tempConsumable.Quantity == 0)
                             {
                                 item = null;
                             }

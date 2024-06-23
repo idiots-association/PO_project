@@ -22,6 +22,8 @@ namespace PO_game.Src.Controls
         public float Layer { get; set; }
         public Vector2 Position { get; set; }
         public string Text { get; set; }
+        
+        public float Scale { get; set; } = 1f;
         private Vector2 _origin
         {
             get
@@ -35,7 +37,8 @@ namespace PO_game.Src.Controls
         {
             get
             {
-                return new Rectangle((int)Position.X - (int)_origin.X, (int)Position.Y - (int)_origin.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X - (int)_origin.X, (int)Position.Y - (int)_origin.Y, 
+                    (int)(_texture.Width * Scale), (int)(_texture.Height * Scale));
             }
         }
 
@@ -75,15 +78,16 @@ namespace PO_game.Src.Controls
 
             if (_isHovering)
                 color = Color.DarkGray;
-
-            spriteBatch.Draw(_texture, Position, null, color, 0f, _origin, 1f, SpriteEffects.None, Layer);
+            
+            spriteBatch.Draw(_texture, Position, null, color, 0f, _origin, Scale, SpriteEffects.None, Layer);
 
             if (!string.IsNullOrEmpty(Text))
             {
-                var x = _rectangle.X + _rectangle.Width / 2 - Globals.gameFont.MeasureString(Text).X / 2;
-                var y = _rectangle.Y + _rectangle.Height / 2 - Globals.gameFont.MeasureString(Text).Y / 2;
+                var x = _rectangle.X + (_rectangle.Width/Scale) / 2 - Globals.gameFont.MeasureString(Text).X / 2;
+                var y = _rectangle.Y + (_rectangle.Height/Scale) / 2 - Globals.gameFont.MeasureString(Text).Y / 2;
 
-                spriteBatch.DrawString(Globals.gameFont, Text, new Vector2(x, y), Color.Black, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
+                spriteBatch.DrawString(Globals.gameFont, Text, new Vector2(x, y), Color.Black, 0f,
+                    new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
             }
         }
 

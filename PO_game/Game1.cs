@@ -32,7 +32,6 @@ namespace PO_game
             _graphics.PreferredBackBufferWidth = Globals.ScreenWidth;
             _graphics.PreferredBackBufferHeight = Globals.ScreenHeight;
             _graphics.ApplyChanges();
-
         }
 
         /// <summary>

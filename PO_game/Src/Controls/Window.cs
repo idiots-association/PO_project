@@ -9,8 +9,7 @@ namespace PO_game.Src.Controls
     /// <c>Window</c> is a class that represents a window in the game.
     /// <para>It allows the creation of windows with custom text, texture and buttons.</para>
     /// </summary>
-    
-    
+
     public class Window
     {
         #region Fields
@@ -21,6 +20,7 @@ namespace PO_game.Src.Controls
         public Button _exitButton;
         public Button _exitButton2;
         private int number_of_buttons;
+        public float scale { get; set; } = 1f;
         #endregion
 
         #region Properties
@@ -57,22 +57,24 @@ namespace PO_game.Src.Controls
             switch (number_of_buttons)
             {
                 case 1:
-                    buttontexture = content.Load<Texture2D>("Others/startButton");
+                    buttontexture = content.Load<Texture2D>("Others/newb");
                     _exitButton = new Button(buttontexture)
                     {
                         Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + 50),
                         Text = "Ok",
                         Layer = 0.3f,
+                        Scale = scale
 
                     };
                     break;
                 case 2:
-                    buttontexture = content.Load<Texture2D>("Others/startButton");
+                    buttontexture = content.Load<Texture2D>("Others/newb");
                     _exitButton = new Button(buttontexture)
                     {
                         Position = new Vector2(Globals.ScreenWidth / 2 + 70, Globals.ScreenHeight / 2 + 50),
                         Text = "Cancel",
                         Layer = 0.3f,
+                        Scale = scale
 
                     };
                     
@@ -81,6 +83,7 @@ namespace PO_game.Src.Controls
                         Position = new Vector2(Globals.ScreenWidth / 2 - 70, Globals.ScreenHeight / 2 + 50),
                         Text = "Ok",
                         Layer = 0.3f,
+                        Scale = scale
 
                     };
                     break;

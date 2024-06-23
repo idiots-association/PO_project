@@ -20,17 +20,22 @@ namespace PO_game.Src.Entities
     {
         private Vector2 _destination;
         public Weapon weapon { get; set; }
+        public OffHand offHand { get; set; }
         public Inventory inventory { get; set; }
+           
         
-        
-        public Player(Sprite sprite, Vector2 tilePosition, Inventory inventory) : base(sprite, tilePosition)
+        public Player(Sprite sprite, Vector2 tilePosition, Texture2D invTexture, ContentManager content) : base(sprite, tilePosition)
         {
-            this.inventory = inventory;
+            inventory = new Inventory(invTexture, this);
+            inventory.AddItem(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 5, content));
             maxHealth = 100;
             maxMana = 100;
-            health = maxHealth;  //should not be like that
-            mana = maxMana;     //need to change it after a proper fighting implementation is done
+            health = maxHealth;
+            mana = maxMana;
             _destination = Sprite.Position;
+            Texture2D weaponTexture = content.Load<Texture2D>("Items/mace");
+            weapon = new Weapon(weaponTexture, "Sword", "A sword", ItemRarity.Common, 1, 3);
+            offHand = new Shield(weaponTexture, "Shield", "A shield", ItemRarity.Common, 1);
         }
 
 
@@ -193,17 +198,30 @@ namespace PO_game.Src.Entities
             }
 
         }
-        public void Attack(Enemy enemy)
+        public void Attack(Character target)
         {
+            int damage = 0;
             if (weapon != null)
             {
-                weapon.Attack(enemy);
+                damage = weapon.Attack() - target.damageReduction;
             }
             else
             {
-                Random random = new Random();
-                enemy.health -= random.Next(2, 4);
+                damage = 1 - target.damageReduction;
             }
+            if (damage < 0)
+                damage = 0;
+            target.TakeDamage(damage);
+        }
+        public void Fortify()
+        {
+            damageReduction += offHand.block;
+        }
+        public void DeFortify()
+        {
+            damageReduction -= offHand.block;
+            if (damageReduction < 0)
+                damageReduction = 0;   
         }
 
 
@@ -216,30 +234,14 @@ namespace PO_game.Src.Entities
         public void Update(GameTime gameTime, InputController inputController, Dictionary<Vector2, int> collisionMap)
         {
             MovePlayer(gameTime, inputController, collisionMap);
-            if (inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
+            if (inputController.isKeyPressed(Keys.E))
             {
                 inventory.showInventory = !inventory.showInventory;
 
             }
-            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.P))//temporary
-            // {
-            //     inventory.AddItem(_medpot);
-            // }
-            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.M))//temporary
-            // {
-            //     inventory.AddItem(_mace);
-            // }
-            // if(inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.F))//temporary
-            // {
-            //     inventory.AddItem(_dagger);
-            // }
             if (inventory.showInventory)
             {
                 inventory.Update();
-            }
-            if (inputController.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.K)) // Nowa linia
-            {
-                TakeDamage(10); // Nowa linia
             }
             //base.Update(gameTime);
         }
@@ -255,6 +257,19 @@ namespace PO_game.Src.Entities
                 TilePosition.X * Globals.TileSize + Globals.TileSize / 2 + Sprite.Texture.Width % Globals.TileSize,
                 TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
             _destination = Sprite.Position;
+        }
+        
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (weapon != null)
+            {
+                float scale = 0.3f;
+                Vector2 weaponOffset = new Vector2(0, -2); 
+                Vector2 weaponPosition = Sprite.Position + weaponOffset;
+
+                spriteBatch.Draw(weapon.Texture, weaponPosition, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            }
         }
     }
 }

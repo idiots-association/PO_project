@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using PO_game.Src.Items;
 
 namespace PO_game.Src.Utils
 {
     /// <summary>
     /// Contains global settings and properties used throughout the game.
+    /// <param name="dropChance">A dictionary containing the drop chances for items of different rarities, used to roll for loot after battle.</param>
     /// </summary>
     public static class Globals
     {
@@ -16,6 +19,14 @@ namespace PO_game.Src.Utils
         public const float Scale  = 2.5f;
         public static SpriteFont gameFont { get; set; }
         public static bool ShowCollisions { get; set; } = true;
+        public static readonly Dictionary<ItemRarity, int> dropChance = new Dictionary<ItemRarity, int>()
+        {
+            {ItemRarity.Common, 70},
+            {ItemRarity.Uncommon, 45},
+            {ItemRarity.Rare, 20},
+            {ItemRarity.Epic, 8},
+            {ItemRarity.Legendary, 1}
+        };
     }
 
     /// <summary>
