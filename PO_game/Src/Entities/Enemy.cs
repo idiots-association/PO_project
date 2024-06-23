@@ -112,7 +112,10 @@ namespace PO_game.Src.Entities
         }
         public void Attack(Character target)
         {
-            weapon.Attack(target);
+            int damage = weapon.Attack() - target.damageReduction;
+            if (damage < 0)
+                damage = 0;
+            target.TakeDamage(damage);
         }
     } 
 }

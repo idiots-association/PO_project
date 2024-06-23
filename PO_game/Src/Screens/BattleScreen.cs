@@ -6,6 +6,7 @@ using PO_game.Src.Entities;
 using PO_game.Src.Maps;
 using PO_game.Src.Items;
 using PO_game.Src.Utils;
+using PO_game.Src.Effects;  
 using System;
 
 namespace PO_game.Src.Screens;
@@ -20,20 +21,21 @@ public class BattleScreen : Screen
     private Texture2D _buttonTexture;
     private Button _attackButton;
     private Button _button2;
-    private Button _button3;
+    private Button _OffHandButton;
     private Button _fleeButton;
     private int buttonSpacing = 20;
-    private Player _player;
-    private Enemy _enemy;
-    private bool _playerTurn = true;
+    public Player player;
+    public Enemy enemy;
+    public bool playerTurn = true;
+    private bool _playerUsedShield = false;
     private Health_bar _playerHealthBar;
     private Health_bar _enemyHealthBar;
     
 
     public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
     {
-        _player = player;
-        _enemy = enemy;
+        this.player = player;
+        this.enemy = enemy;
     }
 
     /// <summary>
@@ -42,10 +44,10 @@ public class BattleScreen : Screen
     /// </summary>
     public override void LoadContent()
     {
-        _playerHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), _player.maxHealth);
-        _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), _enemy.maxHealth);
-        _playerTexture = _player.Sprite.Texture;
-        _enemyTexture = _enemy.Sprite.Texture;
+        _playerHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), player.maxHealth);
+        _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
+        _playerTexture = player.Sprite.Texture;
+        _enemyTexture = enemy.Sprite.Texture;
         _buttonTexture = content.Load<Texture2D>("Others/startButton");
 
         _attackButton = new Button(_buttonTexture)
@@ -66,17 +68,17 @@ public class BattleScreen : Screen
             Layer = 0.3f
         };
 
-        _button3 = new Button(_buttonTexture)
+        _OffHandButton = new Button(_buttonTexture)
         {
             Position = new Vector2(Globals.ScreenWidth / 3, Globals.ScreenHeight
                                                                     + buttonSpacing - _buttonTexture.Height),
-            Text = "3",
-            leftClick = new EventHandler(Button3_Click),
+            Text = "Off-hand",
+            leftClick = new EventHandler(OffHandClick),
             Layer = 0.3f
         };
 
         var fleeText = "";
-        switch(_enemy.isAgressive)
+        switch(enemy.isAgressive)
         {    
             case true:
                 fleeText = "You can't flee from this enemy";
@@ -97,24 +99,30 @@ public class BattleScreen : Screen
 
     public void AttackClick(object sender, EventArgs e)
     {
-        _player.Attack(_enemy);
-        Console.WriteLine("Player attacked " + _enemy.health + " health left");
-        _playerTurn = false;
+        player.Attack(enemy);
+        Console.WriteLine("Player attacked " + enemy.health + " health left");
+        playerTurn = false;
     }
-
     public void Button2_Click(object sender, EventArgs e)
     {
         System.Console.WriteLine("Button 2 clicked");
     }
-
-    public void Button3_Click(object sender, EventArgs e)
+    public void OffHandClick(object sender, EventArgs e)
     {
-        System.Console.WriteLine("Button 3 clicked");
+        if (player.offHand is Shield)
+            {
+                player.offHand.Use(this);
+                _playerUsedShield = true;
+                Console.WriteLine("Player used shield");
+            }
+        else    
+            player.offHand.Use(this);
+        playerTurn = false;
+        Console.WriteLine("Damage reduction: " + player.damageReduction);
     }
-
     public void FleeClick(object sender, EventArgs e)
     {
-        switch (_enemy.isAgressive)
+        switch (enemy.isAgressive)
         {
             case true:
                 break;
@@ -139,34 +147,52 @@ public class BattleScreen : Screen
     }
     public override void Update(GameTime gameTime)
     {
-        if (_playerTurn)
+        if (playerTurn)
         {
-            _attackButton.Update();
-            _button2.Update();
-            _button3.Update();
-            _fleeButton.Update();
+            player.effects.UpdateEffects(this, player);
+            if (player.health <= 0)
+            {
+                ScreenManager.Instance.RemoveScreen();
+            }
+            if(playerTurn)
+            {
+                _attackButton.Update();
+                _button2.Update();
+                _OffHandButton.Update();
+                _fleeButton.Update();
+                
+            }
         }
         else
         {
-            _playerTurn = true;
-            _enemy.Attack(_player);
-            Console.WriteLine("Enemy attacked " + _player.health + " health left");
-        }
-        _enemyHealthBar.Update(_enemy.health);
-        _playerHealthBar.Update(_player.health);
-        if (_player.health <= 0)
-        {
-            ScreenManager.Instance.RemoveScreen();
-        }
-        else if (_enemy.health <= 0)
-        {
-            foreach (Item item in _enemy.loot)
+            enemy.effects.UpdateEffects(this, enemy);
+            if (enemy.health <= 0)
             {
-                if (RollItemDrop(item.Rarity))
-                    _player.inventory.AddItem(item);
+                foreach (Item item in enemy.loot)
+                {
+                    if (RollItemDrop(item.Rarity))
+                        player.inventory.AddItem(item);
+                }
+                MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
+                ScreenManager.Instance.RemoveScreen();
             }
-            MapManager.Instance.GetCurrentMap().RemoveEnemy(_enemy);
-            ScreenManager.Instance.RemoveScreen();
+            if(!playerTurn)
+            {
+                playerTurn = true;
+                enemy.Attack(player);
+                if (_playerUsedShield)
+                {
+                    Random random = new Random();
+                    if (random.Next(0, 100) >= 50)
+                        enemy.ApplyEffect(StatusEffectType.Stun, 1);
+                    player.damageReduction -= player.offHand.block ;
+                    _playerUsedShield = false;
+                }
+                Console.WriteLine("Enemy attacked " + player.health + " health left");
+        }
+
+        _enemyHealthBar.Update(enemy.health);
+        _playerHealthBar.Update(player.health);
         }
     }
     public override void Draw(SpriteBatch spriteBatch)
@@ -180,7 +206,7 @@ public class BattleScreen : Screen
             Color.White);
         _attackButton.Draw(spriteBatch);
         _button2.Draw(spriteBatch);
-        _button3.Draw(spriteBatch);
+        _OffHandButton.Draw(spriteBatch);
         _fleeButton.Draw(spriteBatch);
         _playerHealthBar.Draw(spriteBatch);
         _enemyHealthBar.Draw(spriteBatch);

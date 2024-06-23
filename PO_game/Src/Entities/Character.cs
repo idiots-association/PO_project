@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PO_game.Src.Effects;
 using PO_game.Src.Utils;
 
 namespace PO_game.Src.Entities
@@ -16,6 +18,8 @@ namespace PO_game.Src.Entities
         public float health { get; set; }
         public int maxMana { get; set; }
         public int mana { get; set; }
+        public int damageReduction = 0;
+        public StatusEffects effects{ get; set; }
         public Vector2 TilePosition { get; set; }
 
 
@@ -28,13 +32,38 @@ namespace PO_game.Src.Entities
                 TilePosition.X * Globals.TileSize + Globals.TileSize / 2 + Sprite.Texture.Width % Globals.TileSize,
                 TilePosition.Y * Globals.TileSize - Sprite.Texture.Height % Globals.TileSize);
             State = CharacterState.Idle;
+            effects = new StatusEffects();
         }
         public void TakeDamage(int damage)
         {
             health -= damage;
         }
+        public void ApplyEffect(StatusEffectType effect, int duration)
+        {
+            effects.ApplyEffect(effect, duration);
+        }
+        public void RemoveEffect(StatusEffectType effect)
+        {
+            effects.RemoveEffect(effect);
+        }
+        public void RemoveAllEffects()
+        {
+            effects.RemoveAllEffects();
+        }
+        public void RestoreHealth(int amount)
+        {
+            health += amount;
+            if (health > maxHealth)
+                health = maxHealth;
+        }
+        public void RestoreMana(int amount)
+        {
+            mana += amount;
+            if (mana > maxMana)
+                mana = maxMana;
+        }
 
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void Update(GameTime gameTime) {}
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

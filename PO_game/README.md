@@ -53,6 +53,7 @@
 - [MapId](#T-PO_game-Src-Maps-MapId 'PO_game.Src.Maps.MapId')
 - [MapManager](#T-PO_game-Src-Maps-MapManager 'PO_game.Src.Maps.MapManager')
 - [NPC](#T-PO_game-Src-Entities-NPC 'PO_game.Src.Entities.NPC')
+- [OffHand](#T-PO_game-Src-Items-OffHand 'PO_game.Src.Items.OffHand')
 - [Player](#T-PO_game-Src-Entities-Player 'PO_game.Src.Entities.Player')
   - [AddPlayerPositionToCollisionMap(playerTile,collisionMap)](#M-PO_game-Src-Entities-Player-AddPlayerPositionToCollisionMap-Microsoft-Xna-Framework-Vector2,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.AddPlayerPositionToCollisionMap(Microsoft.Xna.Framework.Vector2,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
   - [MovePlayer(gameTime,inputController,collisionMap)](#M-PO_game-Src-Entities-Player-MovePlayer-Microsoft-Xna-Framework-GameTime,PO_game-Src-Utils-InputController,System-Collections-Generic-Dictionary{Microsoft-Xna-Framework-Vector2,System-Int32}- 'PO_game.Src.Entities.Player.MovePlayer(Microsoft.Xna.Framework.GameTime,PO_game.Src.Utils.InputController,System.Collections.Generic.Dictionary{Microsoft.Xna.Framework.Vector2,System.Int32})')
@@ -67,6 +68,7 @@
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
 - [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
+- [StatusEffects](#T-PO_game-Src-Effects-StatusEffects 'PO_game.Src.Effects.StatusEffects')
 - [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
 - [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
@@ -712,6 +714,19 @@ PO_game.Src.Entities
 
 Doesn't do much for now.
 
+<a name='T-PO_game-Src-Items-OffHand'></a>
+## OffHand `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+`OffHand` is a class that represents a Off-Hand item in the game.
+
+It allows the creation of a Off-Hand item with custom effects in combat.
+
 <a name='T-PO_game-Src-Entities-Player'></a>
 ## Player `type`
 
@@ -906,6 +921,19 @@ PO_game.Src.Screens
 `StatScreen` is a class handling the contents of the start screen.
 
 From this screen, the player can start the game, load a game, go to settings or exit the game.
+
+<a name='T-PO_game-Src-Effects-StatusEffects'></a>
+## StatusEffects `type`
+
+##### Namespace
+
+PO_game.Src.Effects
+
+##### Summary
+
+`StatusEffect` is a class that represents a status effect in the game.
+
+It allows to apply status effects to apply status effects to characters such as stun or recovery.
 
 <a name='T-PO_game-Src-Utils-Vector2Data'></a>
 ## Vector2Data `type`

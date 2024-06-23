@@ -17,11 +17,11 @@ namespace PO_game.Src.Items
             minDamage = mindamage;
             maxDamage = maxdamage;
         }
-        public void Attack(Character target)
+        public int Attack()
         {
             Random rand = new Random();
             int damage = rand.Next(minDamage, maxDamage);
-            target.TakeDamage(damage);
+            return damage;
         }
 
 
