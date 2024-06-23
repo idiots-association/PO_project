@@ -8,6 +8,8 @@ using PO_game.Src.Items;
 using PO_game.Src.Utils;
 using PO_game.Src.Effects;  
 using System;
+using System.Linq;
+using PO_game.Src.Items.Consumables;
 
 namespace PO_game.Src.Screens;
 /// <summary>
@@ -20,7 +22,7 @@ public class BattleScreen : Screen
     private Texture2D _enemyTexture;
     private Texture2D _buttonTexture;
     private Button _attackButton;
-    private Button _button2;
+    private Button _usePotionButton;
     private Button _OffHandButton;
     private Button _fleeButton;
     private int buttonSpacing = 20;
@@ -59,12 +61,12 @@ public class BattleScreen : Screen
             Layer = 0.3f
         };
 
-        _button2 = new Button(_buttonTexture)
+        _usePotionButton = new Button(_buttonTexture)
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight -
                                                                      buttonSpacing - _buttonTexture.Height - 40),
             Text = "2",
-            leftClick = new EventHandler(Button2_Click),
+            leftClick = new EventHandler(UsePotionClick),
             Layer = 0.3f
         };
 
@@ -103,9 +105,22 @@ public class BattleScreen : Screen
         Console.WriteLine("Player attacked " + enemy.health + " health left");
         playerTurn = false;
     }
-    public void Button2_Click(object sender, EventArgs e)
+    public void UsePotionClick(object sender, EventArgs e)
     {
-        System.Console.WriteLine("Button 2 clicked");
+        var healthPotionSlot = player.inventory.slots
+            .FirstOrDefault(slot => slot.item is HealthPotion healthPotion && healthPotion.Quantity > 0);
+
+        if (healthPotionSlot != null)
+        {
+            ((HealthPotion)healthPotionSlot.item).Use(player);
+            Console.WriteLine("Player used a health potion. Health is now " + player.health);
+            playerTurn = false;
+            healthPotionSlot.CheckAndRemoveItemIfEmpty();
+        }
+        else
+        {
+            Console.WriteLine("Player has no health potions.");
+        }
     }
     public void OffHandClick(object sender, EventArgs e)
     {
@@ -157,7 +172,7 @@ public class BattleScreen : Screen
             if(playerTurn)
             {
                 _attackButton.Update();
-                _button2.Update();
+                _usePotionButton.Update();
                 _OffHandButton.Update();
                 _fleeButton.Update();
                 
@@ -205,7 +220,7 @@ public class BattleScreen : Screen
             new Rectangle((int)(Globals.ScreenWidth / 1.33), Globals.ScreenHeight / 4, 100, 200),
             Color.White);
         _attackButton.Draw(spriteBatch);
-        _button2.Draw(spriteBatch);
+        _usePotionButton.Draw(spriteBatch);
         _OffHandButton.Draw(spriteBatch);
         _fleeButton.Draw(spriteBatch);
         _playerHealthBar.Draw(spriteBatch);

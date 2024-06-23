@@ -52,6 +52,14 @@ namespace PO_game.Src.Inv
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
+        
+        public void CheckAndRemoveItemIfEmpty()
+        {
+            if (item is Consumable consumable && consumable.Quantity == 0)
+            {
+                item = null;
+            }
+        }
         public void Update()
         {
             prevMouse = currentMouse;
