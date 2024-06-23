@@ -29,7 +29,7 @@ public class BattleScreen : Screen
     public Player player;
     public Enemy enemy;
     public bool playerTurn = true;
-    private bool _playerUsedShield = false;
+    public bool playerUsedShield = false;
     private Health_bar _playerHealthBar;
     private Health_bar _enemyHealthBar;
     
@@ -126,14 +126,8 @@ public class BattleScreen : Screen
     }
     public void OffHandClick(object sender, EventArgs e)
     {
-        if (player.offHand is Shield)
-            {
-                player.offHand.Use(this);
-                _playerUsedShield = true;
-                Console.WriteLine("Player used shield");
-            }
-        else    
-            player.offHand.Use(this);
+        player.Fortify();
+        player.offHand.Use(this);
         playerTurn = false;
         Console.WriteLine("Damage reduction: " + player.damageReduction);
     }
@@ -169,6 +163,8 @@ public class BattleScreen : Screen
     /// <param name="gameTime"></param>
     public override void Update(GameTime gameTime)
     {
+        _enemyHealthBar.Update(enemy.health);
+        _playerHealthBar.Update(player.health);
         if (playerTurn)
         {
             player.effects.UpdateEffects(this, player);
@@ -202,19 +198,17 @@ public class BattleScreen : Screen
             {
                 playerTurn = true;
                 enemy.Attack(player);
-                if (_playerUsedShield)
+                if (playerUsedShield)
                 {
                     Random random = new Random();
                     if (random.Next(0, 100) >= 50)
                         enemy.ApplyEffect(StatusEffectType.Stun, 1);
-                    player.damageReduction -= player.offHand.block ;
-                    _playerUsedShield = false;
+                    playerUsedShield = false;
                 }
                 Console.WriteLine("Enemy attacked " + player.health + " health left");
-        }
-
-        _enemyHealthBar.Update(enemy.health);
-        _playerHealthBar.Update(player.health);
+            }
+        player.DeFortify();
+        
         }
     }
     public override void Draw(SpriteBatch spriteBatch)

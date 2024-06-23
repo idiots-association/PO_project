@@ -213,6 +213,16 @@ namespace PO_game.Src.Entities
                 damage = 0;
             target.TakeDamage(damage);
         }
+        public void Fortify()
+        {
+            damageReduction += offHand.block;
+        }
+        public void DeFortify()
+        {
+            damageReduction -= offHand.block;
+            if (damageReduction < 0)
+                damageReduction = 0;   
+        }
 
 
         /// <summary>

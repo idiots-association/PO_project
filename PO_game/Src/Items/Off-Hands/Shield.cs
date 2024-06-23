@@ -17,7 +17,7 @@ namespace PO_game.Src.Items
 
         public override void Use(BattleScreen battleScreen)
         {
-            battleScreen.player.damageReduction += block;
+            battleScreen.playerUsedShield = true;
         }
     }
 }

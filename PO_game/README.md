@@ -11,6 +11,8 @@
 - [Camera](#T-PO_game-Src-Utils-Camera 'PO_game.Src.Utils.Camera')
   - [Follow()](#M-PO_game-Src-Utils-Camera-Follow-PO_game-Src-Entities-Player- 'PO_game.Src.Utils.Camera.Follow(PO_game.Src.Entities.Player)')
 - [Character](#T-PO_game-Src-Entities-Character 'PO_game.Src.Entities.Character')
+  - [DeFortify()](#M-PO_game-Src-Entities-Character-DeFortify-System-Int32- 'PO_game.Src.Entities.Character.DeFortify(System.Int32)')
+  - [Fortify(amount)](#M-PO_game-Src-Entities-Character-Fortify-System-Int32- 'PO_game.Src.Entities.Character.Fortify(System.Int32)')
 - [CharacterState](#T-PO_game-Src-Utils-CharacterState 'PO_game.Src.Utils.CharacterState')
 - [Collision](#T-PO_game-Src-Utils-Collision 'PO_game.Src.Utils.Collision')
 - [Consumable](#T-PO_game-Src-Items-Consumable 'PO_game.Src.Items.Consumable')
@@ -189,6 +191,30 @@ PO_game.Src.Entities
 `Character` is a class that represents a character in the game, be it player or NPC.
 
 It allows the creation of characters with custom sprites, health, mana and position.
+
+<a name='M-PO_game-Src-Entities-Character-DeFortify-System-Int32-'></a>
+### DeFortify() `method`
+
+##### Summary
+
+Decreases the character's damage reduction by the specified amount and sets it to zero if it would fall below.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PO_game-Src-Entities-Character-Fortify-System-Int32-'></a>
+### Fortify(amount) `method`
+
+##### Summary
+
+Increases the character's damage reduction by the specified amount.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| amount | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='T-PO_game-Src-Utils-CharacterState'></a>
 ## CharacterState `type`

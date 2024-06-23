@@ -62,6 +62,23 @@ namespace PO_game.Src.Entities
             if (mana > maxMana)
                 mana = maxMana;
         }
+        /// <summary>
+        /// <para>Increases the character's damage reduction by the specified amount.</para>
+        /// </summary>
+        /// <param name="amount"></param>
+        public void Fortify(int amount)
+        {
+            damageReduction += amount;
+        }   
+        /// <summary>
+        /// <para>Decreases the character's damage reduction by the specified amount and sets it to zero if it would fall below.</para>
+        /// </summary>
+        public void DeFortify(int amount)
+        {
+            damageReduction -= amount;
+            if (damageReduction < 0)
+                damageReduction = 0;   
+        }
 
         public virtual void Update(GameTime gameTime) {}
 

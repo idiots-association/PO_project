@@ -9,8 +9,7 @@ namespace PO_game.Src.Controls
     /// <c>Window</c> is a class that represents a window in the game.
     /// <para>It allows the creation of windows with custom text, texture and buttons.</para>
     /// </summary>
-    
-    
+
     public class Window
     {
         #region Fields
