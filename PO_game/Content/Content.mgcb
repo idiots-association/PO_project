@@ -272,6 +272,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/tutorialwizard.png
 
+#begin Sprites/wolf.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/wolf.png
+
 #begin Tilesets/collisions.png
 /importer:TextureImporter
 /processor:TextureProcessor
