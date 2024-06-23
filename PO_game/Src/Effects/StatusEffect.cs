@@ -18,8 +18,8 @@ namespace PO_game.Src.Effects
         Negative
     }
     /// <summary>
-    /// <c>StatusEffect</c> is a class that represents a status effect in the game.
-    /// <para>It allows to apply status effects to apply status effects to characters such as stun or recovery.</para>
+    /// <c>StatusEffect</c> is a class that represents a status effects in the game.
+    /// <para>It allows to apply status effects such as stun or recovery to characters.</para>
     /// </summary>
     public class StatusEffects
     {
@@ -67,6 +67,11 @@ namespace PO_game.Src.Effects
             effects.Clear();
             numberOfEffects = 0;
         }
+        /// <summary>
+        /// <para>Activates all the effects affecting the character and lowers their duration every turn.</para>
+        /// </summary>
+        /// <param name="screen"></param>
+        /// <param name="character"></param>
         public void UpdateEffects(BattleScreen screen, Character character)
         {
             for (int i = 0 ; i < effects.Count ; i++)

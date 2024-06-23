@@ -105,6 +105,8 @@ public class BattleScreen : Screen
         Console.WriteLine("Player attacked " + enemy.health + " health left");
         playerTurn = false;
     }
+
+    //will need to change it later, when more potions are added and mana/skill system is implemented
     public void UsePotionClick(object sender, EventArgs e)
     {
         var healthPotionSlot = player.inventory.slots
@@ -160,6 +162,11 @@ public class BattleScreen : Screen
             return true;
         return false;
     }
+    /// <summary>
+    /// <c>Update</c> is a method that updates the battle screen.
+    /// <para>It updates the player and enemy effects, checks if the player or the enemy is dead, updates the health bars and changes the turns.</para>
+    /// </summary>
+    /// <param name="gameTime"></param>
     public override void Update(GameTime gameTime)
     {
         if (playerTurn)

@@ -6,6 +6,7 @@
 - [BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen')
   - [LoadContent()](#M-PO_game-Src-Screens-BattleScreen-LoadContent 'PO_game.Src.Screens.BattleScreen.LoadContent')
   - [RollItemDrop(rarity)](#M-PO_game-Src-Screens-BattleScreen-RollItemDrop-PO_game-Src-Items-ItemRarity- 'PO_game.Src.Screens.BattleScreen.RollItemDrop(PO_game.Src.Items.ItemRarity)')
+  - [Update(gameTime)](#M-PO_game-Src-Screens-BattleScreen-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Src.Screens.BattleScreen.Update(Microsoft.Xna.Framework.GameTime)')
 - [Button](#T-PO_game-Src-Controls-Button 'PO_game.Src.Controls.Button')
 - [Camera](#T-PO_game-Src-Utils-Camera 'PO_game.Src.Utils.Camera')
   - [Follow()](#M-PO_game-Src-Utils-Camera-Follow-PO_game-Src-Entities-Player- 'PO_game.Src.Utils.Camera.Follow(PO_game.Src.Entities.Player)')
@@ -14,6 +15,7 @@
 - [Collision](#T-PO_game-Src-Utils-Collision 'PO_game.Src.Utils.Collision')
 - [Consumable](#T-PO_game-Src-Items-Consumable 'PO_game.Src.Items.Consumable')
 - [Enemy](#T-PO_game-Src-Entities-Enemy 'PO_game.Src.Entities.Enemy')
+  - [CheckAgression(content,player,inputController)](#M-PO_game-Src-Entities-Enemy-CheckAgression-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Utils-InputController- 'PO_game.Src.Entities.Enemy.CheckAgression(Microsoft.Xna.Framework.Content.ContentManager,PO_game.Src.Entities.Player,PO_game.Src.Utils.InputController)')
 - [EnemyFactory](#T-PO_game-Src-Entities-EnemyFactory 'PO_game.Src.Entities.EnemyFactory')
 - [EnemyType](#T-PO_game-Src-Entities-EnemyType 'PO_game.Src.Entities.EnemyType')
 - [Game1](#T-PO_game-Game1 'PO_game.Game1')
@@ -66,9 +68,11 @@
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
+- [Shield](#T-PO_game-Src-Items-Shield 'PO_game.Src.Items.Shield')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
 - [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
 - [StatusEffects](#T-PO_game-Src-Effects-StatusEffects 'PO_game.Src.Effects.StatusEffects')
+  - [UpdateEffects(screen,character)](#M-PO_game-Src-Effects-StatusEffects-UpdateEffects-PO_game-Src-Screens-BattleScreen,PO_game-Src-Entities-Character- 'PO_game.Src.Effects.StatusEffects.UpdateEffects(PO_game.Src.Screens.BattleScreen,PO_game.Src.Entities.Character)')
 - [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
 - [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
@@ -119,6 +123,21 @@ Looks up the global drop rates for rarities and returns a boolean value.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | rarity | [PO_game.Src.Items.ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity') | The rarity of the item from the monsters loot table. |
+
+<a name='M-PO_game-Src-Screens-BattleScreen-Update-Microsoft-Xna-Framework-GameTime-'></a>
+### Update(gameTime) `method`
+
+##### Summary
+
+`Update` is a method that updates the battle screen.
+
+It updates the player and enemy effects, checks if the player or the enemy is dead, updates the health bars and changes the turns.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| gameTime | [Microsoft.Xna.Framework.GameTime](#T-Microsoft-Xna-Framework-GameTime 'Microsoft.Xna.Framework.GameTime') |  |
 
 <a name='T-PO_game-Src-Controls-Button'></a>
 ## Button `type`
@@ -218,6 +237,21 @@ PO_game.Src.Entities
 `Enemy` is a class that represents an enemy character in the game.
 
 It stores all the enemy's attributes, such as health, weapon, and agression.
+
+<a name='M-PO_game-Src-Entities-Enemy-CheckAgression-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Utils-InputController-'></a>
+### CheckAgression(content,player,inputController) `method`
+
+##### Summary
+
+Checks if the player is in the aggro radius of the enemy and initiates the fight if the criteria are met.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+| player | [PO_game.Src.Entities.Player](#T-PO_game-Src-Entities-Player 'PO_game.Src.Entities.Player') |  |
+| inputController | [PO_game.Src.Utils.InputController](#T-PO_game-Src-Utils-InputController 'PO_game.Src.Utils.InputController') |  |
 
 <a name='T-PO_game-Src-Entities-EnemyFactory'></a>
 ## EnemyFactory `type`
@@ -896,6 +930,19 @@ PO_game.Src.Screens
 
 For now, it contains only an exit button.
 
+<a name='T-PO_game-Src-Items-Shield'></a>
+## Shield `type`
+
+##### Namespace
+
+PO_game.Src.Items
+
+##### Summary
+
+`Shield` is a class that represents a Shield item in the game.
+
+It allows the creation of a Shield item with blocking and other effects.
+
 <a name='T-PO_game-Src-Entities-Sprite'></a>
 ## Sprite `type`
 
@@ -931,9 +978,23 @@ PO_game.Src.Effects
 
 ##### Summary
 
-`StatusEffect` is a class that represents a status effect in the game.
+`StatusEffect` is a class that represents a status effects in the game.
 
-It allows to apply status effects to apply status effects to characters such as stun or recovery.
+It allows to apply status effects such as stun or recovery to characters.
+
+<a name='M-PO_game-Src-Effects-StatusEffects-UpdateEffects-PO_game-Src-Screens-BattleScreen,PO_game-Src-Entities-Character-'></a>
+### UpdateEffects(screen,character) `method`
+
+##### Summary
+
+Activates all the effects affecting the character and lowers their duration every turn.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| screen | [PO_game.Src.Screens.BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen') |  |
+| character | [PO_game.Src.Entities.Character](#T-PO_game-Src-Entities-Character 'PO_game.Src.Entities.Character') |  |
 
 <a name='T-PO_game-Src-Utils-Vector2Data'></a>
 ## Vector2Data `type`

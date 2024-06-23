@@ -88,6 +88,12 @@ namespace PO_game.Src.Entities
             this.isAgressive = isAgressive;
             this.loot = loot;   
         }
+        /// <summary>
+        /// <para>Checks if the player is in the aggro radius of the enemy and initiates the fight if the criteria are met.</para>
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="player"></param>
+        /// <param name="inputController"></param>
         private void CheckAgression(ContentManager content, Player player, InputController inputController)
         {       
              
