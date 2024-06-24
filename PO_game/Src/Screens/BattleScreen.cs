@@ -200,6 +200,7 @@ public class BattleScreen : Screen
                 _fleeButton.Update();
 
             }
+            
         }
         else
         {
@@ -215,7 +216,7 @@ public class BattleScreen : Screen
                 MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
                 ScreenManager.Instance.RemoveScreen();
             }
-            if(!playerTurn)
+            else if(!playerTurn)
             {
 
                 enemy.Attack(player);

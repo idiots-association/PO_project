@@ -8,12 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ef977-c88e-4082-acc3-ce2eec5124d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Src/Controls/Health_bar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Controls/HealthBar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Content.mgcb" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Content.mgcb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Maps/Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Maps/Map.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Screens/BattleScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/BattleScreen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Screens/GameScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/GameScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Entities/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Entities/Enemy.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +52,7 @@
   "keyToString": {
     ".NET Project.PO_game.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "buttons-update",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

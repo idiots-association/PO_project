@@ -74,7 +74,8 @@ namespace PO_game.Src.Entities
                 case EnemyType.Drake:
                     enemyTexture = content.Load<Texture2D>("Sprites/drake");
                     weaponTexture = content.Load<Texture2D>("Items/sword");
-                    weapon = new Weapon(weaponTexture, "Dragon breath", "A breath of a dragon that can melt the strongest of armors", ItemRarity.Legendary, 12, 15);
+                    weapon = new Weapon(weaponTexture, "Dragon breath", 
+                        "A breath of a dragon that can melt the strongest of armors", ItemRarity.Legendary, 12, 15);
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 90, weapon, true, _loot);
                 case EnemyType.MiniBoss:
                     enemyTexture = content.Load<Texture2D>("Sprites/miniboss");
@@ -82,7 +83,7 @@ namespace PO_game.Src.Entities
                     weapon = new Weapon(weaponTexture, "Demonic spells",
                         "Spells of a demon that can kill the strongest of warriors", ItemRarity.Common, 6, 9);
                     _loot.Add(new Weapon(weaponTexture, "Dragon slayer sword", "A sword that can slay the dragon",
-                        ItemRarity.Unique, 11, 15));
+                        ItemRarity.Common, 11, 15));
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 7, content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 55, weapon, false, _loot);
                 default:
