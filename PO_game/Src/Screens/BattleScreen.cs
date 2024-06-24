@@ -192,6 +192,7 @@ public class BattleScreen : Screen
         }
         else
         {
+            enemyText = "";
             enemy.effects.UpdateEffects(this, enemy);
             if (enemy.health <= 0)
             {
@@ -203,18 +204,24 @@ public class BattleScreen : Screen
                 MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
                 ScreenManager.Instance.RemoveScreen();
             }
-            if (!playerTurn)
+            if(!playerTurn)
             {
-                playerTurn = true;
+
                 enemy.Attack(player);
                 if (playerUsedShield)
                 {
                     Random random = new Random();
                     if (random.Next(0, 100) >= 50)
+                    {
                         enemy.ApplyEffect(StatusEffectType.Stun, 1);
+                        Console.WriteLine("Enemy stunned");
+                        enemyText = "Enemy is stunned";
+                    }
                     playerUsedShield = false;
                 }
                 Console.WriteLine("Enemy attacked " + player.health + " health left");
+                enemyText += "\nEnemy attacked - " + player.health + " health left";
+                playerTurn = true;
             }
             player.DeFortify();
 
