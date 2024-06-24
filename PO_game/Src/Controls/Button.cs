@@ -16,7 +16,6 @@ namespace PO_game.Src.Controls
         private MouseState _prevMouse;
         private bool _isHovering;
         private Texture2D _texture;
-
         public EventHandler leftClick;
         public EventHandler rightClick;
         public float Layer { get; set; }
@@ -24,6 +23,9 @@ namespace PO_game.Src.Controls
         public string Text { get; set; }
         
         public float Scale { get; set; } = 1f;
+        /// <summary>
+        /// Represents the origin of the button.
+        /// </summary>
         private Vector2 _origin
         {
             get
@@ -32,7 +34,9 @@ namespace PO_game.Src.Controls
             }
         }
 
-        
+        /// <summary>
+        /// Represents the rectangle of the button.
+        /// </summary>
         private Rectangle _rectangle
         {
             get
@@ -42,8 +46,10 @@ namespace PO_game.Src.Controls
             }
         }
 
-
-
+        /// <summary>
+        /// Constructor for the Button class.
+        /// </summary>
+        /// <param name="texture"></param>
         public Button(Texture2D texture)
         {
             _texture = texture;

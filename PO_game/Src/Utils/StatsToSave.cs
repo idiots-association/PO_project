@@ -32,9 +32,21 @@ public class Vector2Data
     }
 }
 
+/// <summary>
+/// <c>StatsToSave</c> is a class that represents the stats of the player that need to be saved.
+/// </summary>
 public class StatsToSave
 {
+    /// <summary>
+    /// Position of the player.
+    /// </summary>
     public Vector2Data Position { get; set; }
+    /// <summary>
+    /// Name of the player.
+    /// </summary>
     public string Name { get; set; }
+    /// <summary>
+    /// Map the player is currently on.
+    /// </summary>
     public MapId CurrentMapId { get; set; }
 }

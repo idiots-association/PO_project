@@ -62,7 +62,11 @@ namespace PO_game.Src.Screens
         }
 
 
-
+        /// <summary>
+        /// Constructor for the GameScreen class.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="save"></param>
         public GameScreen(ContentManager content, int save) : base(content)
         {
             _inputController = new InputController();
@@ -196,9 +200,6 @@ namespace PO_game.Src.Screens
             _inputController.Update();
             var collisionMap = MapManager.Instance.GetMap(MapManager.CurrentMap).GetCollisionsMap();
             _player.Update(gameTime, _inputController, collisionMap);
-            // Console.WriteLine(_player.TilePosition);
-            //    Console.Write(_player.TilePosition); 
-            //    Console.WriteLine(_player.Sprite.Position);
             foreach (var enemy in MapManager.Instance.GetMap(MapManager.CurrentMap).GetEnemies())
             {
                 enemy.Update(content,_player,_inputController);
@@ -216,8 +217,6 @@ namespace PO_game.Src.Screens
             {
                 if (_player.health <= 0)
                 {
-
-                    Console.WriteLine("SIEMA ENIU!");
                     ScreenManager.Instance.RemoveScreen();
                     UnloadGame();
                     if (File.Exists(_savePath))

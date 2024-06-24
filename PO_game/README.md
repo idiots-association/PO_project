@@ -4,10 +4,14 @@
 ## Contents
 
 - [BattleScreen](#T-PO_game-Src-Screens-BattleScreen 'PO_game.Src.Screens.BattleScreen')
+  - [#ctor(content,player,enemy)](#M-PO_game-Src-Screens-BattleScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Entities-Enemy- 'PO_game.Src.Screens.BattleScreen.#ctor(Microsoft.Xna.Framework.Content.ContentManager,PO_game.Src.Entities.Player,PO_game.Src.Entities.Enemy)')
   - [LoadContent()](#M-PO_game-Src-Screens-BattleScreen-LoadContent 'PO_game.Src.Screens.BattleScreen.LoadContent')
   - [RollItemDrop(rarity)](#M-PO_game-Src-Screens-BattleScreen-RollItemDrop-PO_game-Src-Items-ItemRarity- 'PO_game.Src.Screens.BattleScreen.RollItemDrop(PO_game.Src.Items.ItemRarity)')
   - [Update(gameTime)](#M-PO_game-Src-Screens-BattleScreen-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Src.Screens.BattleScreen.Update(Microsoft.Xna.Framework.GameTime)')
 - [Button](#T-PO_game-Src-Controls-Button 'PO_game.Src.Controls.Button')
+  - [#ctor(texture)](#M-PO_game-Src-Controls-Button-#ctor-Microsoft-Xna-Framework-Graphics-Texture2D- 'PO_game.Src.Controls.Button.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D)')
+  - [_origin](#P-PO_game-Src-Controls-Button-_origin 'PO_game.Src.Controls.Button._origin')
+  - [_rectangle](#P-PO_game-Src-Controls-Button-_rectangle 'PO_game.Src.Controls.Button._rectangle')
 - [Camera](#T-PO_game-Src-Utils-Camera 'PO_game.Src.Utils.Camera')
   - [Follow()](#M-PO_game-Src-Utils-Camera-Follow-PO_game-Src-Entities-Player- 'PO_game.Src.Utils.Camera.Follow(PO_game.Src.Entities.Player)')
 - [Character](#T-PO_game-Src-Entities-Character 'PO_game.Src.Entities.Character')
@@ -16,6 +20,9 @@
 - [CharacterState](#T-PO_game-Src-Utils-CharacterState 'PO_game.Src.Utils.CharacterState')
 - [Collision](#T-PO_game-Src-Utils-Collision 'PO_game.Src.Utils.Collision')
 - [Consumable](#T-PO_game-Src-Items-Consumable 'PO_game.Src.Items.Consumable')
+- [DeathScreen](#T-PO_game-Src-Screens-DeathScreen 'PO_game.Src.Screens.DeathScreen')
+  - [#ctor(content)](#M-PO_game-Src-Screens-DeathScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Screens.DeathScreen.#ctor(Microsoft.Xna.Framework.Content.ContentManager)')
+  - [ButtonExit_Click(sender,e)](#M-PO_game-Src-Screens-DeathScreen-ButtonExit_Click-System-Object,System-EventArgs- 'PO_game.Src.Screens.DeathScreen.ButtonExit_Click(System.Object,System.EventArgs)')
 - [Enemy](#T-PO_game-Src-Entities-Enemy 'PO_game.Src.Entities.Enemy')
   - [CheckAgression(content,player,inputController)](#M-PO_game-Src-Entities-Enemy-CheckAgression-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Utils-InputController- 'PO_game.Src.Entities.Enemy.CheckAgression(Microsoft.Xna.Framework.Content.ContentManager,PO_game.Src.Entities.Player,PO_game.Src.Utils.InputController)')
 - [EnemyFactory](#T-PO_game-Src-Entities-EnemyFactory 'PO_game.Src.Entities.EnemyFactory')
@@ -28,11 +35,22 @@
   - [LoadContent()](#M-PO_game-Game1-LoadContent 'PO_game.Game1.LoadContent')
   - [Update(gameTime)](#M-PO_game-Game1-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Game1.Update(Microsoft.Xna.Framework.GameTime)')
 - [GameScreen](#T-PO_game-Src-Screens-GameScreen 'PO_game.Src.Screens.GameScreen')
+  - [#ctor(content,save)](#M-PO_game-Src-Screens-GameScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager,System-Int32- 'PO_game.Src.Screens.GameScreen.#ctor(Microsoft.Xna.Framework.Content.ContentManager,System.Int32)')
   - [Draw(spriteBatch)](#M-PO_game-Src-Screens-GameScreen-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch- 'PO_game.Src.Screens.GameScreen.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch)')
   - [LoadFromSave()](#M-PO_game-Src-Screens-GameScreen-LoadFromSave 'PO_game.Src.Screens.GameScreen.LoadFromSave')
   - [SaveGame()](#M-PO_game-Src-Screens-GameScreen-SaveGame-System-Object,System-EventArgs- 'PO_game.Src.Screens.GameScreen.SaveGame(System.Object,System.EventArgs)')
   - [Update(gameTime)](#M-PO_game-Src-Screens-GameScreen-Update-Microsoft-Xna-Framework-GameTime- 'PO_game.Src.Screens.GameScreen.Update(Microsoft.Xna.Framework.GameTime)')
 - [Globals](#T-PO_game-Src-Utils-Globals 'PO_game.Src.Utils.Globals')
+- [HealthBar](#T-PO_game-Src-Controls-HealthBar 'PO_game.Src.Controls.HealthBar')
+  - [#ctor(content,position,maxHealth)](#M-PO_game-Src-Controls-HealthBar-#ctor-Microsoft-Xna-Framework-Content-ContentManager,System-Numerics-Vector2,System-Single- 'PO_game.Src.Controls.HealthBar.#ctor(Microsoft.Xna.Framework.Content.ContentManager,System.Numerics.Vector2,System.Single)')
+  - [Background](#F-PO_game-Src-Controls-HealthBar-Background 'PO_game.Src.Controls.HealthBar.Background')
+  - [CurrentHealth](#F-PO_game-Src-Controls-HealthBar-CurrentHealth 'PO_game.Src.Controls.HealthBar.CurrentHealth')
+  - [Foreground](#F-PO_game-Src-Controls-HealthBar-Foreground 'PO_game.Src.Controls.HealthBar.Foreground')
+  - [MaxHealth](#F-PO_game-Src-Controls-HealthBar-MaxHealth 'PO_game.Src.Controls.HealthBar.MaxHealth')
+  - [Part](#F-PO_game-Src-Controls-HealthBar-Part 'PO_game.Src.Controls.HealthBar.Part')
+  - [Position](#F-PO_game-Src-Controls-HealthBar-Position 'PO_game.Src.Controls.HealthBar.Position')
+  - [Draw(spriteBatch)](#M-PO_game-Src-Controls-HealthBar-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch- 'PO_game.Src.Controls.HealthBar.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch)')
+  - [Update(value)](#M-PO_game-Src-Controls-HealthBar-Update-System-Single- 'PO_game.Src.Controls.HealthBar.Update(System.Single)')
 - [HealthPotion](#T-PO_game-Src-Items-Consumables-HealthPotion 'PO_game.Src.Items.Consumables.HealthPotion')
 - [InputController](#T-PO_game-Src-Utils-InputController 'PO_game.Src.Utils.InputController')
 - [Inventory](#T-PO_game-Src-Inv-Inventory 'PO_game.Src.Inv.Inventory')
@@ -40,7 +58,10 @@
 - [Item](#T-PO_game-Src-Items-Item 'PO_game.Src.Items.Item')
 - [ItemRarity](#T-PO_game-Src-Items-ItemRarity 'PO_game.Src.Items.ItemRarity')
 - [LoadGameScreen](#T-PO_game-Src-Screens-LoadGameScreen 'PO_game.Src.Screens.LoadGameScreen')
-  - [CreateWindow(number_of_buttons,slot)](#M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32- 'PO_game.Src.Screens.LoadGameScreen.CreateWindow(System.Int32,System.Int32)')
+  - [#ctor(content)](#M-PO_game-Src-Screens-LoadGameScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Screens.LoadGameScreen.#ctor(Microsoft.Xna.Framework.Content.ContentManager)')
+  - [CreateWindow(numberOfButtons,slot)](#M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32- 'PO_game.Src.Screens.LoadGameScreen.CreateWindow(System.Int32,System.Int32)')
+  - [DeleteClick(slot,sender,e)](#M-PO_game-Src-Screens-LoadGameScreen-DeleteClick-System-Int32,System-Object,System-EventArgs- 'PO_game.Src.Screens.LoadGameScreen.DeleteClick(System.Int32,System.Object,System.EventArgs)')
+  - [OkCancelClick(sender,e)](#M-PO_game-Src-Screens-LoadGameScreen-OkCancelClick-System-Object,System-EventArgs- 'PO_game.Src.Screens.LoadGameScreen.OkCancelClick(System.Object,System.EventArgs)')
 - [ManaPotion](#T-PO_game-Src-Items-Consumables-ManaPotion 'PO_game.Src.Items.Consumables.ManaPotion')
 - [Map](#T-PO_game-Src-Maps-Map 'PO_game.Src.Maps.Map')
   - [#ctor(csv_map,tileset,content)](#M-PO_game-Src-Maps-Map-#ctor-System-String,System-String,Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Maps-MapId- 'PO_game.Src.Maps.Map.#ctor(System.String,System.String,Microsoft.Xna.Framework.Content.ContentManager,PO_game.Src.Maps.MapId)')
@@ -70,9 +91,16 @@
 - [Screen](#T-PO_game-Src-Screens-Screen 'PO_game.Src.Screens.Screen')
 - [ScreenManager](#T-PO_game-Src-Screens-ScreenManager 'PO_game.Src.Screens.ScreenManager')
 - [SettingsScreen](#T-PO_game-Src-Screens-SettingsScreen 'PO_game.Src.Screens.SettingsScreen')
+  - [#ctor(content)](#M-PO_game-Src-Screens-SettingsScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Screens.SettingsScreen.#ctor(Microsoft.Xna.Framework.Content.ContentManager)')
+  - [ButtonReturn_Click(sender,e)](#M-PO_game-Src-Screens-SettingsScreen-ButtonReturn_Click-System-Object,System-EventArgs- 'PO_game.Src.Screens.SettingsScreen.ButtonReturn_Click(System.Object,System.EventArgs)')
 - [Shield](#T-PO_game-Src-Items-Shield 'PO_game.Src.Items.Shield')
 - [Sprite](#T-PO_game-Src-Entities-Sprite 'PO_game.Src.Entities.Sprite')
 - [StartScreen](#T-PO_game-Src-Screens-StartScreen 'PO_game.Src.Screens.StartScreen')
+  - [#ctor(content)](#M-PO_game-Src-Screens-StartScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Screens.StartScreen.#ctor(Microsoft.Xna.Framework.Content.ContentManager)')
+- [StatsToSave](#T-PO_game-Src-Utils-StatsToSave 'PO_game.Src.Utils.StatsToSave')
+  - [CurrentMapId](#P-PO_game-Src-Utils-StatsToSave-CurrentMapId 'PO_game.Src.Utils.StatsToSave.CurrentMapId')
+  - [Name](#P-PO_game-Src-Utils-StatsToSave-Name 'PO_game.Src.Utils.StatsToSave.Name')
+  - [Position](#P-PO_game-Src-Utils-StatsToSave-Position 'PO_game.Src.Utils.StatsToSave.Position')
 - [StatusEffects](#T-PO_game-Src-Effects-StatusEffects 'PO_game.Src.Effects.StatusEffects')
   - [UpdateEffects(screen,character)](#M-PO_game-Src-Effects-StatusEffects-UpdateEffects-PO_game-Src-Screens-BattleScreen,PO_game-Src-Entities-Character- 'PO_game.Src.Effects.StatusEffects.UpdateEffects(PO_game.Src.Screens.BattleScreen,PO_game.Src.Entities.Character)')
 - [Vector2Data](#T-PO_game-Src-Utils-Vector2Data 'PO_game.Src.Utils.Vector2Data')
@@ -102,6 +130,21 @@ PO_game.Src.Screens
 `BattleScreen` is a class that represents the battle screen in the game.
 
 It allows the `Player` to fight an `Enemy` in a classical turn-based style.
+
+<a name='M-PO_game-Src-Screens-BattleScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Entities-Player,PO_game-Src-Entities-Enemy-'></a>
+### #ctor(content,player,enemy) `constructor`
+
+##### Summary
+
+Constructor for the `BattleScreen` class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+| player | [PO_game.Src.Entities.Player](#T-PO_game-Src-Entities-Player 'PO_game.Src.Entities.Player') |  |
+| enemy | [PO_game.Src.Entities.Enemy](#T-PO_game-Src-Entities-Enemy 'PO_game.Src.Entities.Enemy') |  |
 
 <a name='M-PO_game-Src-Screens-BattleScreen-LoadContent'></a>
 ### LoadContent() `method`
@@ -162,6 +205,33 @@ PO_game.Src.Controls
 `Button` is a class that represents a button in the game.
 
 It allows the creation of buttons with custom text, texture and different functions.
+
+<a name='M-PO_game-Src-Controls-Button-#ctor-Microsoft-Xna-Framework-Graphics-Texture2D-'></a>
+### #ctor(texture) `constructor`
+
+##### Summary
+
+Constructor for the Button class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| texture | [Microsoft.Xna.Framework.Graphics.Texture2D](#T-Microsoft-Xna-Framework-Graphics-Texture2D 'Microsoft.Xna.Framework.Graphics.Texture2D') |  |
+
+<a name='P-PO_game-Src-Controls-Button-_origin'></a>
+### _origin `property`
+
+##### Summary
+
+Represents the origin of the button.
+
+<a name='P-PO_game-Src-Controls-Button-_rectangle'></a>
+### _rectangle `property`
+
+##### Summary
+
+Represents the rectangle of the button.
 
 <a name='T-PO_game-Src-Utils-Camera'></a>
 ## Camera `type`
@@ -259,6 +329,44 @@ PO_game.Src.Items
 `Consumable` is an abstract class that represents a consumable item in the game.
 
 It allows the creation of consumable items with custom textures, names, descriptions, rarities and quantities.
+
+<a name='T-PO_game-Src-Screens-DeathScreen'></a>
+## DeathScreen `type`
+
+##### Namespace
+
+PO_game.Src.Screens
+
+##### Summary
+
+`DeathScreen` is a class handling the contents of the death screen.
+
+<a name='M-PO_game-Src-Screens-DeathScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager-'></a>
+### #ctor(content) `constructor`
+
+##### Summary
+
+Constructor for the DeathScreen class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+
+<a name='M-PO_game-Src-Screens-DeathScreen-ButtonExit_Click-System-Object,System-EventArgs-'></a>
+### ButtonExit_Click(sender,e) `method`
+
+##### Summary
+
+Returns to the start screen when the exit button is clicked.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+| e | [System.EventArgs](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.EventArgs 'System.EventArgs') |  |
 
 <a name='T-PO_game-Src-Entities-Enemy'></a>
 ## Enemy `type`
@@ -399,6 +507,20 @@ PO_game.Src.Screens
 
 `GameScreen` is a class handling the contents of the game.
 
+<a name='M-PO_game-Src-Screens-GameScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager,System-Int32-'></a>
+### #ctor(content,save) `constructor`
+
+##### Summary
+
+Constructor for the GameScreen class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+| save | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
 <a name='M-PO_game-Src-Screens-GameScreen-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch-'></a>
 ### Draw(spriteBatch) `method`
 
@@ -461,6 +583,100 @@ PO_game.Src.Utils
 ##### Summary
 
 Contains global settings and properties used throughout the game.
+
+<a name='T-PO_game-Src-Controls-HealthBar'></a>
+## HealthBar `type`
+
+##### Namespace
+
+PO_game.Src.Controls
+
+##### Summary
+
+`HealthBar` is a class that represents the health bar in the game.
+
+<a name='M-PO_game-Src-Controls-HealthBar-#ctor-Microsoft-Xna-Framework-Content-ContentManager,System-Numerics-Vector2,System-Single-'></a>
+### #ctor(content,position,maxHealth) `constructor`
+
+##### Summary
+
+Constructor of the health bar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+| position | [System.Numerics.Vector2](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Numerics.Vector2 'System.Numerics.Vector2') |  |
+| maxHealth | [System.Single](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Single 'System.Single') |  |
+
+<a name='F-PO_game-Src-Controls-HealthBar-Background'></a>
+### Background `constants`
+
+##### Summary
+
+The background of the health bar.
+
+<a name='F-PO_game-Src-Controls-HealthBar-CurrentHealth'></a>
+### CurrentHealth `constants`
+
+##### Summary
+
+Current health of the health bar.
+
+<a name='F-PO_game-Src-Controls-HealthBar-Foreground'></a>
+### Foreground `constants`
+
+##### Summary
+
+The foreground of the health bar.
+
+<a name='F-PO_game-Src-Controls-HealthBar-MaxHealth'></a>
+### MaxHealth `constants`
+
+##### Summary
+
+The maximum health of the health bar.
+
+<a name='F-PO_game-Src-Controls-HealthBar-Part'></a>
+### Part `constants`
+
+##### Summary
+
+Part of the health bar.
+
+<a name='F-PO_game-Src-Controls-HealthBar-Position'></a>
+### Position `constants`
+
+##### Summary
+
+The position of the health bar.
+
+<a name='M-PO_game-Src-Controls-HealthBar-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch-'></a>
+### Draw(spriteBatch) `method`
+
+##### Summary
+
+Draws the health bar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| spriteBatch | [Microsoft.Xna.Framework.Graphics.SpriteBatch](#T-Microsoft-Xna-Framework-Graphics-SpriteBatch 'Microsoft.Xna.Framework.Graphics.SpriteBatch') |  |
+
+<a name='M-PO_game-Src-Controls-HealthBar-Update-System-Single-'></a>
+### Update(value) `method`
+
+##### Summary
+
+Updates the health bar.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| value | [System.Single](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Single 'System.Single') |  |
 
 <a name='T-PO_game-Src-Items-Consumables-HealthPotion'></a>
 ## HealthPotion `type`
@@ -550,8 +766,21 @@ PO_game.Src.Screens
 
 It allows the player to load the game from one of the five save slots.
 
+<a name='M-PO_game-Src-Screens-LoadGameScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager-'></a>
+### #ctor(content) `constructor`
+
+##### Summary
+
+Constructor of the `LoadGameScreen` class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+
 <a name='M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32-'></a>
-### CreateWindow(number_of_buttons,slot) `method`
+### CreateWindow(numberOfButtons,slot) `method`
 
 ##### Summary
 
@@ -561,8 +790,37 @@ A method that creates a window with a message and buttons.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| number_of_buttons | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Number of buttons in the window |
+| numberOfButtons | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Number of buttons in the window |
 | slot | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
+<a name='M-PO_game-Src-Screens-LoadGameScreen-DeleteClick-System-Int32,System-Object,System-EventArgs-'></a>
+### DeleteClick(slot,sender,e) `method`
+
+##### Summary
+
+Delete the save.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| slot | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+| sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+| e | [System.EventArgs](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.EventArgs 'System.EventArgs') |  |
+
+<a name='M-PO_game-Src-Screens-LoadGameScreen-OkCancelClick-System-Object,System-EventArgs-'></a>
+### OkCancelClick(sender,e) `method`
+
+##### Summary
+
+Close the window.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+| e | [System.EventArgs](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.EventArgs 'System.EventArgs') |  |
 
 <a name='T-PO_game-Src-Items-Consumables-ManaPotion'></a>
 ## ManaPotion `type`
@@ -965,6 +1223,33 @@ PO_game.Src.Screens
 
 For now, it contains only an exit button.
 
+<a name='M-PO_game-Src-Screens-SettingsScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager-'></a>
+### #ctor(content) `constructor`
+
+##### Summary
+
+Constructor for the SettingsScreen class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+
+<a name='M-PO_game-Src-Screens-SettingsScreen-ButtonReturn_Click-System-Object,System-EventArgs-'></a>
+### ButtonReturn_Click(sender,e) `method`
+
+##### Summary
+
+Returns to the start screen when the exit button is clicked.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sender | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+| e | [System.EventArgs](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.EventArgs 'System.EventArgs') |  |
+
 <a name='T-PO_game-Src-Items-Shield'></a>
 ## Shield `type`
 
@@ -1003,6 +1288,51 @@ PO_game.Src.Screens
 `StatScreen` is a class handling the contents of the start screen.
 
 From this screen, the player can start the game, load a game, go to settings or exit the game.
+
+<a name='M-PO_game-Src-Screens-StartScreen-#ctor-Microsoft-Xna-Framework-Content-ContentManager-'></a>
+### #ctor(content) `constructor`
+
+##### Summary
+
+Constructor for the StartScreen class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+
+<a name='T-PO_game-Src-Utils-StatsToSave'></a>
+## StatsToSave `type`
+
+##### Namespace
+
+PO_game.Src.Utils
+
+##### Summary
+
+`StatsToSave` is a class that represents the stats of the player that need to be saved.
+
+<a name='P-PO_game-Src-Utils-StatsToSave-CurrentMapId'></a>
+### CurrentMapId `property`
+
+##### Summary
+
+Map the player is currently on.
+
+<a name='P-PO_game-Src-Utils-StatsToSave-Name'></a>
+### Name `property`
+
+##### Summary
+
+Name of the player.
+
+<a name='P-PO_game-Src-Utils-StatsToSave-Position'></a>
+### Position `property`
+
+##### Summary
+
+Position of the player.
 
 <a name='T-PO_game-Src-Effects-StatusEffects'></a>
 ## StatusEffects `type`

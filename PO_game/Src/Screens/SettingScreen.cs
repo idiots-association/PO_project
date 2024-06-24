@@ -17,6 +17,10 @@ namespace PO_game.Src.Screens
         private Texture2D _returnButtonTexture;
         private Texture2D _backgroundTexture;
         private Button _returnButton;
+        /// <summary>
+        /// Constructor for the SettingsScreen class.
+        /// </summary>
+        /// <param name="content"></param>
         public SettingsScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {
@@ -32,7 +36,11 @@ namespace PO_game.Src.Screens
             };
 
         }
-
+        /// <summary>
+        /// Returns to the start screen when the exit button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ButtonReturn_Click(object sender, EventArgs e)
         {
             ScreenManager.Instance.RemoveScreen();
