@@ -32,6 +32,8 @@ public class BattleScreen : Screen
     public bool playerUsedShield = false;
     private Health_bar _playerHealthBar;
     private Health_bar _enemyHealthBar;
+    public string battleText = "";
+    public string enemyText = "";
     
 
     public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
@@ -103,6 +105,7 @@ public class BattleScreen : Screen
     {
         player.Attack(enemy);
         Console.WriteLine("Player attacked " + enemy.health + " health left");
+        battleText = "You attacked - " + enemy.health + " health left";
         playerTurn = false;
     }
 
@@ -114,14 +117,17 @@ public class BattleScreen : Screen
 
         if (healthPotionSlot != null)
         {
+            HealthPotion healthPotion = (HealthPotion)healthPotionSlot.item;
             ((HealthPotion)healthPotionSlot.item).Use(player);
-            Console.WriteLine("Player used a health potion. Health is now " + player.health);
+            Console.WriteLine("Player used a health potion, "+ healthPotion.Quantity + "left. Health is now " + player.health);
+            battleText = "Player used a health potion, "+ healthPotion.Quantity +" left. Health is now " + player.health;
             playerTurn = false;
             healthPotionSlot.CheckAndRemoveItemIfEmpty();
         }
         else
         {
             Console.WriteLine("Player has no health potions.");
+            battleText = "Player has no health potions.";
         }
     }
     public void OffHandClick(object sender, EventArgs e)
@@ -130,6 +136,7 @@ public class BattleScreen : Screen
         player.offHand.Use(this);
         playerTurn = false;
         Console.WriteLine("Damage reduction: " + player.damageReduction);
+        battleText = "Damage reduction: " + player.damageReduction;
     }
     public void FleeClick(object sender, EventArgs e)
     {
@@ -183,6 +190,7 @@ public class BattleScreen : Screen
         }
         else
         {
+            enemyText = "";
             enemy.effects.UpdateEffects(this, enemy);
             if (enemy.health <= 0)
             {
@@ -196,16 +204,22 @@ public class BattleScreen : Screen
             }
             if(!playerTurn)
             {
-                playerTurn = true;
+                
                 enemy.Attack(player);
                 if (playerUsedShield)
                 {
                     Random random = new Random();
                     if (random.Next(0, 100) >= 50)
+                    {
                         enemy.ApplyEffect(StatusEffectType.Stun, 1);
-                    playerUsedShield = false;
+                        Console.WriteLine("Enemy stunned");
+                        enemyText = "Enemy is stunned";
+                    }
+                    playerUsedShield = false;  
                 }
                 Console.WriteLine("Enemy attacked " + player.health + " health left");
+                enemyText += "\nEnemy attacked - " + player.health + " health left";
+                playerTurn = true;
             }
         player.DeFortify();
         
@@ -226,6 +240,13 @@ public class BattleScreen : Screen
         _fleeButton.Draw(spriteBatch);
         _playerHealthBar.Draw(spriteBatch);
         _enemyHealthBar.Draw(spriteBatch);
+        if (battleText.Length > 50)
+            spriteBatch.DrawString(Globals.gameFont, battleText, new Vector2((int)(Globals.ScreenWidth / 2 - 170)
+                , Globals.ScreenHeight / 15), Color.Black, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0.5f);
+        else 
+            spriteBatch.DrawString(Globals.gameFont, battleText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100)
+                , Globals.ScreenHeight / 15), Color.Black);
+        spriteBatch.DrawString(Globals.gameFont, enemyText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100), Globals.ScreenHeight / 15 + 20), Color.Black);
         spriteBatch.End();
     }
 }

@@ -104,6 +104,18 @@
 /processorParam:TextureFormat=Color
 /build:Others/cool_background.png
 
+#begin Others/deathscreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Others/deathscreen.png
+
 #begin Others/emptybar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -176,18 +188,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/drake.png
 
-#begin Sprites/ghoust.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/ghoust.png
-
 #begin Sprites/goblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -247,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/playerxd.png
+
+#begin Sprites/skeleton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/skeleton.png
 
 #begin Sprites/troll.png
 /importer:TextureImporter
