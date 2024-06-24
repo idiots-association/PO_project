@@ -190,6 +190,7 @@ public class BattleScreen : Screen
         }
         else
         {
+            enemyText = "";
             enemy.effects.UpdateEffects(this, enemy);
             if (enemy.health <= 0)
             {
@@ -204,33 +205,20 @@ public class BattleScreen : Screen
             if(!playerTurn)
             {
                 
-                
+                enemy.Attack(player);
                 if (playerUsedShield)
                 {
-                    
                     Random random = new Random();
                     if (random.Next(0, 100) >= 50)
                     {
-                        
                         enemy.ApplyEffect(StatusEffectType.Stun, 1);
                         Console.WriteLine("Enemy stunned");
                         enemyText = "Enemy is stunned";
                     }
-                    else
-                    {
-                        enemy.Attack(player);
-                        Console.WriteLine("Enemy attacked " + player.health + " health left");
-                        enemyText = "Enemy attacked - " + player.health + " health left";
-                    }
-
-                    playerUsedShield = false;
+                    playerUsedShield = false;  
                 }
-                else
-                {
-                    enemy.Attack(player);
-                    Console.WriteLine("Enemy attacked " + player.health + " health left");
-                    enemyText = "Enemy attacked - " + player.health + " health left";
-                }
+                Console.WriteLine("Enemy attacked " + player.health + " health left");
+                enemyText += "\nEnemy attacked - " + player.health + " health left";
                 playerTurn = true;
             }
         player.DeFortify();
