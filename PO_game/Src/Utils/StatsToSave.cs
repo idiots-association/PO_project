@@ -49,4 +49,6 @@ public class StatsToSave
     /// Map the player is currently on.
     /// </summary>
     public MapId CurrentMapId { get; set; }
+
+    public float Health { get; set; }
 }

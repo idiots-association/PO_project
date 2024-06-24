@@ -56,7 +56,7 @@ namespace PO_game.Src.Entities
                     weapon = new Weapon(weaponTexture, "Wolf fangs", "Sharp fangs of a wolf", ItemRarity.Common,2,4);
                     _loot.Add(new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", ItemRarity.Common,1,4));
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 1, content));
-                    return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, false, _loot);
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, true, _loot);
                 case EnemyType.Orc:
                     enemyTexture = content.Load<Texture2D>("Sprites/orc");
                     weaponTexture = content.Load<Texture2D>("Items/mace");
@@ -85,7 +85,7 @@ namespace PO_game.Src.Entities
                     _loot.Add(new Weapon(weaponTexture, "Dragon slayer sword", "A sword that can slay the dragon",
                         ItemRarity.Common, 11, 15));
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 7, content));
-                    return new Enemy(new Sprite(enemyTexture), tilePosition, 55, weapon, false, _loot);
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 55, weapon, true, _loot);
                 default:
                     return null;
             }
