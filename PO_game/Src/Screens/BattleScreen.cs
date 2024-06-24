@@ -34,8 +34,8 @@ public class BattleScreen : Screen
     public Enemy enemy;
     public bool playerTurn = true;
     public bool playerUsedShield = false;
-    private Health_bar _playerHealthBar;
-    private Health_bar _enemyHealthBar;
+    private HealthBar _playerHealthBar;
+    private HealthBar _enemyHealthBar;
     public string battleText = "";
     public string enemyText = "";
 
@@ -52,8 +52,8 @@ public class BattleScreen : Screen
     /// </summary>
     public override void LoadContent()
     {
-        _playerHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), player.maxHealth);
-        _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
+        _playerHealthBar = new HealthBar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), player.maxHealth);
+        _enemyHealthBar = new HealthBar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
         _playerTexture = player.Sprite.Texture;
         _enemyTexture = enemy.Sprite.Texture;
         _weaponTexture = player.weapon.Texture;

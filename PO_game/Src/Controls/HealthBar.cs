@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace PO_game.Src.Controls;
 
-public class Health_bar
+public class HealthBar
 {
     protected readonly Texture2D background;
     protected readonly Texture2D foreground;
@@ -14,7 +14,7 @@ public class Health_bar
     protected float currentHealth;
     protected Rectangle part;
 
-    public Health_bar(ContentManager content , Vector2 position, float maxHealth)
+    public HealthBar(ContentManager content , Vector2 position, float maxHealth)
     {
         this.background = content.Load<Texture2D>("Others/emptybar");
         this.foreground = content.Load<Texture2D>("Others/healthbar");

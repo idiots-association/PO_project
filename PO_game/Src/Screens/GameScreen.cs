@@ -32,7 +32,7 @@ namespace PO_game.Src.Screens
         private bool _loadingFromSave;
         private Texture2D _inventoryTexture;
         private Texture2D _buttonTexture;
-        private Health_bar _healthBar;
+        private HealthBar _healthBar;
 
         private string GenerateSavePath(int save)
         {
@@ -174,7 +174,7 @@ namespace PO_game.Src.Screens
                 Layer = 0.3f
             };
 
-            _healthBar = new Health_bar(content, new(10, 10), _player.maxHealth);
+            _healthBar = new HealthBar(content, new(10, 10), _player.maxHealth);
         }
 
 
