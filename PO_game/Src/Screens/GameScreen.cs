@@ -129,6 +129,7 @@ namespace PO_game.Src.Screens
             var playerStats = new StatsToSave();
             playerStats.Position = new Vector2Data(_player.TilePosition);
             playerStats.Name = "Player";
+            playerStats.Health = _player.health;
             playerStats.CurrentMapId = MapManager.Instance.CurrentMap;
 
             string serializedStats = JsonSerializer.Serialize<StatsToSave>(playerStats);
@@ -148,6 +149,7 @@ namespace PO_game.Src.Screens
 
             var playerTexture = content.Load<Texture2D>("Sprites/hero");
             _player = new Player(new Sprite(playerTexture), loadedStats.Position.ToVector2(),_inventoryTexture, content);
+            _player.health = loadedStats.Health;
 
             MapManager.SetCurrentMap(loadedStats.CurrentMapId);
         }
