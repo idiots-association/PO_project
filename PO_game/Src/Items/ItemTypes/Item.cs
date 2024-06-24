@@ -13,7 +13,8 @@ namespace PO_game.Src.Items
         Uncommon,
         Rare,
         Epic,
-        Legendary
+        Legendary,
+        Unique
     }
     /// <summary>
     /// <c>Item</c> is an abstract class that represents an item in the game.
@@ -25,8 +26,8 @@ namespace PO_game.Src.Items
         public string Name { get; set; }
         public string Description { get; set; }
         public ItemRarity Rarity { get; set; }
-
-
+        
+        
         public Item(Texture2D texture, string name, string description, ItemRarity rarity)
         {
             Texture = texture;

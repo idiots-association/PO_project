@@ -65,7 +65,7 @@ public class BattleScreen : Screen
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight -
                                                                      buttonSpacing - _buttonTexture.Height - 40),
-            Text = "2",
+            Text = "Use potion",
             leftClick = new EventHandler(UsePotionClick),
             Layer = 0.3f
         };

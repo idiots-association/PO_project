@@ -25,7 +25,8 @@ namespace PO_game.Src.Utils
             {ItemRarity.Uncommon, 45},
             {ItemRarity.Rare, 20},
             {ItemRarity.Epic, 8},
-            {ItemRarity.Legendary, 1}
+            {ItemRarity.Legendary, 1},
+            {ItemRarity.Unique, 100}
         };
     }
 
