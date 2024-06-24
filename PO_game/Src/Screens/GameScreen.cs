@@ -200,11 +200,18 @@ namespace PO_game.Src.Screens
             _healthBar.Update(_player.health);
             _changeStateButton.Update();
             
-            if (_player.health <= 0)
+            if ( _player != null)
             {
-                UnloadGame();
-                ScreenManager.Instance.RemoveScreen();
-                ScreenManager.Instance.AddScreen(new DeathScreen(content));
+                if (_player.health <= 0)
+                {
+                    UnloadGame();
+                    ScreenManager.Instance.RemoveScreen();
+                    if (File.Exists(_savePath))
+                    {
+                        File.Delete(_savePath);
+                    }
+                    ScreenManager.Instance.AddScreen(new DeathScreen(content));
+                }
             }
         }
 
