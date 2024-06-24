@@ -246,16 +246,6 @@ namespace PO_game.Src.Maps
 
         }
 
-
-        private void DrawEnemies(SpriteBatch spriteBatch)
-        {
-            foreach (var enemy in _enemies)
-            {
-                enemy.Draw(spriteBatch);
-            }
-        }
-
-
         /// <summary>
         /// A method to draw a layer of the map. It uses the <c>_tileset</c> to draw the tiles.
         /// </summary>

@@ -117,7 +117,6 @@ public class BattleScreen : Screen
     public void AttackClick(object sender, EventArgs e)
     {
         player.Attack(enemy);
-        Console.WriteLine("Player attacked " + enemy.health + " health left");
         battleText = "You attacked - " + enemy.health + " health left";
         playerTurn = false;
     }
@@ -132,14 +131,12 @@ public class BattleScreen : Screen
         {
             HealthPotion healthPotion = (HealthPotion)healthPotionSlot.item;
             ((HealthPotion)healthPotionSlot.item).Use(player);
-            Console.WriteLine("Player used a health potion, " + healthPotion.Quantity + "left. Health is now " + player.health);
             battleText = "Player used a health potion, " + healthPotion.Quantity + " left. Health is now " + player.health;
             playerTurn = false;
             healthPotionSlot.CheckAndRemoveItemIfEmpty();
         }
         else
         {
-            Console.WriteLine("Player has no health potions.");
             battleText = "Player has no health potions.";
         }
     }
@@ -148,7 +145,6 @@ public class BattleScreen : Screen
         player.Fortify();
         player.offHand.Use(this);
         playerTurn = false;
-        Console.WriteLine("Damage reduction: " + player.damageReduction);
         battleText = "Damage reduction: " + player.damageReduction;
     }
     public void FleeClick(object sender, EventArgs e)
@@ -226,12 +222,10 @@ public class BattleScreen : Screen
                     if (random.Next(0, 100) >= 50)
                     {
                         enemy.ApplyEffect(StatusEffectType.Stun, 1);
-                        Console.WriteLine("Enemy stunned");
                         enemyText = "Enemy is stunned";
                     }
                     playerUsedShield = false;
                 }
-                Console.WriteLine("Enemy attacked " + player.health + " health left");
                 enemyText += "\nEnemy attacked - " + player.health + " health left";
                 playerTurn = true;
             }
