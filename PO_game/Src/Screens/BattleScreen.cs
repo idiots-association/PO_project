@@ -30,21 +30,26 @@ public class BattleScreen : Screen
     private Button _usePotionButton;
     private Button _OffHandButton;
     private Button _fleeButton;
-    private int buttonSpacing = 20;
-    public Player player;
-    public Enemy enemy;
-    public bool playerTurn = true;
-    public bool playerUsedShield = false;
+    private int _buttonSpacing = 20;
+    public Player Player;
+    public Enemy Enemy;
+    public bool PlayerTurn = true;
+    public bool PlayerUsedShield = false;
     private HealthBar _playerHealthBar;
     private HealthBar _enemyHealthBar;
-    public string battleText = "";
-    public string enemyText = "";
+    public string BattleText = "";
+    public string EnemyText = "";
 
-
+    /// <summary>
+    /// Constructor for the <c>BattleScreen</c> class.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="player"></param>
+    /// <param name="enemy"></param>
     public BattleScreen(ContentManager content, Player player, Enemy enemy) : base(content)
     {
-        this.player = player;
-        this.enemy = enemy;
+        this.Player = player;
+        this.Enemy = enemy;
     }
 
     /// <summary>
@@ -53,17 +58,17 @@ public class BattleScreen : Screen
     /// </summary>
     public override void LoadContent()
     {
-        _playerHealthBar = new HealthBar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), player.maxHealth);
-        _enemyHealthBar = new HealthBar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
+        _playerHealthBar = new HealthBar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), Player.maxHealth);
+        _enemyHealthBar = new HealthBar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), Enemy.maxHealth);
         if (MapManager.Instance.CurrentMap == MapId.DragonPit)
         {
             _backgroundTexture = content.Load<Texture2D>("Others/burnedground");
         }
         else
             _backgroundTexture = content.Load<Texture2D>("Tilesets/trawaxd");
-        _playerTexture = player.Sprite.Texture;
-        _enemyTexture = enemy.Sprite.Texture;
-        _weaponTexture = player.weapon.Texture;
+        _playerTexture = Player.Sprite.Texture;
+        _enemyTexture = Enemy.Sprite.Texture;
+        _weaponTexture = Player.weapon.Texture;
         _attackButtonTexture = content.Load<Texture2D>("Others/attackButton");
         _potionButtonTexture = content.Load<Texture2D>("Others/potionButton");
         _offHandButtonTexture = content.Load<Texture2D>("Others/offHandButton");
@@ -71,7 +76,7 @@ public class BattleScreen : Screen
         _attackButton = new Button(_attackButtonTexture)
         {
             Position = new Vector2(Globals.ScreenWidth / 3, Globals.ScreenHeight -
-                                                                  buttonSpacing - _attackButtonTexture.Height - 80),
+                                                                  _buttonSpacing - _attackButtonTexture.Height - 80),
             Scale = 4f,
             leftClick = new EventHandler(AttackClick),
             Layer = 0.3f
@@ -80,7 +85,7 @@ public class BattleScreen : Screen
         _usePotionButton = new Button(_potionButtonTexture)
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight -
-                                                                     buttonSpacing - _potionButtonTexture.Height - 80),
+                                                                     _buttonSpacing - _potionButtonTexture.Height - 80),
             Scale = 4f,
             leftClick = new EventHandler(UsePotionClick),
             Layer = 0.3f
@@ -89,13 +94,13 @@ public class BattleScreen : Screen
         _OffHandButton = new Button(_offHandButtonTexture)
         {
             Position = new Vector2(Globals.ScreenWidth / 3, Globals.ScreenHeight
-                                                                    + buttonSpacing - _offHandButtonTexture.Height - 40),
+                                                                    + _buttonSpacing - _offHandButtonTexture.Height - 40),
             Scale = 4f,
             leftClick = new EventHandler(OffHandClick),
             Layer = 0.3f
         };
 
-        switch (enemy.isAgressive)
+        switch (Enemy.isAgressive)
         {
             case true:
                 _fleeButtonTexture = content.Load<Texture2D>("Others/noFleeButton");
@@ -107,7 +112,7 @@ public class BattleScreen : Screen
         _fleeButton = new Button(_fleeButtonTexture)
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight
-                                                                    + buttonSpacing - _fleeButtonTexture.Height - 40),
+                                                                    + _buttonSpacing - _fleeButtonTexture.Height - 40),
             Scale = 4f,
             leftClick = new EventHandler(FleeClick),
             Layer = 0.3f
@@ -116,40 +121,40 @@ public class BattleScreen : Screen
 
     public void AttackClick(object sender, EventArgs e)
     {
-        player.Attack(enemy);
-        battleText = "You attacked - " + enemy.health + " health left";
-        playerTurn = false;
+        Player.Attack(Enemy);
+        BattleText = "You attacked - " + Enemy.health + " health left";
+        PlayerTurn = false;
     }
 
     //will need to change it later, when more potions are added and mana/skill system is implemented
     public void UsePotionClick(object sender, EventArgs e)
     {
-        var healthPotionSlot = player.inventory.slots
+        var healthPotionSlot = Player.inventory.slots
             .FirstOrDefault(slot => slot.item is HealthPotion healthPotion && healthPotion.Quantity > 0);
 
         if (healthPotionSlot != null)
         {
             HealthPotion healthPotion = (HealthPotion)healthPotionSlot.item;
-            ((HealthPotion)healthPotionSlot.item).Use(player);
-            battleText = "Player used a health potion, " + healthPotion.Quantity + " left. Health is now " + player.health;
-            playerTurn = false;
+            ((HealthPotion)healthPotionSlot.item).Use(Player);
+            BattleText = "Player used a health potion, " + healthPotion.Quantity + " left. Health is now " + Player.health;
+            PlayerTurn = false;
             healthPotionSlot.CheckAndRemoveItemIfEmpty();
         }
         else
         {
-            battleText = "Player has no health potions.";
+            BattleText = "Player has no health potions.";
         }
     }
     public void OffHandClick(object sender, EventArgs e)
     {
-        player.Fortify();
-        player.offHand.Use(this);
-        playerTurn = false;
-        battleText = "Damage reduction: " + player.damageReduction;
+        Player.Fortify();
+        Player.offHand.Use(this);
+        PlayerTurn = false;
+        BattleText = "Damage reduction: " + Player.damageReduction;
     }
     public void FleeClick(object sender, EventArgs e)
     {
-        switch (enemy.isAgressive)
+        switch (Enemy.isAgressive)
         {
             case true:
                 break;
@@ -179,16 +184,16 @@ public class BattleScreen : Screen
     /// <param name="gameTime"></param>
     public override void Update(GameTime gameTime)
     {
-        _enemyHealthBar.Update(enemy.health);
-        _playerHealthBar.Update(player.health);
-        if (playerTurn)
+        _enemyHealthBar.Update(Enemy.health);
+        _playerHealthBar.Update(Player.health);
+        if (PlayerTurn)
         {
-            player.effects.UpdateEffects(this, player);
-            if (player.health <= 0)
+            Player.effects.UpdateEffects(this, Player);
+            if (Player.health <= 0)
             {
                 ScreenManager.Instance.RemoveScreen();
             }
-            if (playerTurn)
+            if (PlayerTurn)
             {
                 _attackButton.Update();
                 _usePotionButton.Update();
@@ -200,36 +205,36 @@ public class BattleScreen : Screen
         }
         else
         {
-            enemyText = "";
-            enemy.effects.UpdateEffects(this, enemy);
-            if (enemy.health <= 0)
+            EnemyText = "";
+            Enemy.effects.UpdateEffects(this, Enemy);
+            if (Enemy.health <= 0)
             {
-                foreach (Item item in enemy.loot)
+                foreach (Item item in Enemy.loot)
                 {
                     if (RollItemDrop(item.Rarity))
-                        player.inventory.AddItem(item);
+                        Player.inventory.AddItem(item);
                 }
-                MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
+                MapManager.Instance.GetCurrentMap().RemoveEnemy(Enemy);
                 ScreenManager.Instance.RemoveScreen();
             }
-            else if(!playerTurn)
+            else if(!PlayerTurn)
             {
 
-                enemy.Attack(player);
-                if (playerUsedShield)
+                Enemy.Attack(Player);
+                if (PlayerUsedShield)
                 {
                     Random random = new Random();
                     if (random.Next(0, 100) >= 50)
                     {
-                        enemy.ApplyEffect(StatusEffectType.Stun, 1);
-                        enemyText = "Enemy is stunned";
+                        Enemy.ApplyEffect(StatusEffectType.Stun, 1);
+                        EnemyText = "Enemy is stunned";
                     }
-                    playerUsedShield = false;
+                    PlayerUsedShield = false;
                 }
-                enemyText += "\nEnemy attacked - " + player.health + " health left";
-                playerTurn = true;
+                EnemyText += "\nEnemy attacked - " + Player.health + " health left";
+                PlayerTurn = true;
             }
-            player.DeFortify();
+            Player.DeFortify();
 
         }
     } 
@@ -254,13 +259,13 @@ public class BattleScreen : Screen
         _fleeButton.Draw(spriteBatch);
         _playerHealthBar.Draw(spriteBatch);
         _enemyHealthBar.Draw(spriteBatch);
-        if (battleText.Length > 50)
-            spriteBatch.DrawString(Globals.gameFont, battleText, new Vector2((int)(Globals.ScreenWidth / 2 - 170)
+        if (BattleText.Length > 50)
+            spriteBatch.DrawString(Globals.gameFont, BattleText, new Vector2((int)(Globals.ScreenWidth / 2 - 170)
                 , Globals.ScreenHeight / 15), Color.Black, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0.5f);
         else 
-            spriteBatch.DrawString(Globals.gameFont, battleText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100)
+            spriteBatch.DrawString(Globals.gameFont, BattleText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100)
                 , Globals.ScreenHeight / 15), Color.Black);
-        spriteBatch.DrawString(Globals.gameFont, enemyText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100), Globals.ScreenHeight / 15 + 20), Color.Black);
+        spriteBatch.DrawString(Globals.gameFont, EnemyText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100), Globals.ScreenHeight / 15 + 20), Color.Black);
         spriteBatch.End();
     }
 }

@@ -79,10 +79,10 @@ namespace PO_game.Src.Effects
                 switch (effects[i].Item1)
                 {
                     case StatusEffectType.Stun:
-                        if (character is Player && screen.playerTurn)
-                            screen.playerTurn = !screen.playerTurn;
-                        else if (character is Enemy && !screen.playerTurn)
-                            screen.playerTurn = !screen.playerTurn;
+                        if (character is Player && screen.PlayerTurn)
+                            screen.PlayerTurn = !screen.PlayerTurn;
+                        else if (character is Enemy && !screen.PlayerTurn)
+                            screen.PlayerTurn = !screen.PlayerTurn;
                         break;
                     case StatusEffectType.RecoveryI:
                         character.RestoreHealth(5);

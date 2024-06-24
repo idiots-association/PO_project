@@ -10,7 +10,18 @@
     <list default="true" id="667ef977-c88e-4082-acc3-ce2eec5124d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Entities/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Entities/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Controls/Button.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Controls/Button.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Controls/HealthBar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Controls/HealthBar.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Effects/StatusEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Effects/StatusEffect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Items/ItemTypes/Weapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Items/ItemTypes/Weapon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Items/Off-Hands/Shield.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Items/Off-Hands/Shield.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/BattleScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/BattleScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/DeathScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/DeathScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/GameScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/GameScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/LoadGamesScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/LoadGamesScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/SettingScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/SettingScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/StartScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/StartScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Utils/StatsToSave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Utils/StatsToSave.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +63,7 @@
   "keyToString": {
     ".NET Project.PO_game.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "clean-up",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

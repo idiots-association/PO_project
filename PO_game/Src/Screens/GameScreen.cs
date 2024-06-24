@@ -62,7 +62,11 @@ namespace PO_game.Src.Screens
         }
 
 
-
+        /// <summary>
+        /// Constructor for the GameScreen class.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="save"></param>
         public GameScreen(ContentManager content, int save) : base(content)
         {
             _inputController = new InputController();

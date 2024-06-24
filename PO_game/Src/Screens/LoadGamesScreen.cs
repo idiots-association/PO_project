@@ -26,15 +26,27 @@ public class LoadGameScreen : Screen
     private int _buttonSpacing = 65;
     private Texture2D _windowTexture;
     private Window _window;
-
+    /// <summary>
+    /// Constructor of the <c>LoadGameScreen</c> class.
+    /// </summary>
+    /// <param name="content"></param>
     public LoadGameScreen(ContentManager content) : base(content) { }
-
+    /// <summary>
+    /// Close the window.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public void OkCancelClick(object sender, EventArgs e)
     {
         ScreenManager.Instance.RemoveScreen();
         ScreenManager.Instance.AddScreen(new LoadGameScreen(content));
     }
-
+    /// <summary>
+    /// Delete the save.
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public void DeleteClick(int slot, object sender, EventArgs e)
     {
         File.Delete("save" + slot + ".json");
@@ -45,14 +57,14 @@ public class LoadGameScreen : Screen
     /// <summary>
     /// A method that creates a window with a message and buttons.
     /// </summary>
-    /// <param name="number_of_buttons">Number of buttons in the window</param>
+    /// <param name="numberOfButtons">Number of buttons in the window</param>
     /// <param name="slot"></param>
     
     
-    public void CreateWindow(int number_of_buttons, int slot)
+    public void CreateWindow(int numberOfButtons, int slot)
     {
         _windowTexture = content.Load<Texture2D>("Others/ramka1");
-        _window = new Window(_windowTexture, content, number_of_buttons)
+        _window = new Window(_windowTexture, content, numberOfButtons)
         {
             Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
             Text = "Save is empty",
@@ -61,7 +73,7 @@ public class LoadGameScreen : Screen
         _window.ExitButton.leftClick += OkCancelClick;
         _window.ExitButton.Scale = 2f;
 
-        if (number_of_buttons == 2)
+        if (numberOfButtons == 2)
         {
             _window.ExitButton2.leftClick += (sender, e) => DeleteClick(slot, sender, e);
             _window.Text = "Do you want to delete this save?";
