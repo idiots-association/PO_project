@@ -25,16 +25,18 @@ namespace PO_game.Src.Maps
         {
             MapId.Lobby, new Dictionary<Vector2, Tuple<MapId, Vector2>>()
             {
-                { new Vector2(20, 8), new Tuple<MapId, Vector2>(MapId.PlayerPath, new Vector2(3, 9)) },
+                { new Vector2(24, 13), new Tuple<MapId, Vector2>(MapId.PlayerPath, new Vector2(12, 14)) },
             }
         },
         {
             MapId.PlayerPath, new Dictionary<Vector2, Tuple<MapId, Vector2>>()
             {
-                { new Vector2(8, 5), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
-                { new Vector2(8, 9), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
-                { new Vector2(8, 13), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
+                { new Vector2(17, 10), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
+                { new Vector2(17, 14), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
+                { new Vector2(17, 18), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
             }
+
+            //70, 96 tp to dragon den
         },
     };
     }

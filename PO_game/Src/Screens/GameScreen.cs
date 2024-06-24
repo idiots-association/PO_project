@@ -81,11 +81,11 @@ namespace PO_game.Src.Screens
 
 
 #if DEBUG
-            var lobby_csv = "../../../Content/Maps/Lobby/MapWithPath";
+            var lobby_csv = "../../../Content/Maps/Lobby/Lobby";
             var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
             var darkForest_csv = "../../../Content/Maps/DarkForest/DarkForest";
 #else
-            var lobby_csv = "Content/Maps/Lobby/MapWithPath";
+            var lobby_csv = "Content/Maps/Lobby/Lobby";
             var playerPath_csv = "Content/Maps/PlayerPath/PlayerPath";
             var darkForest_csv = "Content/Maps/DarkForest/DarkForest";
 #endif
@@ -144,7 +144,7 @@ namespace PO_game.Src.Screens
 
         private void StartNewGame()
         {
-            var playerPosition = new Vector2(10, 10);
+            var playerPosition = new Vector2(15, 15);
             var playerTexture = content.Load<Texture2D>("Sprites/hero");
             _player = new Player(new Sprite(playerTexture), playerPosition, _inventoryTexture, content);
             MapManager.SetCurrentMap(MapId.Lobby);
