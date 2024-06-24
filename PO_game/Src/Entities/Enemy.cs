@@ -28,13 +28,18 @@ namespace PO_game.Src.Entities
         Drake,
         MiniBoss
     }
+    
+    
 
     /// <summary>
     /// Class <c>EnemyFactory</c> is a class that creates enemies based on the type of enemy requested.
     /// It stores all the pre-set enemy types and their respective textures and weapons.
     /// </summary>
+    
     public static class EnemyFactory
     {
+        
+        
         public static Enemy CreateEnemy(EnemyType enemyType, Vector2 tilePosition, ContentManager content)
         {
             Texture2D enemyTexture;
@@ -75,10 +80,10 @@ namespace PO_game.Src.Entities
                     enemyTexture = content.Load<Texture2D>("Sprites/miniboss");
                     weaponTexture = content.Load<Texture2D>("Items/dragon_slayer_sword");
                     weapon = new Weapon(weaponTexture, "Demonic spells",
-                        "Spells of a demon that can kill the strongest of warriors", ItemRarity.Common, 7, 9);
+                        "Spells of a demon that can kill the strongest of warriors", ItemRarity.Common, 6, 9);
                     _loot.Add(new Weapon(weaponTexture, "Dragon slayer sword", "A sword that can slay the dragon",
-                        ItemRarity.Unique, 14, 16));
-                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Unique, 5, content));
+                        ItemRarity.Unique, 11, 15));
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 7, content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 55, weapon, false, _loot);
                 default:
                     return null;

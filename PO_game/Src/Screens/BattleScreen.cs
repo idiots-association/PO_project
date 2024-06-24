@@ -21,6 +21,7 @@ public class BattleScreen : Screen
     private Texture2D _playerTexture;
     private Texture2D _enemyTexture;
     private Texture2D _buttonTexture;
+    private Texture2D _weaponTexture;
     private Button _attackButton;
     private Button _usePotionButton;
     private Button _OffHandButton;
@@ -50,6 +51,7 @@ public class BattleScreen : Screen
         _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
         _playerTexture = player.Sprite.Texture;
         _enemyTexture = enemy.Sprite.Texture;
+        _weaponTexture = player.weapon.Texture;
         _buttonTexture = content.Load<Texture2D>("Others/startButton");
 
         _attackButton = new Button(_buttonTexture)
@@ -180,10 +182,6 @@ public class BattleScreen : Screen
                 _fleeButton.Update();
                 
             }
-        }
-        else
-        {
-            enemy.effects.UpdateEffects(this, enemy);
             if (enemy.health <= 0)
             {
                 MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
@@ -194,6 +192,10 @@ public class BattleScreen : Screen
                 }
                 ScreenManager.Instance.RemoveScreen();
             }
+        }
+        else
+        {
+            enemy.effects.UpdateEffects(this, enemy);
             if(!playerTurn)
             {
                 playerTurn = true;
@@ -215,10 +217,13 @@ public class BattleScreen : Screen
     {
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         spriteBatch.Draw(_playerTexture,
-            new Rectangle(Globals.ScreenWidth / 8, Globals.ScreenHeight / 4, 100, 200),
+            new Rectangle(Globals.ScreenWidth / 14, Globals.ScreenHeight / 4, 200, 200),
             Color.White);
         spriteBatch.Draw(_enemyTexture,
-            new Rectangle((int)(Globals.ScreenWidth / 1.33), Globals.ScreenHeight / 4, 100, 200),
+            new Rectangle((int)(Globals.ScreenWidth / 1.45), Globals.ScreenHeight / 4, 200, 200),
+            Color.White);
+        spriteBatch.Draw(_weaponTexture,
+            new Rectangle((int)(Globals.ScreenWidth / 3.5), Globals.ScreenHeight / 3, 100, 100),
             Color.White);
         _attackButton.Draw(spriteBatch);
         _usePotionButton.Draw(spriteBatch);

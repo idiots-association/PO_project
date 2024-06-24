@@ -33,8 +33,8 @@ namespace PO_game.Src.Entities
             health = maxHealth;
             mana = maxMana;
             _destination = Sprite.Position;
-            Texture2D weaponTexture = content.Load<Texture2D>("Items/dragon_slayer_sword");
-            weapon = new Weapon(weaponTexture, "Dragon slayer sword", "A sword", ItemRarity.Common, 2, 3);
+            Texture2D weaponTexture = content.Load<Texture2D>("Items/sword");
+            weapon = new Weapon(weaponTexture, "Sword", "A sword", ItemRarity.Common, 2, 3);
             offHand = new Shield(weaponTexture, "Shield", "A shield", ItemRarity.Common, 1);
         }
 
