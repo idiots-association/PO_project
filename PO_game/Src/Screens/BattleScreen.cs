@@ -52,7 +52,7 @@ public class BattleScreen : Screen
     {
         _playerHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), player.maxHealth);
         _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
-        if (MapManager.Instance.GetCurrentMap().GetMapId() == MapId.DragonPit)
+        if (MapManager.Instance.CurrentMap == MapId.DragonPit)
         {
             _backgroundTexture = content.Load<Texture2D>("Others/burnedground");
         }

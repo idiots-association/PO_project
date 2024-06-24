@@ -194,10 +194,6 @@ namespace PO_game.Src.Maps
             return result;
         }
         
-        public MapId GetMapId()
-        {
-            return _mapId;
-        }
 
         /// <summary>
         /// A method to create enemies from the csv file.
