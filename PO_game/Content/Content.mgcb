@@ -32,6 +32,18 @@
 /processorParam:TextureFormat=Color
 /build:Items/dagger.png
 
+#begin Items/dragon_slayer_sword.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/dragon_slayer_sword.png
+
 #begin Items/inv_slot_grey.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -91,6 +103,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Items/medium_health_potion.png
+
+#begin Items/scythe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/scythe.png
+
+#begin Items/sword.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/sword.png
 
 #begin Others/cool_background.png
 /importer:TextureImporter
@@ -188,7 +224,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/drake.png
 
-#begin Sprites/goblin.png
+#begin Sprites/ghost.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -198,7 +234,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/goblin.png
+/build:Sprites/ghost.png
 
 #begin Sprites/hero.png
 /importer:TextureImporter
@@ -236,7 +272,19 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/orc.png
 
-#begin Sprites/playerxd.png
+#begin Sprites/miniboss.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/miniboss.png
+
+#begin Sprites/orc.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -247,6 +295,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/playerxd.png
+
+#begin Sprites/skeleton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/skeleton.png
 
 #begin Sprites/skeleton.png
 /importer:TextureImporter
@@ -283,6 +343,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/tutorialwizard.png
+
+#begin Sprites/wolf.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/wolf.png
 
 #begin Tilesets/collisions.png
 /importer:TextureImporter

@@ -21,6 +21,7 @@ public class BattleScreen : Screen
     private Texture2D _playerTexture;
     private Texture2D _enemyTexture;
     private Texture2D _buttonTexture;
+    private Texture2D _weaponTexture;
     private Button _attackButton;
     private Button _usePotionButton;
     private Button _OffHandButton;
@@ -34,9 +35,9 @@ public class BattleScreen : Screen
     private Health_bar _enemyHealthBar;
     public string battleText = "";
     public string enemyText = "";
-    
 
-    public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
+
+    public BattleScreen(ContentManager content, Player player, Enemy enemy) : base(content)
     {
         this.player = player;
         this.enemy = enemy;
@@ -52,6 +53,7 @@ public class BattleScreen : Screen
         _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
         _playerTexture = player.Sprite.Texture;
         _enemyTexture = enemy.Sprite.Texture;
+        _weaponTexture = player.weapon.Texture;
         _buttonTexture = content.Load<Texture2D>("Others/startButton");
 
         _attackButton = new Button(_buttonTexture)
@@ -67,7 +69,7 @@ public class BattleScreen : Screen
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight -
                                                                      buttonSpacing - _buttonTexture.Height - 40),
-            Text = "2",
+            Text = "Use potion",
             leftClick = new EventHandler(UsePotionClick),
             Layer = 0.3f
         };
@@ -82,8 +84,8 @@ public class BattleScreen : Screen
         };
 
         var fleeText = "";
-        switch(enemy.isAgressive)
-        {    
+        switch (enemy.isAgressive)
+        {
             case true:
                 fleeText = "You can't flee from this enemy";
                 break;
@@ -119,8 +121,8 @@ public class BattleScreen : Screen
         {
             HealthPotion healthPotion = (HealthPotion)healthPotionSlot.item;
             ((HealthPotion)healthPotionSlot.item).Use(player);
-            Console.WriteLine("Player used a health potion, "+ healthPotion.Quantity + "left. Health is now " + player.health);
-            battleText = "Player used a health potion, "+ healthPotion.Quantity +" left. Health is now " + player.health;
+            Console.WriteLine("Player used a health potion, " + healthPotion.Quantity + "left. Health is now " + player.health);
+            battleText = "Player used a health potion, " + healthPotion.Quantity + " left. Health is now " + player.health;
             playerTurn = false;
             healthPotionSlot.CheckAndRemoveItemIfEmpty();
         }
@@ -179,18 +181,17 @@ public class BattleScreen : Screen
             {
                 ScreenManager.Instance.RemoveScreen();
             }
-            if(playerTurn)
+            if (playerTurn)
             {
                 _attackButton.Update();
                 _usePotionButton.Update();
                 _OffHandButton.Update();
                 _fleeButton.Update();
-                
+
             }
         }
         else
         {
-            enemyText = "";
             enemy.effects.UpdateEffects(this, enemy);
             if (enemy.health <= 0)
             {
@@ -202,37 +203,34 @@ public class BattleScreen : Screen
                 MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
                 ScreenManager.Instance.RemoveScreen();
             }
-            if(!playerTurn)
+            if (!playerTurn)
             {
-                
+                playerTurn = true;
                 enemy.Attack(player);
                 if (playerUsedShield)
                 {
                     Random random = new Random();
                     if (random.Next(0, 100) >= 50)
-                    {
                         enemy.ApplyEffect(StatusEffectType.Stun, 1);
-                        Console.WriteLine("Enemy stunned");
-                        enemyText = "Enemy is stunned";
-                    }
-                    playerUsedShield = false;  
+                    playerUsedShield = false;
                 }
                 Console.WriteLine("Enemy attacked " + player.health + " health left");
-                enemyText += "\nEnemy attacked - " + player.health + " health left";
-                playerTurn = true;
             }
-        player.DeFortify();
-        
+            player.DeFortify();
+
         }
-    }
+    } 
     public override void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         spriteBatch.Draw(_playerTexture,
-            new Rectangle(Globals.ScreenWidth / 8, Globals.ScreenHeight / 4, 100, 200),
+            new Rectangle(Globals.ScreenWidth / 14, Globals.ScreenHeight / 4, 200, 200),
             Color.White);
         spriteBatch.Draw(_enemyTexture,
-            new Rectangle((int)(Globals.ScreenWidth / 1.33), Globals.ScreenHeight / 4, 100, 200),
+            new Rectangle((int)(Globals.ScreenWidth / 1.45), Globals.ScreenHeight / 4, 200, 200),
+            Color.White);
+        spriteBatch.Draw(_weaponTexture,
+            new Rectangle((int)(Globals.ScreenWidth / 3.5), Globals.ScreenHeight / 3, 100, 100),
             Color.White);
         _attackButton.Draw(spriteBatch);
         _usePotionButton.Draw(spriteBatch);

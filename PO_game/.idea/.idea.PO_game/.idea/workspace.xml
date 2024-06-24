@@ -9,8 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="667ef977-c88e-4082-acc3-ce2eec5124d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO_game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/Screens/GameScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/GameScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Entities/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Entities/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Entities/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Items/InventorySlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Items/InventorySlot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Items/ItemTypes/Weapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Items/ItemTypes/Weapon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/Screens/BattleScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Src/Screens/BattleScreen.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +55,7 @@
   &quot;keyToString&quot;: {
     &quot;.NET Project.PO_game.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;battle-log&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;new-map&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -104,6 +107,8 @@
       <workItem from="1716743104674" duration="7675000" />
       <workItem from="1718907111722" duration="2415000" />
       <workItem from="1719081886735" duration="3941000" />
+      <workItem from="1719183383924" duration="1932000" />
+      <workItem from="1719222614702" duration="8516000" />
     </task>
     <servers />
   </component>

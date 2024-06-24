@@ -33,8 +33,8 @@ namespace PO_game.Src.Entities
             health = maxHealth;
             mana = maxMana;
             _destination = Sprite.Position;
-            Texture2D weaponTexture = content.Load<Texture2D>("Items/mace");
-            weapon = new Weapon(weaponTexture, "Sword", "A sword", ItemRarity.Common, 1, 3);
+            Texture2D weaponTexture = content.Load<Texture2D>("Items/sword");
+            weapon = new Weapon(weaponTexture, "Sword", "A sword", ItemRarity.Common, 2, 3);
             offHand = new Shield(weaponTexture, "Shield", "A shield", ItemRarity.Common, 1);
         }
 
@@ -264,8 +264,10 @@ namespace PO_game.Src.Entities
             base.Draw(spriteBatch);
             if (weapon != null)
             {
-                float scale = 0.3f;
-                Vector2 weaponOffset = new Vector2(0, -2); 
+                float scale = 0.4f;
+                Vector2 weaponOffset = new Vector2(5, 3);
+                if (weapon.Name == "Dragon slayer sword")
+                    weaponOffset = new Vector2(5, 1);
                 Vector2 weaponPosition = Sprite.Position + weaponOffset;
 
                 spriteBatch.Draw(weapon.Texture, weaponPosition, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);

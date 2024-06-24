@@ -112,7 +112,16 @@ namespace PO_game.Src.Inv
             spriteBatch.Draw(_texture, Position, semiTransparentWhite);
             if (item != null)
             {
-                item.Draw(spriteBatch, Position);
+                switch (item)
+                {
+                    case(Weapon):
+                        item.Draw(spriteBatch, Position + new Vector2(20,25));
+                        break;
+                    case(Consumable):
+                        item.Draw(spriteBatch, Position );
+                        break;
+                }
+                
             }
         }
     }

@@ -34,11 +34,14 @@ namespace PO_game.Src.Maps
     public class Map
     {
         private Dictionary<Vector2, int> _background;
+        private Dictionary<Vector2, int> _backgroundObjects;
+        private Dictionary<Vector2, int> _shadow;
         private Dictionary<Vector2, int> _collisions;
         private Dictionary<Vector2, int> _enemiesLocations;
         private Texture2D _tileset;
         private Texture2D _collisionTileset;
         private List<Enemy> _enemies;
+        private MapId _mapId;
 
         /// <summary>
         /// A method to show collisions.
@@ -59,9 +62,9 @@ namespace PO_game.Src.Maps
         /// <returns>Destination of a warp</returns>
         private Tuple<MapId, Vector2> GetWarpDestination(Player player)
         {
-            if (Warps.Lobby.ContainsKey(player.TilePosition))
+            if (Warps.WarpPoints[_mapId].ContainsKey(player.TilePosition))
             {
-                return Warps.Lobby[player.TilePosition];
+                return Warps.WarpPoints[_mapId][player.TilePosition];
             }
             return null;
         }
@@ -95,8 +98,9 @@ namespace PO_game.Src.Maps
         /// <param name="csv_map"></param>
         /// <param name="tileset"></param>
         /// <param name="content"></param>
-        public Map(string csv_map, string tileset, ContentManager content)
+        public Map(string csv_map, string tileset, ContentManager content, MapId mapId)
         {
+            _mapId = mapId;
             _background = LoadLayer(csv_map + "_Background.csv");
             _tileset = content.Load<Texture2D>("Tilesets/" + tileset);
             _collisions = LoadLayer(csv_map + "_Collisions.csv");
@@ -113,8 +117,28 @@ namespace PO_game.Src.Maps
                 _enemiesLocations = new Dictionary<Vector2, int>();
                 _enemies = new List<Enemy>();
             }
-
             UpdateEnemyCollisions();
+
+            string shadowCsvPath = csv_map + "_Shadow.csv";
+            if (File.Exists(shadowCsvPath))
+            {
+                _shadow = LoadLayer(shadowCsvPath);
+            }
+            else
+            {
+                _shadow = new Dictionary<Vector2, int>();
+            }
+
+            string backgroundObjectsCsvPath = csv_map + "_BackgroundObjects.csv";
+            if(File.Exists(backgroundObjectsCsvPath))
+            {
+                _backgroundObjects = LoadLayer(backgroundObjectsCsvPath);
+            }
+            else
+            {
+                _backgroundObjects = new Dictionary<Vector2, int>();
+            }
+
         }
 
         public Dictionary<Vector2, int> GetCollisionsMap()
@@ -217,8 +241,9 @@ namespace PO_game.Src.Maps
         /// <param name="enemy"></param>
         public void RemoveEnemy(Enemy enemy)
         {
+            _collisions.Remove(enemy.TilePosition);
             _enemies.Remove(enemy);
-            _collisions[enemy.TilePosition] = (int)Collision.NoCollision;
+
         }
 
 
@@ -273,7 +298,6 @@ namespace PO_game.Src.Maps
                 DrawLayer(_collisions, _collisionTileset, spriteBatch);
             }
 
-
             List<Character> gameObjects = new List<Character>(_enemies);
 
             gameObjects.Add(player);
@@ -283,6 +307,10 @@ namespace PO_game.Src.Maps
             {
                 gameObject.Draw(spriteBatch);
             }
+
+            DrawLayer(_backgroundObjects, _tileset, spriteBatch);
+            DrawLayer(_shadow, _tileset, spriteBatch);
+
         }
 
     };

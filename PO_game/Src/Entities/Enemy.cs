@@ -22,17 +22,24 @@ namespace PO_game.Src.Entities
     /// </summary>
     public enum EnemyType
     {
-        Goblin,
+        Wolf,
         Orc,
-        Troll
+        Ghost,
+        Drake,
+        MiniBoss
     }
+    
+    
 
     /// <summary>
     /// Class <c>EnemyFactory</c> is a class that creates enemies based on the type of enemy requested.
     /// It stores all the pre-set enemy types and their respective textures and weapons.
     /// </summary>
+    
     public static class EnemyFactory
     {
+        
+        
         public static Enemy CreateEnemy(EnemyType enemyType, Vector2 tilePosition, ContentManager content)
         {
             Texture2D enemyTexture;
@@ -43,11 +50,11 @@ namespace PO_game.Src.Entities
 
             switch (enemyType)
             {
-                case EnemyType.Goblin:
-                    enemyTexture = content.Load<Texture2D>("Sprites/goblin");
+                case EnemyType.Wolf:
+                    enemyTexture = content.Load<Texture2D>("Sprites/wolf");
                     weaponTexture = content.Load<Texture2D>("Items/dagger");
-                    weapon = new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", ItemRarity.Common,1,4);
-                    _loot.Add(weapon);
+                    weapon = new Weapon(weaponTexture, "Wolf fangs", "Sharp fangs of a wolf", ItemRarity.Common,2,4);
+                    _loot.Add(new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", ItemRarity.Common,1,4));
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 1, content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 20, weapon, false, _loot);
                 case EnemyType.Orc:
@@ -57,13 +64,27 @@ namespace PO_game.Src.Entities
                     _loot.Add(weapon);
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, random.Next(1,2), content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false, _loot);
-                case EnemyType.Troll:
-                    enemyTexture = content.Load<Texture2D>("Sprites/troll");
-                    weaponTexture = content.Load<Texture2D>("Items/mace"); // need to add a club texture
-                    weapon = new Weapon(weaponTexture, "Troll Club", "A large club used by trolls to crush their enemies", ItemRarity.Uncommon,6,8);
+                case EnemyType.Ghost:
+                    enemyTexture = content.Load<Texture2D>("Sprites/ghost");
+                    weaponTexture = content.Load<Texture2D>("Items/scythe"); 
+                    weapon = new Weapon(weaponTexture, "Scythe", "A scythe used to harvest souls of the living", ItemRarity.Rare,5,8);
                     _loot.Add(weapon);
-                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Uncommon, random.Next(1,2), content));
-                    return new Enemy(new Sprite(enemyTexture), tilePosition, 70, weapon, false, _loot);
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, random.Next(3), content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 65, weapon, false, _loot);
+                case EnemyType.Drake:
+                    enemyTexture = content.Load<Texture2D>("Sprites/drake");
+                    weaponTexture = content.Load<Texture2D>("Items/sword");
+                    weapon = new Weapon(weaponTexture, "Dragon breath", "A breath of a dragon that can melt the strongest of armors", ItemRarity.Legendary, 12, 15);
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 90, weapon, true, _loot);
+                case EnemyType.MiniBoss:
+                    enemyTexture = content.Load<Texture2D>("Sprites/miniboss");
+                    weaponTexture = content.Load<Texture2D>("Items/dragon_slayer_sword");
+                    weapon = new Weapon(weaponTexture, "Demonic spells",
+                        "Spells of a demon that can kill the strongest of warriors", ItemRarity.Common, 6, 9);
+                    _loot.Add(new Weapon(weaponTexture, "Dragon slayer sword", "A sword that can slay the dragon",
+                        ItemRarity.Unique, 11, 15));
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, 7, content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 55, weapon, false, _loot);
                 default:
                     return null;
             }
