@@ -128,6 +128,18 @@
 /processorParam:TextureFormat=Color
 /build:Items/sword.png
 
+#begin Others/burnedground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Others/burnedground.png
+
 #begin Others/cool_background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -260,18 +272,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/merchant.png
 
-#begin Sprites/orc.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/orc.png
-
 #begin Sprites/miniboss.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -294,9 +294,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/playerxd.png
+/build:Sprites/orc.png
 
-#begin Sprites/skeleton.png
+#begin Sprites/playerxd.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -306,7 +306,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/skeleton.png
+/build:Sprites/playerxd.png
 
 #begin Sprites/skeleton.png
 /importer:TextureImporter
@@ -356,6 +356,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/wolf.png
 
+#begin Tilesets/Burnedtileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tilesets/Burnedtileset.png
+
 #begin Tilesets/collisions.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -379,4 +391,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tilesets/POtileset.png
+
+#begin Tilesets/trawaxd.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tilesets/trawaxd.png
 

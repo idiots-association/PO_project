@@ -78,16 +78,19 @@ namespace PO_game.Src.Screens
         private void LoadMaps()
         {
             var tileset = "POtileset";
+            var burnedtileset = "Burnedtileset";
 
 
 #if DEBUG
             var lobby_csv = "../../../Content/Maps/Lobby/Lobby";
             var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
             var darkForest_csv = "../../../Content/Maps/DarkForest/DarkForest";
+            var dragonPit_csv = "../../../Content/Maps/DragonPit/DragonPit";
 #else
             var lobby_csv = "Content/Maps/Lobby/Lobby";
             var playerPath_csv = "Content/Maps/PlayerPath/PlayerPath";
             var darkForest_csv = "Content/Maps/DarkForest/DarkForest";
+            var dragonPit_csv = "Content/Maps/DragonPit/DragonPit";
 #endif
 
 
@@ -100,6 +103,9 @@ namespace PO_game.Src.Screens
 
             var darkForest_map = new Map(darkForest_csv, tileset, content, MapId.DarkForest);
             MapManager.Instance.AddMap(MapId.DarkForest, darkForest_map);
+
+            var dragonPit_map = new Map(dragonPit_csv, burnedtileset, content, MapId.DragonPit);
+            MapManager.Instance.AddMap(MapId.DragonPit, dragonPit_map);
 
         }
         private void UnloadGame()
@@ -210,8 +216,10 @@ namespace PO_game.Src.Screens
             {
                 if (_player.health <= 0)
                 {
-                    UnloadGame();
+
+                    Console.WriteLine("SIEMA ENIU!");
                     ScreenManager.Instance.RemoveScreen();
+                    UnloadGame();
                     if (File.Exists(_savePath))
                     {
                         File.Delete(_savePath);
