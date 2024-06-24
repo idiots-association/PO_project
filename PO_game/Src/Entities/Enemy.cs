@@ -74,7 +74,7 @@ namespace PO_game.Src.Entities
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Uncommon, random.Next(1, 2), content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 100, weapon, true, _loot);
                 case EnemyType.MiniBoss:
-                    enemyTexture = content.Load<Texture2D>("Sprites/skeleton");
+                    enemyTexture = content.Load<Texture2D>("Sprites/miniboss");
                     weaponTexture = content.Load<Texture2D>("Items/mace");
                     weapon = new Weapon(weaponTexture, "Orcish Mace", "A simple mace used by the most common of orcs", ItemRarity.Common, 4, 5);
                     _loot.Add(weapon);
