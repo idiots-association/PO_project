@@ -140,6 +140,18 @@
 /processorParam:TextureFormat=Color
 /build:Others/cool_background.png
 
+#begin Others/deathscreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Others/deathscreen.png
+
 #begin Others/emptybar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -224,18 +236,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/ghost.png
 
-#begin Sprites/goblin.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/goblin.png
-
 #begin Sprites/hero.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -260,6 +260,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/merchant.png
 
+#begin Sprites/orc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/orc.png
+
 #begin Sprites/miniboss.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -282,9 +294,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/orc.png
+/build:Sprites/playerxd.png
 
-#begin Sprites/playerxd.png
+#begin Sprites/skeleton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -294,7 +306,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/playerxd.png
+/build:Sprites/skeleton.png
 
 #begin Sprites/skeleton.png
 /importer:TextureImporter

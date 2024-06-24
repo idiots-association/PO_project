@@ -33,9 +33,11 @@ public class BattleScreen : Screen
     public bool playerUsedShield = false;
     private Health_bar _playerHealthBar;
     private Health_bar _enemyHealthBar;
-    
+    public string battleText = "";
+    public string enemyText = "";
 
-    public BattleScreen (ContentManager content, Player player, Enemy enemy) : base(content)
+
+    public BattleScreen(ContentManager content, Player player, Enemy enemy) : base(content)
     {
         this.player = player;
         this.enemy = enemy;
@@ -82,8 +84,8 @@ public class BattleScreen : Screen
         };
 
         var fleeText = "";
-        switch(enemy.isAgressive)
-        {    
+        switch (enemy.isAgressive)
+        {
             case true:
                 fleeText = "You can't flee from this enemy";
                 break;
@@ -105,6 +107,7 @@ public class BattleScreen : Screen
     {
         player.Attack(enemy);
         Console.WriteLine("Player attacked " + enemy.health + " health left");
+        battleText = "You attacked - " + enemy.health + " health left";
         playerTurn = false;
     }
 
@@ -116,14 +119,17 @@ public class BattleScreen : Screen
 
         if (healthPotionSlot != null)
         {
+            HealthPotion healthPotion = (HealthPotion)healthPotionSlot.item;
             ((HealthPotion)healthPotionSlot.item).Use(player);
-            Console.WriteLine("Player used a health potion. Health is now " + player.health);
+            Console.WriteLine("Player used a health potion, " + healthPotion.Quantity + "left. Health is now " + player.health);
+            battleText = "Player used a health potion, " + healthPotion.Quantity + " left. Health is now " + player.health;
             playerTurn = false;
             healthPotionSlot.CheckAndRemoveItemIfEmpty();
         }
         else
         {
             Console.WriteLine("Player has no health potions.");
+            battleText = "Player has no health potions.";
         }
     }
     public void OffHandClick(object sender, EventArgs e)
@@ -132,6 +138,7 @@ public class BattleScreen : Screen
         player.offHand.Use(this);
         playerTurn = false;
         Console.WriteLine("Damage reduction: " + player.damageReduction);
+        battleText = "Damage reduction: " + player.damageReduction;
     }
     public void FleeClick(object sender, EventArgs e)
     {
@@ -174,29 +181,29 @@ public class BattleScreen : Screen
             {
                 ScreenManager.Instance.RemoveScreen();
             }
-            if(playerTurn)
+            if (playerTurn)
             {
                 _attackButton.Update();
                 _usePotionButton.Update();
                 _OffHandButton.Update();
                 _fleeButton.Update();
-                
-            }
-            if (enemy.health <= 0)
-            {
-                MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
-                foreach (Item item in enemy.loot)
-                {
-                    if (RollItemDrop(item.Rarity))
-                        player.inventory.AddItem(item);
-                }
-                ScreenManager.Instance.RemoveScreen();
+
             }
         }
         else
         {
             enemy.effects.UpdateEffects(this, enemy);
-            if(!playerTurn)
+            if (enemy.health <= 0)
+            {
+                foreach (Item item in enemy.loot)
+                {
+                    if (RollItemDrop(item.Rarity))
+                        player.inventory.AddItem(item);
+                }
+                MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
+                ScreenManager.Instance.RemoveScreen();
+            }
+            if (!playerTurn)
             {
                 playerTurn = true;
                 enemy.Attack(player);
@@ -209,10 +216,10 @@ public class BattleScreen : Screen
                 }
                 Console.WriteLine("Enemy attacked " + player.health + " health left");
             }
-        player.DeFortify();
-        
+            player.DeFortify();
+
         }
-    }
+    } 
     public override void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
@@ -231,6 +238,13 @@ public class BattleScreen : Screen
         _fleeButton.Draw(spriteBatch);
         _playerHealthBar.Draw(spriteBatch);
         _enemyHealthBar.Draw(spriteBatch);
+        if (battleText.Length > 50)
+            spriteBatch.DrawString(Globals.gameFont, battleText, new Vector2((int)(Globals.ScreenWidth / 2 - 170)
+                , Globals.ScreenHeight / 15), Color.Black, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0.5f);
+        else 
+            spriteBatch.DrawString(Globals.gameFont, battleText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100)
+                , Globals.ScreenHeight / 15), Color.Black);
+        spriteBatch.DrawString(Globals.gameFont, enemyText, new Vector2((int)(Globals.ScreenWidth / 2.15 - 100), Globals.ScreenHeight / 15 + 20), Color.Black);
         spriteBatch.End();
     }
 }
