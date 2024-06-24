@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PO_game.Src.Controls;
+using PO_game.Src.Entities;
+using PO_game.Src.Maps;
 using PO_game.Src.Utils;
 
 namespace PO_game.Src.Screens;
@@ -31,7 +33,7 @@ public class DeathScreen : Screen
         public void ButtonExit_Click(object sender, EventArgs e)
         {
             ScreenManager.Instance.RemoveScreen();
-        }
+    }
         public override void Update(GameTime gameTime)
         {
             _exitButton.Update();

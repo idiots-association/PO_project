@@ -120,7 +120,7 @@ namespace PO_game.Src.Entities
              
             if (Vector2.Distance(player.TilePosition, TilePosition) < 2 && player.State == CharacterState.Idle)
                 {
-                    if (isAgressive)
+                    if (isAgressive && player.health > 0)
                     {
                         ScreenManager.Instance.AddScreen(new BattleScreen (content, player, this));
                     } 

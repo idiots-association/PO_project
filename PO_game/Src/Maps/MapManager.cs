@@ -11,7 +11,8 @@ namespace PO_game.Src.Maps
     {
         Lobby,
         PlayerPath,
-        DarkForest
+        DarkForest,
+        DragonPit
     }
 
 
@@ -35,9 +36,13 @@ namespace PO_game.Src.Maps
                 { new Vector2(17, 14), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
                 { new Vector2(17, 18), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
             }
-
-            //70, 96 tp to dragon den
         },
+        {            
+            MapId.DarkForest, new Dictionary<Vector2, Tuple<MapId, Vector2>>()
+            {
+                { new Vector2(96, 70), new Tuple<MapId, Vector2>(MapId.DragonPit, new Vector2(9, 30)) },
+            }
+        }
     };
     }
 
