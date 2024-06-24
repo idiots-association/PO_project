@@ -27,7 +27,7 @@ namespace PO_game.Src.Screens
         private Matrix _scaleMatrix;
         private Matrix _originTranslationMatrix;
         private Matrix _inverseOriginTranslationMatrix;
-        private Button _changeStateButton;
+        private Button _saveExitButton;
         private string _savePath;
         private bool _loadingFromSave;
         private Texture2D _inventoryTexture;
@@ -154,7 +154,7 @@ namespace PO_game.Src.Screens
         public override void LoadContent()
         {
             LoadMaps();
-            _buttonTexture = content.Load<Texture2D>("Others/startButton");
+            _buttonTexture = content.Load<Texture2D>("Others/save&exitButton");
             _inventoryTexture = content.Load<Texture2D>("Items/inv_slot_grey");
 
             if (_loadingFromSave)
@@ -166,10 +166,10 @@ namespace PO_game.Src.Screens
                 StartNewGame();
             }
 
-            _changeStateButton = new Button(_buttonTexture)
+            _saveExitButton = new Button(_buttonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth - _buttonTexture.Width / 2, _buttonTexture.Height / 2),
-                Text = "Save and Exit",
+                Position = new Vector2(Globals.ScreenWidth - _buttonTexture.Width * (float)1.5, _buttonTexture.Height * (float)1.5),
+                Scale = 3f,
                 leftClick = new EventHandler(SaveGame),
                 Layer = 0.3f
             };
@@ -204,7 +204,7 @@ namespace PO_game.Src.Screens
             Matrix translationMatrix = _camera.Transform;
             _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _healthBar.Update(_player.health);
-            _changeStateButton.Update();
+            _saveExitButton.Update();
             
             if ( _player != null)
             {
@@ -235,7 +235,7 @@ namespace PO_game.Src.Screens
             spriteBatch.End();
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            _changeStateButton.Draw(spriteBatch);
+            _saveExitButton.Draw(spriteBatch);
             _player.inventory.Draw(spriteBatch);
             _healthBar.Draw(spriteBatch);
             spriteBatch.End();

@@ -20,7 +20,10 @@ public class BattleScreen : Screen
 {
     private Texture2D _playerTexture;
     private Texture2D _enemyTexture;
-    private Texture2D _buttonTexture;
+    private Texture2D _attackButtonTexture;
+    private Texture2D _potionButtonTexture;
+    private Texture2D _offHandButtonTexture;
+    private Texture2D _fleeButtonTexture;
     private Texture2D _weaponTexture;
     private Button _attackButton;
     private Button _usePotionButton;
@@ -54,50 +57,51 @@ public class BattleScreen : Screen
         _playerTexture = player.Sprite.Texture;
         _enemyTexture = enemy.Sprite.Texture;
         _weaponTexture = player.weapon.Texture;
-        _buttonTexture = content.Load<Texture2D>("Others/startButton");
+        _attackButtonTexture = content.Load<Texture2D>("Others/attackButton");
+        _potionButtonTexture = content.Load<Texture2D>("Others/potionButton");
+        _offHandButtonTexture = content.Load<Texture2D>("Others/offHandButton");
 
-        _attackButton = new Button(_buttonTexture)
+        _attackButton = new Button(_attackButtonTexture)
         {
             Position = new Vector2(Globals.ScreenWidth / 3, Globals.ScreenHeight -
-                                                                  buttonSpacing - _buttonTexture.Height - 40),
-            Text = "Attack",
+                                                                  buttonSpacing - _attackButtonTexture.Height - 80),
+            Scale = 4f,
             leftClick = new EventHandler(AttackClick),
             Layer = 0.3f
         };
 
-        _usePotionButton = new Button(_buttonTexture)
+        _usePotionButton = new Button(_potionButtonTexture)
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight -
-                                                                     buttonSpacing - _buttonTexture.Height - 40),
-            Text = "Use potion",
+                                                                     buttonSpacing - _potionButtonTexture.Height - 80),
+            Scale = 4f,
             leftClick = new EventHandler(UsePotionClick),
             Layer = 0.3f
         };
 
-        _OffHandButton = new Button(_buttonTexture)
+        _OffHandButton = new Button(_offHandButtonTexture)
         {
             Position = new Vector2(Globals.ScreenWidth / 3, Globals.ScreenHeight
-                                                                    + buttonSpacing - _buttonTexture.Height),
-            Text = "Off-hand",
+                                                                    + buttonSpacing - _offHandButtonTexture.Height - 40),
+            Scale = 4f,
             leftClick = new EventHandler(OffHandClick),
             Layer = 0.3f
         };
 
-        var fleeText = "";
         switch (enemy.isAgressive)
         {
             case true:
-                fleeText = "You can't flee from this enemy";
+                _fleeButtonTexture = content.Load<Texture2D>("Others/noFleeButton");
                 break;
             case false:
-                fleeText = "Flee";
+                _fleeButtonTexture = content.Load<Texture2D>("Others/fleeButton");
                 break;
         }
-        _fleeButton = new Button(_buttonTexture)
+        _fleeButton = new Button(_fleeButtonTexture)
         {
             Position = new Vector2((float)(Globals.ScreenWidth / 1.5), Globals.ScreenHeight
-                                                                    + buttonSpacing - _buttonTexture.Height),
-            Text = fleeText,
+                                                                    + buttonSpacing - _fleeButtonTexture.Height - 40),
+            Scale = 4f,
             leftClick = new EventHandler(FleeClick),
             Layer = 0.3f
         };

@@ -16,46 +16,51 @@ namespace PO_game.Src.Screens
     public class StartScreen : Screen
     {
         private Texture2D _backgroundTexture;
-        private Texture2D _buttonTexture;
-        private int buttonSpacing = 55;
+        private int buttonSpacing = 60;
         private Button _startButton;
         private Button _exitButton;
         private Button _settingsButton;
         private Button _loadButton;
+        private Texture2D _startButtonTexture;
+        private Texture2D _exitButtonTexture;
+        private Texture2D _settingsButtonTexture;
+        private Texture2D _loadButtonTexture;
 
 
         public StartScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {
-            _backgroundTexture = content.Load<Texture2D>("Others/cool_background");
-            _buttonTexture = content.Load<Texture2D>("Others/buttonTest");
+            _backgroundTexture = content.Load<Texture2D>("Others/backgroundTexture");
+            _startButtonTexture = content.Load<Texture2D>("Others/startButton");
+            _loadButtonTexture = content.Load<Texture2D>("Others/loadButton");
+            _settingsButtonTexture = content.Load<Texture2D>("Others/settingsButton");
+            _exitButtonTexture = content.Load<Texture2D>("Others/exitButton");
 
-
-            _startButton = new Button(_buttonTexture)
+            _startButton = new Button(_startButtonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 - _buttonTexture.Height - buttonSpacing),
-                Scale = 3.5f,
+                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 - _startButtonTexture.Height - buttonSpacing),
+                Scale = 4f,
                 leftClick = new EventHandler(ButtonStart_Click),
                 Layer = 0.3f
             };
-            _loadButton = new Button(_buttonTexture)
+            _loadButton = new Button(_loadButtonTexture)
             {
                 Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
-                Scale = 3.5f,
+                Scale = 4f,
                 leftClick = new EventHandler(ButtonLoad_Click),
                 Layer = 0.3f
             };
-            _settingsButton = new Button(_buttonTexture)
+            _settingsButton = new Button(_settingsButtonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + _buttonTexture.Height + buttonSpacing),
-                Scale = 3.5f,
+                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + _settingsButtonTexture.Height + buttonSpacing),
+                Scale = 4f,
                 leftClick = new EventHandler(ButtonSettings_Click),
                 Layer = 0.3f
             };
-            _exitButton = new Button(_buttonTexture)
+            _exitButton = new Button(_exitButtonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + (_buttonTexture.Height + buttonSpacing) * 2),
-                Scale = 3.5f,
+                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + (_exitButtonTexture.Height + buttonSpacing) * 2),
+                Scale = 4f,
                 leftClick = new EventHandler(ButtonExit_Click),
                 Layer = 0.3f
             };

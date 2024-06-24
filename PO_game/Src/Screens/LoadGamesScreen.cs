@@ -17,10 +17,13 @@ namespace PO_game.Src.Screens
     
 public class LoadGameScreen : Screen
 {
-    private Texture2D _buttonTexture;
+    private Texture2D _emptyButtonTexture;
+    private Texture2D _loadButtonTexture;
+    private Texture2D _returnButtonTexture;
+    private Texture2D _backgroundTexture;
     private List<Button> _buttons;
     private Button _exitButton;
-    private int buttonSpacing = 20;
+    private int buttonSpacing = 65;
     private Texture2D _windowTexture;
     private SpriteFont _windowFont;
     private Window _window = null;
@@ -71,59 +74,43 @@ public class LoadGameScreen : Screen
 
     public override void LoadContent()
     {
-        _buttonTexture = content.Load<Texture2D>("Others/startButton");
-
+        _backgroundTexture = content.Load<Texture2D>("Others/backgroundTexture");
+        _emptyButtonTexture = content.Load<Texture2D>("Others/emptyButton");
+        _loadButtonTexture = content.Load<Texture2D>("Others/loadButton");
+        _returnButtonTexture = content.Load<Texture2D>("Others/returnButton");
 
         _buttons = new List<Button>();
 
         for (int i = 0; i < 5; i++)
         {
-            var button = new Button(_buttonTexture)
+            var buttonTexture = File.Exists("save" + (i + 1) + ".json") ? _loadButtonTexture : _emptyButtonTexture;
+
+            var button = new Button(buttonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2, _buttonTexture.Height + i * (_buttonTexture.Height + buttonSpacing)),
-                Text = "Empty Slot",
+                Position = new Vector2(Globals.ScreenWidth / 2, buttonTexture.Height + i * (buttonTexture.Height + buttonSpacing) + 50),
+                Scale = 4f,
                 Layer = 0.3f
             };
 
             switch (i)
             {
                 case 0:
-                    if (File.Exists("save1.json"))
-                    {
-                        button.Text = "Load Game 1";
-                    }
                     button.leftClick += Save1LeftClick;
                     button.rightClick += Save1RightClick;
                     break;
                 case 1:
-                    if (File.Exists("save2.json"))
-                    {
-                        button.Text = "Load Game 2";
-                    }
                     button.leftClick += Save2LeftClick;
                     button.rightClick += Save2RightClick;
                     break;
                 case 2:
-                    if (File.Exists("save3.json"))
-                    {
-                        button.Text = "Load Game 3";
-                    }
                     button.leftClick += Save3LeftClick;
                     button.rightClick += Save3RightClick;
                     break;
                 case 3:
-                    if (File.Exists("save4.json"))
-                    {
-                        button.Text = "Load Game 4";
-                    }
                     button.leftClick += Save4LeftClick;
                     button.rightClick += Delete4RightClick;
                     break;
                 case 4:
-                    if (File.Exists("save5.json"))
-                    {
-                        button.Text = "Load Game 5";
-                    }
                     button.leftClick += Save5LeftClick;
                     button.rightClick += Delete5RightClick;
                     break;
@@ -132,10 +119,10 @@ public class LoadGameScreen : Screen
             _buttons.Add(button);
         }
 
-        _exitButton = new Button(_buttonTexture)
+        _exitButton = new Button(_returnButtonTexture)
         {
-            Position = new Vector2(_buttonTexture.Width / 2, _buttonTexture.Height / 2),
-            Text = "Return to Menu",
+            Position = new Vector2(_returnButtonTexture.Width * 2 , _returnButtonTexture.Height * 2),
+            Scale = 3f,
             leftClick = new EventHandler(ExitButtonClick),
             Layer = 0.3f
         };
@@ -273,7 +260,8 @@ public class LoadGameScreen : Screen
     public override void Draw(SpriteBatch spriteBatch)
     {
         // spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-        spriteBatch.Begin();
+        spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.ScreenWidth, Globals.ScreenHeight), Color.White);
         foreach (var button in _buttons)
         {
             button.Draw(spriteBatch);
