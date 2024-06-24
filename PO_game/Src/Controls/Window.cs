@@ -8,41 +8,56 @@ namespace PO_game.Src.Controls
     /// <summary>
     /// <c>Window</c> is a class that represents a window in the game.
     /// <para>It allows the creation of windows with custom text, texture and buttons.</para>
+    /// 
     /// </summary>
 
     public class Window
     {
+       
         #region Fields
-        private ContentManager content;
-        private bool isHovering;
-        private Texture2D texture;
-        private Texture2D buttontexture;
-        public Button _exitButton;
-        public Button _exitButton2;
-        private int number_of_buttons;
-        public float scale { get; set; } = 1f;
+         /// <summary>
+         /// Represents the exit button in the window.
+         /// </summary>
+         public Button ExitButton;
+         /// <summary>
+         /// Represents second exit button in the window.
+         /// </summary>
+         public Button ExitButton2;
+        private ContentManager _content;
+        private Texture2D _texture;
+        private Texture2D _buttontexture;
+        private Texture2D _button2Texture;
+        private int _numberOfButtons;
         #endregion
 
         #region Properties
-
-        public float Layer { get; set; }
-
+        /// <summary>
+        /// Represents the origin of the window.
+        /// </summary>
         public Vector2 Origin
         {
-            get { return new Vector2(texture.Width / 2, texture.Height / 2); }
+            get { return new Vector2(_texture.Width / 2, _texture.Height / 2); }
         }
-
+        
+        /// <summary>
+        /// Represents the position of the window.
+        /// </summary>
         public Vector2 Position { get; set; }
-
+        
+        /// <summary>
+        /// Represents the rectangle of the window.
+        /// </summary>
         public Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)Position.X - (int)Origin.X, (int)Position.Y - (int)Origin.Y, texture.Width,
-                    texture.Height);
+                return new Rectangle((int)Position.X - (int)Origin.X, (int)Position.Y - (int)Origin.Y, _texture.Width,
+                    _texture.Height);
             }
         }
-
+        /// <summary>
+        /// Text of the window.
+        /// </summary>
         public string Text { get; set; }
 
         #endregion
@@ -52,66 +67,67 @@ namespace PO_game.Src.Controls
         /// <summary>
         /// A method that creates a window with a message and buttons.
         /// </summary>
-        public void buttonUpdate()
+        public void ButtonUpdate()
         {
-            switch (number_of_buttons)
+            _buttontexture = _content.Load<Texture2D>("Others/cancelButton");
+            _button2Texture = _content.Load<Texture2D>("Others/okButton");
+            switch (_numberOfButtons)
             {
                 case 1:
-                    buttontexture = content.Load<Texture2D>("Others/newb");
-                    _exitButton = new Button(buttontexture)
+                    ExitButton = new Button(_button2Texture)
                     {
                         Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + 50),
-                        Text = "Ok",
                         Layer = 0.3f,
-                        Scale = scale
-
                     };
                     break;
                 case 2:
-                    buttontexture = content.Load<Texture2D>("Others/newb");
-                    _exitButton = new Button(buttontexture)
+                    ExitButton = new Button(_buttontexture)
                     {
                         Position = new Vector2(Globals.ScreenWidth / 2 + 70, Globals.ScreenHeight / 2 + 50),
-                        Text = "Cancel",
                         Layer = 0.3f,
-                        Scale = scale
-
                     };
                     
-                    _exitButton2 = new Button(buttontexture)
+                    ExitButton2 = new Button(_button2Texture)
                     {
                         Position = new Vector2(Globals.ScreenWidth / 2 - 70, Globals.ScreenHeight / 2 + 50),
-                        Text = "Ok",
                         Layer = 0.3f,
-                        Scale = scale
-
                     };
                     break;
             }
 
         }
-
-        public Window(Texture2D texture, ContentManager content, int number_of_buttons)
+        /// <summary>
+        /// Constructor of the <c>Window</c> class.
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="content"></param>
+        /// <param name="numberOfButtons"></param>
+        public Window(Texture2D texture, ContentManager content, int numberOfButtons)
         {
-            this.texture = texture;
-            this.content = content;
-            this.number_of_buttons = number_of_buttons;
-            buttonUpdate();
+            _texture = texture;
+            _content = content;
+            _numberOfButtons = numberOfButtons;
+            ButtonUpdate();
         }
-
+        /// <summary>
+        /// Update method for the window.
+        /// </summary>
         public void Update()
         {
-            _exitButton.Update();
-            if (number_of_buttons == 2)
+            ExitButton.Update();
+            if (_numberOfButtons  == 2)
             {
-                _exitButton2.Update();
+                ExitButton2.Update();
             }
         }
-
+        /// <summary>
+        /// Draw method for the window.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             var color = Color.White;
-            spriteBatch.Draw(texture, Position, null, color, 0f, Origin, 1f, SpriteEffects.None, Layer);
+            spriteBatch.Draw(_texture, Position, null, color, 0f, Origin, 1f, SpriteEffects.None, 0.2f);
 
             if (!string.IsNullOrEmpty(Text))
             {
@@ -119,12 +135,12 @@ namespace PO_game.Src.Controls
                 var y = (Rectangle.Y + (Rectangle.Height / 2)) - (Globals.gameFont.MeasureString(Text).Y / 2);
 
                 spriteBatch.DrawString(Globals.gameFont, Text, new Vector2(x, y), Color.Black, 0f, new Vector2(0, 0), 1f,
-                    SpriteEffects.None, Layer + 0.01f);
+                    SpriteEffects.None, 0.2f);
             }
-            _exitButton.Draw(spriteBatch);
-            if (number_of_buttons == 2)
+            ExitButton.Draw(spriteBatch);
+            if (_numberOfButtons == 2)
             {
-                _exitButton2.Draw(spriteBatch);
+                ExitButton2.Draw(spriteBatch);
             }
         }
 

@@ -16,13 +16,13 @@ public class DeathScreen : Screen
         public DeathScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {
-            _buttonTexture = content.Load<Texture2D>("Others/startButton");
+            _buttonTexture = content.Load<Texture2D>("Others/exitButton");
             _backgroundTexture = content.Load<Texture2D>("Others/deathScreen");
             _exitButton = new Button(_buttonTexture)
             {
                 Position = new Vector2(Globals.ScreenWidth / 2 + 7, Globals.ScreenHeight / 2 + 160),
-                Text = "Exit to Main Menu",
                 leftClick = new EventHandler(ButtonExit_Click),
+                Scale = 5f,
                 Layer = 0.3f
             };
 

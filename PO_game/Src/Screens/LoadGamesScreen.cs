@@ -23,10 +23,9 @@ public class LoadGameScreen : Screen
     private Texture2D _backgroundTexture;
     private List<Button> _buttons;
     private Button _exitButton;
-    private int buttonSpacing = 65;
+    private int _buttonSpacing = 65;
     private Texture2D _windowTexture;
-    private SpriteFont _windowFont;
-    private Window _window = null;
+    private Window _window;
 
     public LoadGameScreen(ContentManager content) : base(content) { }
 
@@ -57,18 +56,16 @@ public class LoadGameScreen : Screen
         {
             Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
             Text = "Save is empty",
-            Layer = 0.2f,
             
         };
-        _window._exitButton.leftClick += OkCancelClick;
-        _window._exitButton.Scale = 3f;
+        _window.ExitButton.leftClick += OkCancelClick;
+        _window.ExitButton.Scale = 2f;
 
         if (number_of_buttons == 2)
         {
-            _window._exitButton2.leftClick += (sender, e) => DeleteClick(slot, sender, e);
+            _window.ExitButton2.leftClick += (sender, e) => DeleteClick(slot, sender, e);
             _window.Text = "Do you want to delete this save?";
-            _window._exitButton2.Text = "Yes";
-            _window._exitButton2.Scale = 3f;
+            _window.ExitButton2.Scale = 2f;
         }
     }
 
@@ -87,7 +84,7 @@ public class LoadGameScreen : Screen
 
             var button = new Button(buttonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2, buttonTexture.Height + i * (buttonTexture.Height + buttonSpacing) + 50),
+                Position = new Vector2(Globals.ScreenWidth / 2, buttonTexture.Height + i * (buttonTexture.Height + _buttonSpacing) + 50),
                 Scale = 4f,
                 Layer = 0.3f
             };

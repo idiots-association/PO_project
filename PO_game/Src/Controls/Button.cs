@@ -79,15 +79,19 @@ namespace PO_game.Src.Controls
             if (_isHovering)
                 color = Color.DarkGray;
             
-            spriteBatch.Draw(_texture, Position, null, color, 0f, _origin, Scale, SpriteEffects.None, Layer);
+            
 
             if (!string.IsNullOrEmpty(Text))
             {
                 var x = _rectangle.X + (_rectangle.Width/Scale) / 2 - Globals.gameFont.MeasureString(Text).X / 2 + (int)Scale * 25;
                 var y = _rectangle.Y + (_rectangle.Height/Scale) / 2 - Globals.gameFont.MeasureString(Text).Y / 2 + (int)Scale * 25/4;
-
+                spriteBatch.Draw(_texture, Position, null, color, 0f, _origin, Scale, SpriteEffects.None, Layer);
                 spriteBatch.DrawString(Globals.gameFont, Text, new Vector2(x, y), Color.Black, 0f,
                     new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
+            }
+            else
+            {
+                spriteBatch.Draw(_texture, Position, null, color, 0f, _origin, Scale, SpriteEffects.None, Layer);
             }
         }
 
