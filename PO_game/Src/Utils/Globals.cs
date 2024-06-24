@@ -18,7 +18,7 @@ namespace PO_game.Src.Utils
         public static double MoveSpeed { get; set; } = 0.15;
         public const float Scale  = 2.5f;
         public static SpriteFont gameFont { get; set; }
-        public static bool ShowCollisions { get; set; } = true;
+        public static bool ShowCollisions { get; set; } = false;
         public static readonly Dictionary<ItemRarity, int> dropChance = new Dictionary<ItemRarity, int>()
         {
             {ItemRarity.Common, 70},
