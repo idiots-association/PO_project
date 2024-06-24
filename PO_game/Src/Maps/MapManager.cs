@@ -11,7 +11,7 @@ namespace PO_game.Src.Maps
     {
         Lobby,
         PlayerPath,
-        Dungeon
+        DarkForest
     }
 
 
@@ -20,11 +20,25 @@ namespace PO_game.Src.Maps
     /// </summary>
     public static class Warps
     {
-        public static Dictionary<Vector2, Tuple<MapId, Vector2>> Lobby = new Dictionary<Vector2, Tuple<MapId, Vector2>>()
+        public static Dictionary<MapId, Dictionary<Vector2, Tuple<MapId, Vector2>>> WarpPoints = new Dictionary<MapId, Dictionary<Vector2, Tuple<MapId, Vector2>>>()
+    {
         {
-            { new Vector2(20, 8), new Tuple<MapId, Vector2>(MapId.PlayerPath, new Vector2(3, 9)) },
-        };
+            MapId.Lobby, new Dictionary<Vector2, Tuple<MapId, Vector2>>()
+            {
+                { new Vector2(20, 8), new Tuple<MapId, Vector2>(MapId.PlayerPath, new Vector2(3, 9)) },
+            }
+        },
+        {
+            MapId.PlayerPath, new Dictionary<Vector2, Tuple<MapId, Vector2>>()
+            {
+                { new Vector2(8, 5), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
+                { new Vector2(8, 9), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
+                { new Vector2(8, 13), new Tuple<MapId, Vector2>(MapId.DarkForest, new Vector2(20, 10)) },
+            }
+        },
+    };
     }
+
 
     /// <summary>
     /// <c>MapManager</c> class manages the maps in the game.

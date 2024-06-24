@@ -186,12 +186,12 @@ public class BattleScreen : Screen
             enemy.effects.UpdateEffects(this, enemy);
             if (enemy.health <= 0)
             {
+                MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
                 foreach (Item item in enemy.loot)
                 {
                     if (RollItemDrop(item.Rarity))
                         player.inventory.AddItem(item);
                 }
-                MapManager.Instance.GetCurrentMap().RemoveEnemy(enemy);
                 ScreenManager.Instance.RemoveScreen();
             }
             if(!playerTurn)

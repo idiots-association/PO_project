@@ -43,7 +43,7 @@
   - [CreateWindow(number_of_buttons,slot)](#M-PO_game-Src-Screens-LoadGameScreen-CreateWindow-System-Int32,System-Int32- 'PO_game.Src.Screens.LoadGameScreen.CreateWindow(System.Int32,System.Int32)')
 - [ManaPotion](#T-PO_game-Src-Items-Consumables-ManaPotion 'PO_game.Src.Items.Consumables.ManaPotion')
 - [Map](#T-PO_game-Src-Maps-Map 'PO_game.Src.Maps.Map')
-  - [#ctor(csv_map,tileset,content)](#M-PO_game-Src-Maps-Map-#ctor-System-String,System-String,Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Maps.Map.#ctor(System.String,System.String,Microsoft.Xna.Framework.Content.ContentManager)')
+  - [#ctor(csv_map,tileset,content)](#M-PO_game-Src-Maps-Map-#ctor-System-String,System-String,Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Maps-MapId- 'PO_game.Src.Maps.Map.#ctor(System.String,System.String,Microsoft.Xna.Framework.Content.ContentManager,PO_game.Src.Maps.MapId)')
   - [CheckWarpCollision(player)](#M-PO_game-Src-Maps-Map-CheckWarpCollision-PO_game-Src-Entities-Player- 'PO_game.Src.Maps.Map.CheckWarpCollision(PO_game.Src.Entities.Player)')
   - [CreateEnemies(content)](#M-PO_game-Src-Maps-Map-CreateEnemies-Microsoft-Xna-Framework-Content-ContentManager- 'PO_game.Src.Maps.Map.CreateEnemies(Microsoft.Xna.Framework.Content.ContentManager)')
   - [Draw()](#M-PO_game-Src-Maps-Map-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch,PO_game-Src-Entities-Player- 'PO_game.Src.Maps.Map.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch,PO_game.Src.Entities.Player)')
@@ -579,7 +579,7 @@ PO_game.Src.Maps
 
 `Map` class to manage the map of the game.
 
-<a name='M-PO_game-Src-Maps-Map-#ctor-System-String,System-String,Microsoft-Xna-Framework-Content-ContentManager-'></a>
+<a name='M-PO_game-Src-Maps-Map-#ctor-System-String,System-String,Microsoft-Xna-Framework-Content-ContentManager,PO_game-Src-Maps-MapId-'></a>
 ### #ctor(csv_map,tileset,content) `constructor`
 
 ##### Summary

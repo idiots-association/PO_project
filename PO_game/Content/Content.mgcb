@@ -176,7 +176,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/drake.png
 
-#begin Sprites/ghoust.png
+#begin Sprites/ghost.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -186,7 +186,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/ghoust.png
+/build:Sprites/ghost.png
 
 #begin Sprites/goblin.png
 /importer:TextureImporter
@@ -247,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/playerxd.png
+
+#begin Sprites/skeleton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/skeleton.png
 
 #begin Sprites/troll.png
 /importer:TextureImporter

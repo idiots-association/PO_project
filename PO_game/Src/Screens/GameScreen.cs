@@ -81,20 +81,25 @@ namespace PO_game.Src.Screens
 
 
 #if DEBUG
-                var lobby_csv = "../../../Content/Maps/Lobby/MapWithPath";
-                var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
+            var lobby_csv = "../../../Content/Maps/Lobby/MapWithPath";
+            var playerPath_csv = "../../../Content/Maps/PlayerPath/PlayerPath";
+            var darkForest_csv = "../../../Content/Maps/DarkForest/DarkForest";
 #else
             var lobby_csv = "Content/Maps/Lobby/MapWithPath";
             var playerPath_csv = "Content/Maps/PlayerPath/PlayerPath";
+            var darkForest_csv = "Content/Maps/DarkForest/DarkForest";
 #endif
 
 
-            var lobby_map = new Map(lobby_csv, tileset, content);
+            var lobby_map = new Map(lobby_csv, tileset, content, MapId.Lobby);
             MapManager.Instance.AddMap(MapId.Lobby, lobby_map);
 
 
-            var playerPath_map = new Map(playerPath_csv, tileset, content);
+            var playerPath_map = new Map(playerPath_csv, tileset, content, MapId.PlayerPath);
             MapManager.Instance.AddMap(MapId.PlayerPath, playerPath_map);
+
+            var darkForest_map = new Map(darkForest_csv, tileset, content, MapId.DarkForest);
+            MapManager.Instance.AddMap(MapId.DarkForest, darkForest_map);
 
         }
         private void UnloadGame()
@@ -185,6 +190,7 @@ namespace PO_game.Src.Screens
             _inputController.Update();
             var collisionMap = MapManager.Instance.GetMap(MapManager.CurrentMap).GetCollisionsMap();
             _player.Update(gameTime, _inputController, collisionMap);
+            Console.WriteLine(_player.TilePosition);
             //    Console.Write(_player.TilePosition); 
             //    Console.WriteLine(_player.Sprite.Position);
             foreach (var enemy in MapManager.Instance.GetMap(MapManager.CurrentMap).GetEnemies())

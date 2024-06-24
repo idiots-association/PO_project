@@ -22,9 +22,11 @@ namespace PO_game.Src.Entities
     /// </summary>
     public enum EnemyType
     {
-        Goblin,
+        Wolf,
         Orc,
-        Troll
+        Ghost,
+        Drake,
+        MiniBoss
     }
 
     /// <summary>
@@ -43,8 +45,8 @@ namespace PO_game.Src.Entities
 
             switch (enemyType)
             {
-                case EnemyType.Goblin:
-                    enemyTexture = content.Load<Texture2D>("Sprites/goblin");
+                case EnemyType.Wolf:
+                    enemyTexture = content.Load<Texture2D>("Sprites/wolf");
                     weaponTexture = content.Load<Texture2D>("Items/dagger");
                     weapon = new Weapon(weaponTexture, "Goblin Dagger", "A crude dagger made and used by common goblins.", ItemRarity.Common,1,4);
                     _loot.Add(weapon);
@@ -57,13 +59,27 @@ namespace PO_game.Src.Entities
                     _loot.Add(weapon);
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, random.Next(1,2), content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false, _loot);
-                case EnemyType.Troll:
-                    enemyTexture = content.Load<Texture2D>("Sprites/troll");
+                case EnemyType.Ghost:
+                    enemyTexture = content.Load<Texture2D>("Sprites/ghost");
                     weaponTexture = content.Load<Texture2D>("Items/mace"); // need to add a club texture
                     weapon = new Weapon(weaponTexture, "Troll Club", "A large club used by trolls to crush their enemies", ItemRarity.Uncommon,6,8);
                     _loot.Add(weapon);
                     _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Uncommon, random.Next(1,2), content));
                     return new Enemy(new Sprite(enemyTexture), tilePosition, 70, weapon, false, _loot);
+                case EnemyType.Drake:
+                    enemyTexture = content.Load<Texture2D>("Sprites/drake");
+                    weaponTexture = content.Load<Texture2D>("Items/sword");
+                    weapon = new Weapon(weaponTexture, "Sword of the Damned", "A cursed sword that brings death", ItemRarity.Legendary, 10, 15);
+                    _loot.Add(weapon);
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Uncommon, random.Next(1, 2), content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 100, weapon, true, _loot);
+                case EnemyType.MiniBoss:
+                    enemyTexture = content.Load<Texture2D>("Sprites/skeleton");
+                    weaponTexture = content.Load<Texture2D>("Items/mace");
+                    weapon = new Weapon(weaponTexture, "Orcish Mace", "A simple mace used by the most common of orcs", ItemRarity.Common, 4, 5);
+                    _loot.Add(weapon);
+                    _loot.Add(PotionFactory.CreatePotion(PotionType.HealthPotion, ItemRarity.Common, random.Next(1, 2), content));
+                    return new Enemy(new Sprite(enemyTexture), tilePosition, 45, weapon, false, _loot);
                 default:
                     return null;
             }
