@@ -17,7 +17,7 @@ namespace PO_game.Src.Screens
     {
         private Texture2D _backgroundTexture;
         private Texture2D _buttonTexture;
-        private int buttonSpacing = 20;
+        private int buttonSpacing = 55;
         private Button _startButton;
         private Button _exitButton;
         private Button _settingsButton;
@@ -28,34 +28,34 @@ namespace PO_game.Src.Screens
         public override void LoadContent()
         {
             _backgroundTexture = content.Load<Texture2D>("Others/cool_background");
-            _buttonTexture = content.Load<Texture2D>("Others/startButton");
+            _buttonTexture = content.Load<Texture2D>("Others/buttonTest");
 
 
             _startButton = new Button(_buttonTexture)
             {
                 Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 - _buttonTexture.Height - buttonSpacing),
-                Text = "Start Game",
+                Scale = 3.5f,
                 leftClick = new EventHandler(ButtonStart_Click),
                 Layer = 0.3f
             };
             _loadButton = new Button(_buttonTexture)
             {
                 Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
-                Text = "Load Game",
+                Scale = 3.5f,
                 leftClick = new EventHandler(ButtonLoad_Click),
                 Layer = 0.3f
             };
             _settingsButton = new Button(_buttonTexture)
             {
                 Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + _buttonTexture.Height + buttonSpacing),
-                Text = "Settings",
+                Scale = 3.5f,
                 leftClick = new EventHandler(ButtonSettings_Click),
                 Layer = 0.3f
             };
             _exitButton = new Button(_buttonTexture)
             {
                 Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2 + (_buttonTexture.Height + buttonSpacing) * 2),
-                Text = "Exit Game",
+                Scale = 3.5f,
                 leftClick = new EventHandler(ButtonExit_Click),
                 Layer = 0.3f
             };
@@ -100,7 +100,7 @@ namespace PO_game.Src.Screens
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.ScreenWidth, Globals.ScreenHeight), Color.White);
             _startButton.Draw(spriteBatch);
             _settingsButton.Draw(spriteBatch);
