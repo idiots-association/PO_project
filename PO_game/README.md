@@ -79,7 +79,16 @@
 - [Warps](#T-PO_game-Src-Maps-Warps 'PO_game.Src.Maps.Warps')
 - [Weapon](#T-PO_game-Src-Items-Weapon 'PO_game.Src.Items.Weapon')
 - [Window](#T-PO_game-Src-Controls-Window 'PO_game.Src.Controls.Window')
-  - [buttonUpdate()](#M-PO_game-Src-Controls-Window-buttonUpdate 'PO_game.Src.Controls.Window.buttonUpdate')
+  - [#ctor(texture,content,numberOfButtons)](#M-PO_game-Src-Controls-Window-#ctor-Microsoft-Xna-Framework-Graphics-Texture2D,Microsoft-Xna-Framework-Content-ContentManager,System-Int32- 'PO_game.Src.Controls.Window.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Content.ContentManager,System.Int32)')
+  - [ExitButton](#F-PO_game-Src-Controls-Window-ExitButton 'PO_game.Src.Controls.Window.ExitButton')
+  - [ExitButton2](#F-PO_game-Src-Controls-Window-ExitButton2 'PO_game.Src.Controls.Window.ExitButton2')
+  - [Origin](#P-PO_game-Src-Controls-Window-Origin 'PO_game.Src.Controls.Window.Origin')
+  - [Position](#P-PO_game-Src-Controls-Window-Position 'PO_game.Src.Controls.Window.Position')
+  - [Rectangle](#P-PO_game-Src-Controls-Window-Rectangle 'PO_game.Src.Controls.Window.Rectangle')
+  - [Text](#P-PO_game-Src-Controls-Window-Text 'PO_game.Src.Controls.Window.Text')
+  - [ButtonUpdate()](#M-PO_game-Src-Controls-Window-ButtonUpdate 'PO_game.Src.Controls.Window.ButtonUpdate')
+  - [Draw(spriteBatch)](#M-PO_game-Src-Controls-Window-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch- 'PO_game.Src.Controls.Window.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch)')
+  - [Update()](#M-PO_game-Src-Controls-Window-Update 'PO_game.Src.Controls.Window.Update')
 
 <a name='T-PO_game-Src-Screens-BattleScreen'></a>
 ## BattleScreen `type`
@@ -1072,12 +1081,93 @@ PO_game.Src.Controls
 
 It allows the creation of windows with custom text, texture and buttons.
 
-<a name='M-PO_game-Src-Controls-Window-buttonUpdate'></a>
-### buttonUpdate() `method`
+<a name='M-PO_game-Src-Controls-Window-#ctor-Microsoft-Xna-Framework-Graphics-Texture2D,Microsoft-Xna-Framework-Content-ContentManager,System-Int32-'></a>
+### #ctor(texture,content,numberOfButtons) `constructor`
+
+##### Summary
+
+Constructor of the `Window` class.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| texture | [Microsoft.Xna.Framework.Graphics.Texture2D](#T-Microsoft-Xna-Framework-Graphics-Texture2D 'Microsoft.Xna.Framework.Graphics.Texture2D') |  |
+| content | [Microsoft.Xna.Framework.Content.ContentManager](#T-Microsoft-Xna-Framework-Content-ContentManager 'Microsoft.Xna.Framework.Content.ContentManager') |  |
+| numberOfButtons | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
+<a name='F-PO_game-Src-Controls-Window-ExitButton'></a>
+### ExitButton `constants`
+
+##### Summary
+
+Represents the exit button in the window.
+
+<a name='F-PO_game-Src-Controls-Window-ExitButton2'></a>
+### ExitButton2 `constants`
+
+##### Summary
+
+Represents second exit button in the window.
+
+<a name='P-PO_game-Src-Controls-Window-Origin'></a>
+### Origin `property`
+
+##### Summary
+
+Represents the origin of the window.
+
+<a name='P-PO_game-Src-Controls-Window-Position'></a>
+### Position `property`
+
+##### Summary
+
+Represents the position of the window.
+
+<a name='P-PO_game-Src-Controls-Window-Rectangle'></a>
+### Rectangle `property`
+
+##### Summary
+
+Represents the rectangle of the window.
+
+<a name='P-PO_game-Src-Controls-Window-Text'></a>
+### Text `property`
+
+##### Summary
+
+Text of the window.
+
+<a name='M-PO_game-Src-Controls-Window-ButtonUpdate'></a>
+### ButtonUpdate() `method`
 
 ##### Summary
 
 A method that creates a window with a message and buttons.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PO_game-Src-Controls-Window-Draw-Microsoft-Xna-Framework-Graphics-SpriteBatch-'></a>
+### Draw(spriteBatch) `method`
+
+##### Summary
+
+Draw method for the window.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| spriteBatch | [Microsoft.Xna.Framework.Graphics.SpriteBatch](#T-Microsoft-Xna-Framework-Graphics-SpriteBatch 'Microsoft.Xna.Framework.Graphics.SpriteBatch') |  |
+
+<a name='M-PO_game-Src-Controls-Window-Update'></a>
+### Update() `method`
+
+##### Summary
+
+Update method for the window.
 
 ##### Parameters
 

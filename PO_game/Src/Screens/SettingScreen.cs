@@ -14,35 +14,38 @@ namespace PO_game.Src.Screens
     
     public class SettingsScreen : Screen
     {
-        private Texture2D _buttonTexture;
-        private Button _exitButton;
+        private Texture2D _returnButtonTexture;
+        private Texture2D _backgroundTexture;
+        private Button _returnButton;
         public SettingsScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {
-            _buttonTexture = content.Load<Texture2D>("Others/startButton");
+            _backgroundTexture = content.Load<Texture2D>("Others/backgroundTexture");
+            _returnButtonTexture = content.Load<Texture2D>("Others/returnButton");
 
-            _exitButton = new Button(_buttonTexture)
+            _returnButton = new Button(_returnButtonTexture)
             {
-                Position = new Vector2(Globals.ScreenWidth / 2, Globals.ScreenHeight / 2),
-                Text = "Exit Settings",
-                leftClick = new EventHandler(ButtonExit_Click),
+                Position = new Vector2(Globals.ScreenWidth / 2 , Globals.ScreenHeight / 2),
+                Scale = 3f,
+                leftClick = new EventHandler(ButtonReturn_Click),
                 Layer = 0.3f
             };
 
         }
 
-        public void ButtonExit_Click(object sender, EventArgs e)
+        public void ButtonReturn_Click(object sender, EventArgs e)
         {
             ScreenManager.Instance.RemoveScreen();
         }
         public override void Update(GameTime gameTime)
         {
-            _exitButton.Update();
+            _returnButton.Update();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-            _exitButton.Draw(spriteBatch);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.ScreenWidth, Globals.ScreenHeight), Color.White);
+            _returnButton.Draw(spriteBatch);
             spriteBatch.End();
         }
     }
