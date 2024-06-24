@@ -22,6 +22,7 @@ public class BattleScreen : Screen
     private Texture2D _enemyTexture;
     private Texture2D _buttonTexture;
     private Texture2D _weaponTexture;
+    private Texture2D _backgroundTexture;
     private Button _attackButton;
     private Button _usePotionButton;
     private Button _OffHandButton;
@@ -51,6 +52,7 @@ public class BattleScreen : Screen
     {
         _playerHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 10, Globals.ScreenHeight / 7), player.maxHealth);
         _enemyHealthBar = new Health_bar(content, new(Globals.ScreenWidth / 1.37f, Globals.ScreenHeight / 7), enemy.maxHealth);
+        _backgroundTexture = content.Load<Texture2D>("Tilesets/trawaxd");
         _playerTexture = player.Sprite.Texture;
         _enemyTexture = enemy.Sprite.Texture;
         _weaponTexture = player.weapon.Texture;
@@ -229,7 +231,10 @@ public class BattleScreen : Screen
     } 
     public override void Draw(SpriteBatch spriteBatch)
     {
+        
         spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), null , Color.White,
+            0f, Vector2.Zero, 14.2f, SpriteEffects.None, 0.1f);
         spriteBatch.Draw(_playerTexture,
             new Rectangle(Globals.ScreenWidth / 14, Globals.ScreenHeight / 4, 200, 200),
             Color.White);
