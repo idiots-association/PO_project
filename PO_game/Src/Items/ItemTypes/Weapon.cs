@@ -11,19 +11,19 @@ namespace PO_game.Src.Items
     
     public class Weapon : Item
     {
-        public int minDamage { get; set; }
-        public int maxDamage { get; set; }
+        public int MinDamage { get; set; }
+        public int MaxDamage { get; set; }
         public Weapon(Texture2D texture, string name, string description, ItemRarity rarity, int mindamage, int maxdamage) : base(texture, name, description, rarity)
         {
-            minDamage = mindamage;
-            maxDamage = maxdamage;
+            MinDamage = mindamage;
+            MaxDamage = maxdamage;
             
             
         }
         public int Attack()
         {
             Random rand = new Random();
-            int damage = rand.Next(minDamage, maxDamage);
+            int damage = rand.Next(MinDamage, MaxDamage);
             return damage;
         }
 

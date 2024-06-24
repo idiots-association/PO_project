@@ -26,7 +26,10 @@ namespace PO_game.Src.Screens
         private Texture2D _settingsButtonTexture;
         private Texture2D _loadButtonTexture;
 
-
+        /// <summary>
+        /// Constructor for the StartScreen class.
+        /// </summary>
+        /// <param name="content"></param>
         public StartScreen(ContentManager content) : base(content) { }
         public override void LoadContent()
         {

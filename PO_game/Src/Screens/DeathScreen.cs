@@ -8,14 +8,21 @@ using PO_game.Src.Maps;
 using PO_game.Src.Utils;
 
 namespace PO_game.Src.Screens;
-
+/// <summary>
+/// <c>DeathScreen</c> is a class handling the contents of the death screen.
+/// </summary>
 public class DeathScreen : Screen
 {
-   
         private Texture2D _buttonTexture;
         private Texture2D _backgroundTexture;
         private Button _exitButton;
+        
+        /// <summary>
+        /// Constructor for the DeathScreen class.
+        /// </summary>
+        /// <param name="content"></param>
         public DeathScreen(ContentManager content) : base(content) { }
+        
         public override void LoadContent()
         {
             _buttonTexture = content.Load<Texture2D>("Others/exitButton");
@@ -29,11 +36,16 @@ public class DeathScreen : Screen
             };
 
         }
-
+        /// <summary>
+        /// Returns to the start screen when the exit button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ButtonExit_Click(object sender, EventArgs e)
         {
             ScreenManager.Instance.RemoveScreen();
-    }
+        }
+        
         public override void Update(GameTime gameTime)
         {
             _exitButton.Update();
