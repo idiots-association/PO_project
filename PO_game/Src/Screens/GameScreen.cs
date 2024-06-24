@@ -199,6 +199,13 @@ namespace PO_game.Src.Screens
             _transformMatrix = translationMatrix * _originTranslationMatrix * _scaleMatrix * _inverseOriginTranslationMatrix;
             _healthBar.Update(_player.health);
             _changeStateButton.Update();
+            
+            if (_player.health <= 0)
+            {
+                UnloadGame();
+                ScreenManager.Instance.RemoveScreen();
+                ScreenManager.Instance.AddScreen(new DeathScreen(content));
+            }
         }
 
         /// <summary>
